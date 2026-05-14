@@ -16,6 +16,7 @@
 
 	import Game from '../components/Game.svelte';
 	import { setContext } from '../game/context';
+	import { eventEmitter } from '../game/eventEmitter';
 	import { playBookEvent } from '../game/utils';
 	import events from './data/bonus_events';
 
@@ -111,6 +112,32 @@
 		skipLoadingScreen: true,
 		data: events.finalWin,
 		action: async (data) => await playBookEvent(data, { bookEvents: [] }),
+	})}
+	{template}
+/>
+
+<Story
+	name="updateGlobalMult"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: events.updateGlobalMult,
+		action: async (data) => await playBookEvent(data, { bookEvents: [] }),
+	})}
+	{template}
+/>
+
+<Story
+	name="updateGlobalMultFrame"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: events.updateGlobalMult,
+		action: async (data) => {
+			eventEmitter.broadcast({ type: 'globalMultiplierFrameShow' });
+			await eventEmitter.broadcastAsync({
+				type: 'globalMultiplierFrameUpdate',
+				multiplier: data.globalMult,
+			});
+		},
 	})}
 	{template}
 />

@@ -26,6 +26,8 @@
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
 	import I18nTest from './I18nTest.svelte';
+	import GlobalMultiplier from './GlobalMultiplier.svelte';
+	import GlobalMultiplierFrame from './GlobalMultiplierFrame.svelte';
 
 	const context = getContext();
 
@@ -85,6 +87,8 @@
 			{/snippet}
 		</UI>
 		<Win />
+		<GlobalMultiplier />
+		<GlobalMultiplierFrame />
 		<FreeSpinIntro />
 		{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}
 			<FreeSpinCounter />

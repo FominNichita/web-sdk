@@ -51,6 +51,7 @@
 		globalMultiplierShow: () => (show = true),
 		globalMultiplierHide: () => (show = false),
 		globalMultiplierUpdate: async (emitterEvent) => {
+			console.log(emitterEvent.multiplier)
 			if (emitterEvent.multiplier === 1 && multiplier !== 1) {
 				animationName = 'reset';
 				await waitForTimeout(300);

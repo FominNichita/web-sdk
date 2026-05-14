@@ -195,4 +195,9 @@ export default {
 		amount: 400,
 		winLevel: 2,
 	},
+	
+	updateGlobalMult: {
+    	type: 'updateGlobalMult',
+    	globalMult: 3,
+  	},
 };

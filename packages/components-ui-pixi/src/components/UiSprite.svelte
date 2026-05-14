@@ -1,14 +1,21 @@
 <script lang="ts" module>
-	import { Rectangle, type RectangleProps } from 'pixi-svelte';
+	import { Rectangle, Sprite, type RectangleProps, type SpriteProps } from 'pixi-svelte';
 
-	export type Props = RectangleProps;
+	export type Props = RectangleProps & {
+		assetKey?: SpriteProps['key'];
+		tint?: SpriteProps['tint'];
+	};
 </script>
 
 <script lang="ts">
-	const props: Props = $props();
+	const { assetKey, anchor, x, y, width, height, alpha, tint, ...rectangleProps }: Props = $props();
 </script>
 
-<Rectangle borderRadius={50} {...props} />
+{#if assetKey}
+	<Sprite key={assetKey} {anchor} {x} {y} {width} {height} {alpha} {tint} />
+{:else}
+	<Rectangle borderRadius={50} {anchor} {x} {y} {width} {height} {alpha} {...rectangleProps} />
+{/if}
 
 <!-- ADD YOUR DESIGN -->
 

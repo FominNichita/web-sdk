@@ -109,6 +109,13 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		stateUi.freeSpinCounterCurrent = bookEvent.amount + 1;
 		stateUi.freeSpinCounterTotal = bookEvent.total;
 	},
+	updateGlobalMult: async(bookEvent: BookEventOfType<'updateGlobalMult'>) =>{
+		eventEmitter.broadcast({type: 'globalMultiplierShow'});
+		await eventEmitter.broadcastAsync({
+			type: 'globalMultiplierUpdate',
+			multiplier: bookEvent.globalMult
+		})
+	},
 	freeSpinEnd: async (bookEvent: BookEventOfType<'freeSpinEnd'>) => {
 		const winLevelData = winLevelMap[bookEvent.winLevel as WinLevel];
 
@@ -168,4 +175,6 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		if (lastSetTotalWinEvent) playBookEvent(lastSetTotalWinEvent, { bookEvents });
 		if (lastUpdateGlobalMultEvent) playBookEvent(lastUpdateGlobalMultEvent, { bookEvents });
 	},
+
+	
 };

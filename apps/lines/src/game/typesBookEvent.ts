@@ -78,6 +78,12 @@ type BookEventCreateBonusSnapshot = {
 	bookEvents: BookEvent[];
 };
 
+type BookEventUpdateGlobalMult = {
+	index: number;
+	type: 'updateGlobalMult';
+	globalMult: number;
+};
+
 export type BookEvent =
 	| BookEventReveal
 	| BookEventWinInfo
@@ -89,7 +95,8 @@ export type BookEvent =
 	| BookEventSetWin
 	| BookEventFreeSpinEnd
 	// customised
-	| BookEventCreateBonusSnapshot;
+	| BookEventCreateBonusSnapshot
+	| BookEventUpdateGlobalMult;
 
 export type Bet = BetType<BookEvent>;
 export type BookEventOfType<T> = Extract<BookEvent, { type: T }>;

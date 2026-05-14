@@ -23,11 +23,19 @@
 		children: childrenFromParent,
 		...buttonProps
 	}: Props = $props();
+
+	const getAssetKey = (hovered: boolean) => {
+		if (icon === 'turbo') return hovered ? 'turbo_active_hover' : 'turbo_active';
+		if (icon === 'autoSpin') return hovered ? 'autospin_active_hover' : 'autospin_active';
+		return undefined;
+	};
 </script>
 
 <Button {...buttonProps}>
 	{#snippet children({ center, hovered, pressed })}
+		{@const assetKey = getAssetKey(hovered)}
 		<UiSprite
+			{assetKey}
 			{...center}
 			anchor={0.5}
 			width={buttonProps.sizes.width}
@@ -46,20 +54,22 @@
 				: {}}
 		/>
 
-		<Text
-			{...center}
-			anchor={0.5}
-			text={i18nDerived[icon]()}
-			style={{
-				align: 'center',
-				wordWrap: true,
-				wordWrapWidth: 200,
-				fontFamily: 'proxima-nova',
-				fontWeight: '600',
-				fontSize: UI_BASE_FONT_SIZE * 0.9,
-				fill: variant === 'dark' ? 0xffffff : 0x000000,
-			}}
-		/>
+		{#if !assetKey}
+			<Text
+				{...center}
+				anchor={0.5}
+				text={i18nDerived[icon]()}
+				style={{
+					align: 'center',
+					wordWrap: true,
+					wordWrapWidth: 200,
+					fontFamily: 'proxima-nova',
+					fontWeight: '600',
+					fontSize: UI_BASE_FONT_SIZE * 0.9,
+					fill: variant === 'dark' ? 0xffffff : 0x000000,
+				}}
+			/>
+		{/if}
 
 		{@render childrenFromParent?.()}
 	{/snippet}

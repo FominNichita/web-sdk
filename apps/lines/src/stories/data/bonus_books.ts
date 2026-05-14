@@ -131,12 +131,17 @@ export default [
 			},
 			{
 				index: 3,
+				type: 'updateGlobalMult',
+				globalMult: 2,
+			},
+			{
+				index: 4,
 				type: 'updateFreeSpin',
 				amount: 0,
 				total: 12,
 			},
 			{
-				index: 4,
+				index: 5,
 				type: 'reveal',
 				board: [
 					[
@@ -230,18 +235,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 5,
+				index: 6,
 				type: 'setTotalWin',
 				amount: 0,
 			},
 			{
-				index: 6,
+				index: 7,
 				type: 'updateFreeSpin',
 				amount: 1,
 				total: 12,
 			},
 			{
-				index: 7,
+				index: 8,
 				type: 'reveal',
 				board: [
 					[
@@ -337,18 +342,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 8,
+				index: 9,
 				type: 'setTotalWin',
 				amount: 0,
 			},
 			{
-				index: 9,
+				index: 10,
 				type: 'updateFreeSpin',
 				amount: 2,
 				total: 12,
 			},
 			{
-				index: 10,
+				index: 11,
 				type: 'reveal',
 				board: [
 					[
@@ -444,7 +449,7 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 11,
+				index: 12,
 				type: 'winInfo',
 				totalWin: 300,
 				wins: [
@@ -477,24 +482,29 @@ export default [
 				],
 			},
 			{
-				index: 12,
+				index: 13,
 				type: 'setWin',
 				amount: 300,
 				winLevel: 4,
 			},
 			{
-				index: 13,
+				index: 14,
 				type: 'setTotalWin',
 				amount: 300,
 			},
 			{
-				index: 14,
+				index: 15,
+				type: 'updateGlobalMult',
+				globalMult: 3,
+			},
+			{
+				index: 16,
 				type: 'updateFreeSpin',
 				amount: 3,
 				total: 12,
 			},
 			{
-				index: 15,
+				index: 17,
 				type: 'reveal',
 				board: [
 					[
@@ -590,18 +600,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 16,
+				index: 18,
 				type: 'setTotalWin',
 				amount: 300,
 			},
 			{
-				index: 17,
+				index: 19,
 				type: 'updateFreeSpin',
 				amount: 4,
 				total: 12,
 			},
 			{
-				index: 18,
+				index: 20,
 				type: 'reveal',
 				board: [
 					[
@@ -696,18 +706,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 19,
+				index: 21,
 				type: 'setTotalWin',
 				amount: 300,
 			},
 			{
-				index: 20,
+				index: 22,
 				type: 'updateFreeSpin',
 				amount: 5,
 				total: 12,
 			},
 			{
-				index: 21,
+				index: 23,
 				type: 'reveal',
 				board: [
 					[
@@ -801,18 +811,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 22,
+				index: 24,
 				type: 'setTotalWin',
 				amount: 300,
 			},
 			{
-				index: 23,
+				index: 25,
 				type: 'updateFreeSpin',
 				amount: 6,
 				total: 12,
 			},
 			{
-				index: 24,
+				index: 26,
 				type: 'reveal',
 				board: [
 					[
@@ -906,18 +916,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 25,
+				index: 27,
 				type: 'setTotalWin',
 				amount: 300,
 			},
 			{
-				index: 26,
+				index: 28,
 				type: 'updateFreeSpin',
 				amount: 7,
 				total: 12,
 			},
 			{
-				index: 27,
+				index: 29,
 				type: 'reveal',
 				board: [
 					[
@@ -1011,7 +1021,7 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 28,
+				index: 30,
 				type: 'winInfo',
 				totalWin: 40,
 				wins: [
@@ -1070,24 +1080,29 @@ export default [
 				],
 			},
 			{
-				index: 29,
+				index: 31,
 				type: 'setWin',
 				amount: 40,
 				winLevel: 2,
 			},
 			{
-				index: 30,
+				index: 32,
 				type: 'setTotalWin',
 				amount: 340,
 			},
 			{
-				index: 31,
+				index: 33,
+				type: 'updateGlobalMult',
+				globalMult: 5,
+			},
+			{
+				index: 34,
 				type: 'updateFreeSpin',
 				amount: 8,
 				total: 12,
 			},
 			{
-				index: 32,
+				index: 35,
 				type: 'reveal',
 				board: [
 					[
@@ -1181,18 +1196,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 33,
+				index: 36,
 				type: 'setTotalWin',
 				amount: 340,
 			},
 			{
-				index: 34,
+				index: 37,
 				type: 'updateFreeSpin',
 				amount: 9,
 				total: 12,
 			},
 			{
-				index: 35,
+				index: 38,
 				type: 'reveal',
 				board: [
 					[
@@ -1287,18 +1302,18 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 36,
+				index: 39,
 				type: 'setTotalWin',
 				amount: 340,
 			},
 			{
-				index: 37,
+				index: 40,
 				type: 'updateFreeSpin',
 				amount: 10,
 				total: 12,
 			},
 			{
-				index: 38,
+				index: 41,
 				type: 'reveal',
 				board: [
 					[
@@ -1392,7 +1407,7 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 39,
+				index: 42,
 				type: 'winInfo',
 				totalWin: 50,
 				wins: [
@@ -1429,24 +1444,24 @@ export default [
 				],
 			},
 			{
-				index: 40,
+				index: 43,
 				type: 'setWin',
 				amount: 50,
 				winLevel: 2,
 			},
 			{
-				index: 41,
+				index: 44,
 				type: 'setTotalWin',
 				amount: 390,
 			},
 			{
-				index: 42,
+				index: 45,
 				type: 'updateFreeSpin',
 				amount: 11,
 				total: 12,
 			},
 			{
-				index: 43,
+				index: 46,
 				type: 'reveal',
 				board: [
 					[
@@ -1540,18 +1555,23 @@ export default [
 				anticipation: [0, 0, 0, 0, 0],
 			},
 			{
-				index: 44,
+				index: 47,
 				type: 'setTotalWin',
 				amount: 390,
 			},
 			{
-				index: 45,
+				index: 48,
+				type: 'updateGlobalMult',
+				globalMult: 1,
+			},
+			{
+				index: 49,
 				type: 'freeSpinEnd',
 				amount: 390,
 				winLevel: 2,
 			},
 			{
-				index: 46,
+				index: 50,
 				type: 'finalWin',
 				amount: 390,
 			},

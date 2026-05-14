@@ -67,3 +67,19 @@
 	})}
 	{template}
 />
+
+<Story
+	name="emitterEvent: globalMultiplierFrameUpdate"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: { multiplier: 3 },
+		action: async (data) => {
+			eventEmitter.broadcast({ type: 'globalMultiplierFrameShow' });
+			await eventEmitter.broadcastAsync({
+				type: 'globalMultiplierFrameUpdate',
+				multiplier: data.multiplier,
+			});
+		},
+	})}
+	{template}
+/>
