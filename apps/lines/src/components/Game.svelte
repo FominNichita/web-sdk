@@ -31,6 +31,8 @@
 
 	const context = getContext();
 
+	const VIDEO_BACKGROUND_URL = '/assets/video/background_LostTreasure/Animated%20BG.mp4';
+
 	onMount(() => (context.stateLayout.showLoadingScreen = true));
 
 	context.eventEmitter.subscribeOnMount({
@@ -40,68 +42,123 @@
 	});
 </script>
 
-<App>
-	<EnableSound />
-	<EnableHotkey />
-	<EnableGameActor />
-	<EnablePixiExtension />
+<div class="game-root">
+	<video
+		class="video-background"
+		src={VIDEO_BACKGROUND_URL}
+		autoplay
+		muted
+		loop
+		playsinline
+		preload="auto"
+	></video>
 
-	<Background />
+	<div class="pixi-layer">
+		<App>
+			<EnableSound />
+			<EnableHotkey />
+			<EnableGameActor />
+			<EnablePixiExtension />
 
-	{#if context.stateLayout.showLoadingScreen}
-		<LoadingScreen onloaded={() => (context.stateLayout.showLoadingScreen = false)} />
-	{:else}
-		<ResumeBet />
-		<!--
-			The reason why <Sound /> is rendered after clicking the loading screen:
-			"Autoplay with sound is allowed if: The user has interacted with the domain (click, tap, etc.)."
-			Ref: https://developer.chrome.com/blog/autoplay
-		-->
-		<Sound />
+			<Background />
 
-		<MainContainer>
-			<BoardFrame />
-		</MainContainer>
+			{#if context.stateLayout.showLoadingScreen}
+				<LoadingScreen onloaded={() => (context.stateLayout.showLoadingScreen = false)} />
+			{:else}
+				<ResumeBet />
 
-		<MainContainer>
-			<Board />
-			<Anticipations />
-		</MainContainer>
+				<!--
+					The reason why <Sound /> is rendered after clicking the loading screen:
+					"Autoplay with sound is allowed if: The user has interacted with the domain (click, tap, etc.)."
+					Ref: https://developer.chrome.com/blog/autoplay
+				-->
+				<Sound />
 
-		<UI>
-			{#snippet gameName()}
-				<UiGameName name="LINES GAME" />
-			{/snippet}
-			{#snippet logo()}
-				<Text
-					anchor={{ x: 1, y: 0 }}
-					text="ADD YOUR LOGO"
-					style={{
-						fontFamily: 'proxima-nova',
-						fontSize: REM * 1.5,
-						fontWeight: '600',
-						lineHeight: REM * 2,
-						fill: 0xffffff,
-					}}
-				/>
-			{/snippet}
-		</UI>
-		<Win />
-		<GlobalMultiplier />
-		<GlobalMultiplierFrame />
-		<FreeSpinIntro />
-		{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}
-			<FreeSpinCounter />
-		{/if}
-		<FreeSpinOutro />
-		<Transition />
+				<MainContainer>
+					<BoardFrame />
+				</MainContainer>
 
-		<I18nTest />
-	{/if}
-</App>
+				<MainContainer>
+					<Board />
+					<Anticipations />
+				</MainContainer>
+
+				<UI>
+					{#snippet gameName()}
+						<UiGameName name="LINES GAME" />
+					{/snippet}
+					{#snippet logo()}
+						<Text
+							anchor={{ x: 1, y: 0 }}
+							text="ADD YOUR LOGO"
+							style={{
+								fontFamily: 'proxima-nova',
+								fontSize: REM * 1.5,
+								fontWeight: '600',
+								lineHeight: REM * 2,
+								fill: 0xffffff,
+							}}
+						/>
+					{/snippet}
+				</UI>
+
+				<Win />
+				<GlobalMultiplier />
+				<GlobalMultiplierFrame />
+				<FreeSpinIntro />
+
+				{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}
+					<FreeSpinCounter />
+				{/if}
+
+				<FreeSpinOutro />
+				<Transition />
+
+				<I18nTest />
+			{/if}
+		</App>
+	</div>
+</div>
 
 <Modals>
 	{#snippet version()}
 		<GameVersion version="0.0.0" />
 	{/snippet}
 </Modals>
+
+<style>
+	.game-root {
+		position: relative;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		background: black;
+		isolation: isolate;
+	}
+
+	.video-background {
+		position: absolute;
+		inset: 0;
+
+		width: 100%;
+		height: 100%;
+
+		/*
+			cover = fills screen but crops/zooms
+			contain = shows full video but may create black bars
+			fill = no crop, but may stretch
+		*/
+		object-fit: contain;
+
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.pixi-layer {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+	}
+</style>

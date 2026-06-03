@@ -126,22 +126,6 @@ export default {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/payFrame/payFrame.png', import.meta.url).href,
 	},
-	turbo_active: {
-		type: 'sprite',
-		src: '/assets/sprites/uiSlotsAssetsBespoke/turbo_active.png',
-	},
-	turbo_active_hover: {
-		type: 'sprite',
-		src: '/assets/sprites/uiSlotsAssetsBespoke/turbo_active_hover.png',
-	},
-	autospin_active: {
-		type: 'sprite',
-		src: '/assets/sprites/uiSlotsAssetsBespoke/autospin_active.png',
-	},
-	autospin_active_hover: {
-		type: 'sprite',
-		src: '/assets/sprites/uiSlotsAssetsBespoke/autospin_active_hover.png',
-	},
 	anticipation: {
 		type: 'spine',
 		src: {
