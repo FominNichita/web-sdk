@@ -10,6 +10,7 @@
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
+	const PANEL_ROW_Y = LANDSCAPE_BASE_SIZE * 0.5 - 120;
 </script>
 
 <Container x={20}>
@@ -40,15 +41,15 @@
 			{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={LANDSCAPE_BASE_SIZE * 0.5} x={420} scale={0.8}>
+		<Container y={PANEL_ROW_Y} x={550}>
 			{@render props.amountBalance({ stacked: true })}
 		</Container>
 
-		<Container y={LANDSCAPE_BASE_SIZE * 0.5} x={910} scale={0.8}>
+		<Container y={PANEL_ROW_Y} x={910}>
 			{@render props.amountWin({ stacked: true })}
 		</Container>
 
-		<Container y={LANDSCAPE_BASE_SIZE * 0.5} x={1400} scale={0.8}>
+		<Container y={PANEL_ROW_Y} x={1270}>
 			{@render props.amountBet({ stacked: true })}
 		</Container>
 

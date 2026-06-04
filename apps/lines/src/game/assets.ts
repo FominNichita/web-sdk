@@ -126,6 +126,18 @@ export default {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/payFrame/payFrame.png', import.meta.url).href,
 	},
+	uiBalanceBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/balanceBG.png',
+	},
+	uiWinBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/winBG.png',
+	},
+	uiBetBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/betBG.png',
+	},
 	anticipation: {
 		type: 'spine',
 		src: {

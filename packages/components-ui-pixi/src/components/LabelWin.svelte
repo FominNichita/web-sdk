@@ -5,6 +5,7 @@
 	import { bookEventAmountToCurrencyString } from 'utils-shared/amount';
 
 	import UiLabel from './UiLabel.svelte';
+	import { uiLabelTextStyles } from './UiLabel.svelte';
 	import { i18nDerived } from '../i18n/i18nDerived';
 
 	type Props = {
@@ -21,4 +22,12 @@
 	});
 </script>
 
-<UiLabel tiled {label} {value} stacked={props.stacked} />
+<UiLabel
+	tiled
+	{label}
+	{value}
+	assetKey="uiWinBg"
+	labelStyle={uiLabelTextStyles.win}
+	valueStyle={uiLabelTextStyles.win}
+	stacked={props.stacked}
+/>

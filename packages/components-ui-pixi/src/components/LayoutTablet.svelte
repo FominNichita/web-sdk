@@ -11,6 +11,9 @@
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
+	const PANEL_ROW_X = 880;
+	const PANEL_SPACING = 360;
+	const PANEL_ROW_Y = DESKTOP_BASE_SIZE * 0.5 - 250;
 </script>
 
 <Container x={20}>
@@ -33,15 +36,15 @@
 			},
 		})}
 	>
-		<Container y={DESKTOP_BASE_SIZE * 0.5 - 220} x={880 - 640}>
+		<Container y={PANEL_ROW_Y} x={PANEL_ROW_X - PANEL_SPACING}>
 			{@render props.amountBalance({ stacked: true })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5 - 220} x={880}>
+		<Container y={PANEL_ROW_Y} x={PANEL_ROW_X}>
 			{@render props.amountWin({ stacked: true })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5 - 220} x={880 + 640}>
+		<Container y={PANEL_ROW_Y} x={PANEL_ROW_X + PANEL_SPACING}>
 			{@render props.amountBet({ stacked: true })}
 		</Container>
 

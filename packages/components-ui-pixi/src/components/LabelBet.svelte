@@ -4,6 +4,7 @@
 	import { numberToCurrencyString } from 'utils-shared/amount';
 
 	import UiLabel from './UiLabel.svelte';
+	import { uiLabelTextStyles } from './UiLabel.svelte';
 	import { getContext } from '../context';
 	import { i18nDerived } from '../i18n/i18nDerived';
 
@@ -25,5 +26,13 @@
 </script>
 
 <Container eventMode="static" cursor={disabled ? 'not-allowed' : 'pointer'} onpointerup={onpress}>
-	<UiLabel tiled {label} {value} stacked={props.stacked} />
+	<UiLabel
+		tiled
+		{label}
+		{value}
+		assetKey="uiBetBg"
+		labelStyle={uiLabelTextStyles.bet}
+		valueStyle={uiLabelTextStyles.bet}
+		stacked={props.stacked}
+	/>
 </Container>

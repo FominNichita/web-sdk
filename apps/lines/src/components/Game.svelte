@@ -32,8 +32,18 @@
 	const context = getContext();
 
 	const VIDEO_BACKGROUND_URL = '/assets/video/background_LostTreasure/Animated%20BG.mp4';
+	const SAN_FONT_URL = '/assets/fonts/fontFormats/Sancreek-Regular.ttf';
+
+	let sancreekFontLoaded = $state(false);
 
 	onMount(() => (context.stateLayout.showLoadingScreen = true));
+	onMount(async () => {
+		const sancreekFont = new FontFace('Sancreek', `url("${SAN_FONT_URL}")`);
+
+		await sancreekFont.load();
+		document.fonts.add(sancreekFont);
+		sancreekFontLoaded = true;
+	});
 
 	context.eventEmitter.subscribeOnMount({
 		buyBonusConfirm: () => {
@@ -83,24 +93,26 @@
 					<Anticipations />
 				</MainContainer>
 
-				<UI>
-					{#snippet gameName()}
-						<UiGameName name="LINES GAME" />
-					{/snippet}
-					{#snippet logo()}
-						<Text
-							anchor={{ x: 1, y: 0 }}
-							text="ADD YOUR LOGO"
-							style={{
-								fontFamily: 'proxima-nova',
-								fontSize: REM * 1.5,
-								fontWeight: '600',
-								lineHeight: REM * 2,
-								fill: 0xffffff,
-							}}
-						/>
-					{/snippet}
-				</UI>
+				{#if sancreekFontLoaded}
+					<UI>
+						{#snippet gameName()}
+							<UiGameName name="LINES GAME" />
+						{/snippet}
+						{#snippet logo()}
+							<Text
+								anchor={{ x: 1, y: 0 }}
+								text="ADD YOUR LOGO"
+								style={{
+									fontFamily: 'proxima-nova',
+									fontSize: REM * 1.5,
+									fontWeight: '600',
+									lineHeight: REM * 2,
+									fill: 0xffffff,
+								}}
+							/>
+						{/snippet}
+					</UI>
+				{/if}
 
 				<Win />
 				<GlobalMultiplier />
