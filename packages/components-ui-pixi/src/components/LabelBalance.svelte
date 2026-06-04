@@ -10,6 +10,8 @@
 
 	type Props = {
 		stacked?: boolean;
+		width?: number;
+		height?: number;
 	};
 
 	const props: Props = $props();
@@ -29,5 +31,7 @@
 	assetKey="uiBalanceBg"
 	labelStyle={uiLabelTextStyles.balance}
 	valueStyle={uiLabelTextStyles.balance}
+	width={props.width}
+	height={props.height}
 	stacked={props.stacked}
 />

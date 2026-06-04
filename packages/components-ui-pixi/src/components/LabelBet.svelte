@@ -10,6 +10,8 @@
 
 	type Props = {
 		stacked?: boolean;
+		width?: number;
+		height?: number;
 	};
 
 	const props: Props = $props();
@@ -33,6 +35,8 @@
 		assetKey="uiBetBg"
 		labelStyle={uiLabelTextStyles.bet}
 		valueStyle={uiLabelTextStyles.bet}
+		width={props.width}
+		height={props.height}
 		stacked={props.stacked}
 	/>
 </Container>

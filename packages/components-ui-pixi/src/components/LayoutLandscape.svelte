@@ -10,7 +10,16 @@
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
-	const PANEL_ROW_Y = LANDSCAPE_BASE_SIZE * 0.5 - 120;
+	const BALANCE_PANEL_WIDTH = 320;
+	const BALANCE_PANEL_HEIGHT = 88;
+	const BALANCE_TOP_MARGIN = 24;
+	const BALANCE_RIGHT_MARGIN = 24;
+	const AMOUNT_PANEL_WIDTH = 320;
+	const AMOUNT_PANEL_HEIGHT = 88;
+	const WIN_BET_PANEL_CENTER_X = 910;
+	const WIN_BET_PANEL_Y = LANDSCAPE_BASE_SIZE * 0.5 - 120;
+	const WIN_BET_GAP = 24;
+	const WIN_BET_PANEL_OFFSET = AMOUNT_PANEL_WIDTH * 0.5 + WIN_BET_GAP * 0.5;
 </script>
 
 <Container x={20}>
@@ -20,6 +29,21 @@
 <Container x={context.stateLayoutDerived.canvasSizes().width - 20}>
 	{@render props.logo()}
 </Container>
+
+<MainContainer standard alignHorizontal="right">
+	<Container
+		x={context.stateLayoutDerived.mainLayoutStandard().width -
+			BALANCE_PANEL_WIDTH * 0.5 -
+			BALANCE_RIGHT_MARGIN}
+		y={BALANCE_TOP_MARGIN + BALANCE_PANEL_HEIGHT * 0.5}
+	>
+		{@render props.amountBalance({
+			stacked: true,
+			width: BALANCE_PANEL_WIDTH,
+			height: BALANCE_PANEL_HEIGHT,
+		})}
+	</Container>
+</MainContainer>
 
 <MainContainer standard alignVertical="bottom">
 	<Container
@@ -41,16 +65,20 @@
 			{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={PANEL_ROW_Y} x={550}>
-			{@render props.amountBalance({ stacked: true })}
+		<Container y={WIN_BET_PANEL_Y} x={WIN_BET_PANEL_CENTER_X - WIN_BET_PANEL_OFFSET}>
+			{@render props.amountWin({
+				stacked: true,
+				width: AMOUNT_PANEL_WIDTH,
+				height: AMOUNT_PANEL_HEIGHT,
+			})}
 		</Container>
 
-		<Container y={PANEL_ROW_Y} x={910}>
-			{@render props.amountWin({ stacked: true })}
-		</Container>
-
-		<Container y={PANEL_ROW_Y} x={1270}>
-			{@render props.amountBet({ stacked: true })}
+		<Container y={WIN_BET_PANEL_Y} x={WIN_BET_PANEL_CENTER_X + WIN_BET_PANEL_OFFSET}>
+			{@render props.amountBet({
+				stacked: true,
+				width: AMOUNT_PANEL_WIDTH,
+				height: AMOUNT_PANEL_HEIGHT,
+			})}
 		</Container>
 
 		<Container y={LANDSCAPE_BASE_SIZE * 0.5 - 90} x={1580} scale={0.8}>

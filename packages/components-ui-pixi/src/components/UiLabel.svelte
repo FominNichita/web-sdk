@@ -1,35 +1,23 @@
 <script lang="ts" module>
-	import { FillGradient } from 'pixi.js';
 	import type { TextProps } from 'pixi-svelte';
 
-	const GOLD_GRADIENT_STOPS = [
-		{ offset: 0, color: '#E18D28' },
-		{ offset: 0.31, color: '#FEE17E' },
-		{ offset: 0.66, color: '#F1B63D' },
-		{ offset: 1, color: '#7B4D16' },
-	];
-	const createVerticalGoldGradient = () =>
-		new FillGradient({
-			start: { x: 0, y: 0 },
-			end: { x: 0, y: 1 },
-			colorStops: GOLD_GRADIENT_STOPS,
-		});
+	const GOLD_TEXT_FILL = '#F1B63D';
 
 	export const uiLabelTextStyles = {
 		balance: {
 			fontFamily: 'Sancreek',
-			fill: createVerticalGoldGradient(),
+			fill: GOLD_TEXT_FILL,
 			stroke: { color: '#000000', width: 4 },
 		},
 		win: {
 			fontFamily: 'Sancreek',
 			fill: '#000000',
-			stroke: { fill: createVerticalGoldGradient(), width: 4 },
+			stroke: { color: GOLD_TEXT_FILL, width: 4 },
 		},
 		bet: {
 			fontFamily: 'Sancreek',
 			fill: '#000000',
-			stroke: { fill: createVerticalGoldGradient(), width: 4 },
+			stroke: { color: GOLD_TEXT_FILL, width: 4 },
 		},
 	} satisfies Record<string, TextProps['style']>;
 </script>

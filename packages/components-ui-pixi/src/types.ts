@@ -35,12 +35,18 @@ export type ButtonIcon =
 	| 'soundOff'
 	| 'menuExit';
 
+export type AmountLabelLayoutProps = {
+	stacked?: boolean;
+	width?: number;
+	height?: number;
+};
+
 export type LayoutUiProps = {
 	gameName: Snippet;
 	logo: Snippet;
-	amountBalance: Snippet<[{ stacked?: boolean }]>;
-	amountWin: Snippet<[{ stacked?: boolean }]>;
-	amountBet: Snippet<[{ stacked?: boolean }]>;
+	amountBalance: Snippet<[AmountLabelLayoutProps]>;
+	amountWin: Snippet<[AmountLabelLayoutProps]>;
+	amountBet: Snippet<[AmountLabelLayoutProps]>;
 	buttonBuyBonus: Snippet<[Partial<ButtonProps>]>;
 	buttonBet: Snippet<[Partial<ButtonProps>]>;
 	buttonTurbo: Snippet<[Partial<ButtonProps>]>;

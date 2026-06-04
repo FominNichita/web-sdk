@@ -16,6 +16,10 @@
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
+	const BALANCE_PANEL_WIDTH = 320;
+	const BALANCE_PANEL_HEIGHT = 88;
+	const BALANCE_TOP_MARGIN = 28;
+	const BALANCE_RIGHT_MARGIN = 28;
 
 	const DRAWER_Y = {
 		unfold: 0,
@@ -74,6 +78,21 @@
 	{@render props.logo()}
 </Container>
 
+<MainContainer standard alignHorizontal="right">
+	<Container
+		x={context.stateLayoutDerived.mainLayoutStandard().width -
+			BALANCE_PANEL_WIDTH * 0.5 -
+			BALANCE_RIGHT_MARGIN}
+		y={BALANCE_TOP_MARGIN + BALANCE_PANEL_HEIGHT * 0.5}
+	>
+		{@render props.amountBalance({
+			stacked: true,
+			width: BALANCE_PANEL_WIDTH,
+			height: BALANCE_PANEL_HEIGHT,
+		})}
+	</Container>
+</MainContainer>
+
 <MainContainer standard alignVertical="bottom">
 	<!-- drawer container -->
 	<Container y={drawerTween.current}>
@@ -112,12 +131,6 @@
 			{@render props.buttonTurbo({ anchor: 0.5 })}
 		</Container>
 
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 270}
-		>
-			{@render props.amountBalance({ stacked: true })}
-		</Container>
 	</Container>
 
 	<Container y={Math.min(drawerTween.current, 350)}>
