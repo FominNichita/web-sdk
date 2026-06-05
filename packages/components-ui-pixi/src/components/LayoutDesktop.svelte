@@ -20,6 +20,15 @@
 	const WIN_BET_PANEL_Y = DESKTOP_BASE_SIZE * 0.5 - 220;
 	const WIN_BET_GAP = 24;
 	const WIN_BET_PANEL_OFFSET = AMOUNT_PANEL_WIDTH * 0.5 + WIN_BET_GAP * 0.5;
+	const FOOTER_BUTTON_Y = DESKTOP_BASE_SIZE * 0.5 + 16;
+	const FOOTER_LEFT_MENU_X = 170;
+	const FOOTER_LEFT_BUY_BONUS_X = 308;
+	const FOOTER_CENTER_X = 900;
+	const FOOTER_BUTTON_WIDTH = 150;
+	const FOOTER_BUTTON_GAP = 18;
+	const FOOTER_CENTER_OFFSET = FOOTER_BUTTON_WIDTH + FOOTER_BUTTON_GAP;
+	const FOOTER_RIGHT_DECREASE_X = 1508;
+	const FOOTER_RIGHT_GAP = 88;
 </script>
 
 <Container x={20}>
@@ -73,31 +82,31 @@
 			})}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={220} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_LEFT_MENU_X}>
 			{@render props.buttonMenu({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={220 + 150} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_LEFT_BUY_BONUS_X}>
 			{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={160 + 150 * 4} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X - FOOTER_CENTER_OFFSET}>
 			{@render props.buttonAutoSpin({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={160 + 150 * 5} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X}>
 			{@render props.buttonBet({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={160 + 150 * 6} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X + FOOTER_CENTER_OFFSET}>
 			{@render props.buttonTurbo({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={1440} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_RIGHT_DECREASE_X}>
 			{@render props.buttonDecrease({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={1440 + 150} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_RIGHT_DECREASE_X + FOOTER_RIGHT_GAP}>
 			{@render props.buttonIncrease({ anchor: 0.5 })}
 		</Container>
 	</Container>

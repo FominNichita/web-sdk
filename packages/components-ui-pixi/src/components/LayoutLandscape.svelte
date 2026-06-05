@@ -20,6 +20,15 @@
 	const WIN_BET_PANEL_Y = LANDSCAPE_BASE_SIZE * 0.5 - 120;
 	const WIN_BET_GAP = 24;
 	const WIN_BET_PANEL_OFFSET = AMOUNT_PANEL_WIDTH * 0.5 + WIN_BET_GAP * 0.5;
+	const FOOTER_BUTTON_Y = LANDSCAPE_BASE_SIZE * 0.5 + 6;
+	const FOOTER_LEFT_MENU_X = 130;
+	const FOOTER_LEFT_BUY_BONUS_X = 268;
+	const FOOTER_CENTER_X = 910;
+	const FOOTER_BUTTON_WIDTH = 150;
+	const FOOTER_BUTTON_GAP = 18;
+	const FOOTER_CENTER_OFFSET = FOOTER_BUTTON_WIDTH + FOOTER_BUTTON_GAP;
+	const FOOTER_RIGHT_DECREASE_X = 1568;
+	const FOOTER_RIGHT_GAP = 88;
 </script>
 
 <Container x={20}>
@@ -57,11 +66,11 @@
 			},
 		})}
 	>
-		<Container y={LANDSCAPE_BASE_SIZE * 0.5 - 90} x={85 + 20} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_LEFT_MENU_X}>
 			{@render props.buttonMenu({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={LANDSCAPE_BASE_SIZE * 0.5 - 90} x={220 + 20} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_LEFT_BUY_BONUS_X}>
 			{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
 
@@ -81,35 +90,23 @@
 			})}
 		</Container>
 
-		<Container y={LANDSCAPE_BASE_SIZE * 0.5 - 90} x={1580} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_RIGHT_DECREASE_X}>
 			{@render props.buttonDecrease({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={LANDSCAPE_BASE_SIZE * 0.5 - 90} x={1715} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_RIGHT_DECREASE_X + FOOTER_RIGHT_GAP}>
 			{@render props.buttonIncrease({ anchor: 0.5 })}
 		</Container>
-	</Container>
 
-	<Container
-		x={context.stateLayoutDerived.mainLayoutStandard().width - 60}
-		y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
-		pivot={anchorToPivot({
-			anchor: { x: 1, y: 0.5 },
-			sizes: {
-				height: LANDSCAPE_BASE_SIZE,
-				width: LANDSCAPE_BASE_SIZE,
-			},
-		})}
-	>
-		<Container x={LANDSCAPE_BASE_SIZE * 0.5} y={LANDSCAPE_BASE_SIZE * 0.5 - 140} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X - FOOTER_CENTER_OFFSET}>
 			{@render props.buttonAutoSpin({ anchor: 0.5 })}
 		</Container>
 
-		<Container x={LANDSCAPE_BASE_SIZE * 0.5} y={LANDSCAPE_BASE_SIZE * 0.5} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X}>
 			{@render props.buttonBet({ anchor: 0.5 })}
 		</Container>
 
-		<Container x={LANDSCAPE_BASE_SIZE * 0.5} y={LANDSCAPE_BASE_SIZE * 0.5 + 140} scale={0.8}>
+		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X + FOOTER_CENTER_OFFSET}>
 			{@render props.buttonTurbo({ anchor: 0.5 })}
 		</Container>
 	</Container>

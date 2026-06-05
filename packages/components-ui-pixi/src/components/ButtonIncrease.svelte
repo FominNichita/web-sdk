@@ -4,11 +4,11 @@
 
 	import UiButton from './UiButton.svelte';
 	import { getContext } from '../context';
-	import { UI_BASE_SIZE } from '../constants';
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const sizes = { width: UI_BASE_SIZE, height: UI_BASE_SIZE };
+	const sizes = { width: 72, height: 72 };
+	const textStyle = { fontFamily: 'Sancreek', fill: '#E4C5AA' };
 	const biggest = $derived(stateConfig.betAmountOptions[stateConfig.betAmountOptions.length - 1]);
 	const disabled = $derived(!context.stateXstateDerived.isIdle() || stateBet.betAmount === biggest);
 
@@ -23,4 +23,12 @@
 	};
 </script>
 
-<UiButton {...props} {sizes} {onpress} {disabled} icon="increase" />
+<UiButton
+	{...props}
+	{sizes}
+	{onpress}
+	{disabled}
+	icon="increase"
+	assetKey="uiButtonPlus"
+	{textStyle}
+/>

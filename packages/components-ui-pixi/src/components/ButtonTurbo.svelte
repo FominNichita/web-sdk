@@ -3,12 +3,12 @@
 	import { stateBet, stateBetDerived } from 'state-shared';
 
 	import UiButton from './UiButton.svelte';
-	import { UI_BASE_SIZE } from '../constants';
 	import { getContext } from '../context';
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const sizes = { width: UI_BASE_SIZE, height: UI_BASE_SIZE };
+	const sizes = { width: 150, height: 72 };
+	const textStyle = { fontFamily: 'Sancreek', fill: '#E4C5AA' };
 	const active = $derived(stateBet.isTurbo);
 	const disabled = $derived(stateBet.isSpaceHold);
 
@@ -23,4 +23,13 @@
 	});
 </script>
 
-<UiButton {...props} {sizes} {active} {onpress} {disabled} icon="turbo" />
+<UiButton
+	{...props}
+	{sizes}
+	{active}
+	{onpress}
+	{disabled}
+	icon="turbo"
+	assetKey="uiButtonFooterBg"
+	{textStyle}
+/>

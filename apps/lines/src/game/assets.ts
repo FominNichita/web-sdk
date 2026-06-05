@@ -138,6 +138,26 @@ export default {
 		type: 'sprite',
 		src: '/assets/sprites/buttons/betBG.png',
 	},
+	uiButtonMenuBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/violetBG.png',
+	},
+	uiButtonBuyBonusBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/brownBG.png',
+	},
+	uiButtonFooterBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/footerBG.png',
+	},
+	uiButtonMinus: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/Minus.png',
+	},
+	uiButtonPlus: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/Plus.png',
+	},
 	anticipation: {
 		type: 'spine',
 		src: {

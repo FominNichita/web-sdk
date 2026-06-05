@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Text } from 'pixi-svelte';
+	import { Container, Text, type SpriteProps, type TextProps } from 'pixi-svelte';
 	import { Button, type ButtonProps } from 'components-pixi';
 
 	import UiSprite from './UiSprite.svelte';
@@ -11,18 +11,50 @@
 	type Props = Omit<ButtonProps, 'children'> & {
 		icon: ButtonIcon;
 		sizes: { width: number; height: number };
+		assetKey?: SpriteProps['key'];
 		active?: boolean;
 		children?: Snippet;
+		hideText?: boolean;
+		label?: string;
+		textMaxWidth?: number;
+		textStyle?: TextProps['style'];
 		variant?: 'dark' | 'light';
 	};
 
 	const {
+		assetKey,
 		icon,
 		active,
+		hideText,
+		label,
+		textMaxWidth,
+		textStyle,
 		variant = 'dark',
 		children: childrenFromParent,
 		...buttonProps
 	}: Props = $props();
+
+	const text = $derived(label ?? i18nDerived[icon]());
+	const maxTextWidth = $derived(textMaxWidth ?? buttonProps.sizes.width * 0.72);
+	const maxTextHeight = $derived(buttonProps.sizes.height * 0.62);
+	let textWidth = $state(0);
+	let textHeight = $state(0);
+	const textScale = $derived.by(() => {
+		if (!textWidth || !textHeight) return 1;
+
+		return Math.min(1, maxTextWidth / textWidth, maxTextHeight / textHeight);
+	});
+
+	const buttonTextStyle = $derived({
+		align: 'center',
+		wordWrap: true,
+		wordWrapWidth: maxTextWidth,
+		fontFamily: 'proxima-nova',
+		fontWeight: '600',
+		fontSize: Math.min(UI_BASE_FONT_SIZE * 0.75, buttonProps.sizes.height * 0.34),
+		fill: variant === 'dark' ? 0xffffff : 0x000000,
+		...textStyle,
+	});
 </script>
 
 <Button {...buttonProps}>
@@ -30,8 +62,10 @@
 		<UiSprite
 			{...center}
 			anchor={0.5}
+			{assetKey}
 			width={buttonProps.sizes.width}
 			height={buttonProps.sizes.height}
+			tint={buttonProps.disabled && assetKey ? 0x999999 : undefined}
 			backgroundColor={variant === 'dark' ? 0x000000 : 0xffffff}
 			{...buttonProps.disabled
 				? {
@@ -46,20 +80,19 @@
 				: {}}
 		/>
 
-		<Text
-			{...center}
-			anchor={0.5}
-			text={i18nDerived[icon]()}
-			style={{
-				align: 'center',
-				wordWrap: true,
-				wordWrapWidth: 200,
-				fontFamily: 'proxima-nova',
-				fontWeight: '600',
-				fontSize: UI_BASE_FONT_SIZE * 0.9,
-				fill: variant === 'dark' ? 0xffffff : 0x000000,
-			}}
-		/>
+		{#if !hideText}
+			<Container {...center} scale={textScale}>
+				<Text
+					anchor={0.5}
+					{text}
+					style={buttonTextStyle}
+					onresize={({ width, height }) => {
+						textWidth = width;
+						textHeight = height;
+					}}
+				/>
+			</Container>
+		{/if}
 
 		{@render childrenFromParent?.()}
 	{/snippet}
