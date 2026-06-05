@@ -4,11 +4,15 @@
 
 	import UiButton from './UiButton.svelte';
 	import { getContext } from '../context';
-	import { UI_BASE_SIZE } from '../constants';
+	import {
+		MENU_OPTION_BUTTON_SIZES,
+		MENU_OPTION_TEXT_MAX_WIDTH,
+		MENU_OPTION_TEXT_STYLE,
+	} from '../constants';
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const sizes = { width: UI_BASE_SIZE * 1.3, height: UI_BASE_SIZE * 1.3 };
+	const sizes = MENU_OPTION_BUTTON_SIZES;
 
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
@@ -16,4 +20,12 @@
 	};
 </script>
 
-<UiButton {...props} {sizes} {onpress} icon="payTable" variant="light" />
+<UiButton
+	{...props}
+	{sizes}
+	{onpress}
+	icon="payTable"
+	assetKey="uiMenuOptionButtonBg"
+	textStyle={MENU_OPTION_TEXT_STYLE}
+	textMaxWidth={MENU_OPTION_TEXT_MAX_WIDTH}
+/>

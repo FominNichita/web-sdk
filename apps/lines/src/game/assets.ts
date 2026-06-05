@@ -158,6 +158,22 @@ export default {
 		type: 'sprite',
 		src: '/assets/sprites/buttons/Plus.png',
 	},
+	uiMenuOptionButtonBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/menuButtonBG.png',
+	},
+	uiSoundPanelBg: {
+		type: 'sprite',
+		src: '/assets/sprites/panels/panelBG_elonged.png',
+	},
+	uiSoundSliderEmpty: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/sliderEmpty.png',
+	},
+	uiSoundSliderFilled: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/sliderFilled.png',
+	},
 	buyBonusPanelIncrementBg: {
 		type: 'sprite',
 		src: '/assets/sprites/panels/incrementBG_panel.png',

@@ -16,6 +16,7 @@
 
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
+		stateUi.soundPanelOpen = false;
 		stateUi.menuOpen = true;
 	};
 </script>

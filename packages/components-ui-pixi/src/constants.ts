@@ -15,6 +15,19 @@ export const UI_TEXT_STYLES = {
 	},
 };
 
+export const MENU_OPTION_BUTTON_SIZES = { width: 300, height: 88 };
+
+export const MENU_OPTION_BUTTON_GAP = 20;
+
+export const MENU_OPTION_TEXT_MAX_WIDTH = MENU_OPTION_BUTTON_SIZES.width * 0.8;
+
+export const MENU_OPTION_TEXT_STYLE = {
+	fontFamily: 'Sancreek',
+	fontSize: 34,
+	fill: '#E4C5AA',
+	stroke: { color: '#000000', width: 3 },
+};
+
 // desktop
 export const DESKTOP_BASE_SIZE = UI_BASE_SIZE * 0.9;
 

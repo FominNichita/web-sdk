@@ -18,6 +18,8 @@
 	import { getContext } from '../context';
 	import type { LayoutUiProps } from '../types';
 	import LabelFreeSpinCounter from './LabelFreeSpinCounter.svelte';
+	import { MENU_OPTION_BUTTON_GAP, MENU_OPTION_BUTTON_SIZES } from '../constants';
+	import SoundPanel from './SoundPanel.svelte';
 
 	type Props = {
 		gameName: LayoutUiProps['gameName'];
@@ -26,6 +28,9 @@
 
 	const props: Props = $props();
 	const context = getContext();
+	const MENU_OPTION_COUNT = 5;
+	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
+	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 </script>
 
 <EnableSpaceHold />
@@ -90,33 +95,40 @@
 			height={context.stateLayoutDerived.canvasSizes().height}
 			x={context.stateLayoutDerived.canvasSizes().width * 0.5}
 			y={context.stateLayoutDerived.canvasSizes().height * 0.5}
-			onpointerup={() => (stateUi.menuOpen = false)}
+			onpointerup={() => {
+				stateUi.soundPanelOpen = false;
+				stateUi.menuOpen = false;
+			}}
 		/>
 
-		<MainContainer standard alignVertical="bottom">
+		<MainContainer standard>
 			<Container
-				x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - 350}
-				y={context.stateLayoutDerived.mainLayoutStandard().height - 270 - 15}
+				x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
+				y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
 			>
-				<Container scale={0.8} y={0 * 0.5 - 150 - 170 * 3}>
-					<ButtonPayTable anchor={0.5} />
-				</Container>
+				{#if stateUi.soundPanelOpen}
+					<SoundPanel />
+				{:else}
+					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
+						<ButtonPayTable anchor={0.5} />
+					</Container>
 
-				<Container scale={0.8} y={0 * 0.5 - 150 - 170 * 2}>
-					<ButtonGameRules anchor={0.5} />
-				</Container>
+					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
+						<ButtonGameRules anchor={0.5} />
+					</Container>
 
-				<Container scale={0.8} y={0 * 0.5 - 150 - 170 * 1}>
-					<ButtonSettings anchor={0.5} />
-				</Container>
+					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
+						<ButtonSettings anchor={0.5} />
+					</Container>
 
-				<Container scale={0.8} y={0 * 0.5 - 150}>
-					<ButtonSoundSwitch anchor={0.5} />
-				</Container>
+					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+						<ButtonSoundSwitch anchor={0.5} />
+					</Container>
 
-				<Container scale={0.8} y={0 * 0.5}>
-					<ButtonMenuClose anchor={0.5} />
-				</Container>
+					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
+						<ButtonMenuClose anchor={0.5} />
+					</Container>
+				{/if}
 			</Container>
 		</MainContainer>
 	{/if}

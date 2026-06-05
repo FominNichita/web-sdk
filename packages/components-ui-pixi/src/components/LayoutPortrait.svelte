@@ -11,8 +11,13 @@
 
 	import LabelFreeSpinCounter from './LabelFreeSpinCounter.svelte';
 	import ButtonDrawer from './ButtonDrawer.svelte';
+	import SoundPanel from './SoundPanel.svelte';
 	import type { LayoutUiProps } from '../types';
 	import { getContext } from '../context';
+	import {
+		MENU_OPTION_BUTTON_GAP,
+		MENU_OPTION_BUTTON_SIZES,
+	} from '../constants';
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
@@ -20,6 +25,9 @@
 	const BALANCE_PANEL_HEIGHT = 88;
 	const BALANCE_TOP_MARGIN = 28;
 	const BALANCE_RIGHT_MARGIN = 28;
+	const MENU_OPTION_COUNT = 5;
+	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
+	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 
 	const DRAWER_Y = {
 		unfold: 0,
@@ -201,33 +209,40 @@
 		height={context.stateLayoutDerived.canvasSizes().height}
 		x={context.stateLayoutDerived.canvasSizes().width * 0.5}
 		y={context.stateLayoutDerived.canvasSizes().height * 0.5}
-		onpointerup={() => (stateUi.menuOpen = false)}
+		onpointerup={() => {
+			stateUi.soundPanelOpen = false;
+			stateUi.menuOpen = false;
+		}}
 	/>
 
-	<MainContainer standard alignVertical="bottom">
+	<MainContainer standard>
 		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - 440}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 400}
+			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
+			y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
 		>
-			<Container y={-190 - 210 * 3}>
-				{@render props.buttonPayTable({ anchor: 0.5 })}
-			</Container>
+			{#if stateUi.soundPanelOpen}
+				<SoundPanel />
+			{:else}
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
+					{@render props.buttonPayTable({ anchor: 0.5 })}
+				</Container>
 
-			<Container y={-190 - 210 * 2}>
-				{@render props.buttonGameRules({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
+					{@render props.buttonGameRules({ anchor: 0.5 })}
+				</Container>
 
-			<Container y={-190 - 210 * 1}>
-				{@render props.buttonSettings({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
+					{@render props.buttonSettings({ anchor: 0.5 })}
+				</Container>
 
-			<Container y={-190}>
-				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+					{@render props.buttonSoundSwitch({ anchor: 0.5 })}
+				</Container>
 
-			<Container>
-				{@render props.buttonMenuClose({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
+					{@render props.buttonMenuClose({ anchor: 0.5 })}
+				</Container>
+			{/if}
 		</Container>
 	</MainContainer>
 {/if}

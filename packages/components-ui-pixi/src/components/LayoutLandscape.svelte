@@ -4,9 +4,15 @@
 	import { MainContainer } from 'components-layout';
 	import { Container, Rectangle, anchorToPivot } from 'pixi-svelte';
 
-	import { LANDSCAPE_BASE_SIZE, LANDSCAPE_BACKGROUND_WIDTH_LIST } from '../constants';
+	import {
+		LANDSCAPE_BASE_SIZE,
+		LANDSCAPE_BACKGROUND_WIDTH_LIST,
+		MENU_OPTION_BUTTON_GAP,
+		MENU_OPTION_BUTTON_SIZES,
+	} from '../constants';
 	import type { LayoutUiProps } from '../types';
 	import { getContext } from '../context';
+	import SoundPanel from './SoundPanel.svelte';
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
@@ -29,6 +35,9 @@
 	const FOOTER_CENTER_OFFSET = FOOTER_BUTTON_WIDTH + FOOTER_BUTTON_GAP;
 	const FOOTER_RIGHT_DECREASE_X = 1568;
 	const FOOTER_RIGHT_GAP = 88;
+	const MENU_OPTION_COUNT = 5;
+	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
+	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 </script>
 
 <Container x={20}>
@@ -123,33 +132,40 @@
 		height={context.stateLayoutDerived.canvasSizes().height}
 		x={context.stateLayoutDerived.canvasSizes().width * 0.5}
 		y={context.stateLayoutDerived.canvasSizes().height * 0.5}
-		onpointerup={() => (stateUi.menuOpen = false)}
+		onpointerup={() => {
+			stateUi.soundPanelOpen = false;
+			stateUi.menuOpen = false;
+		}}
 	/>
 
-	<MainContainer standard alignVertical="bottom">
+	<MainContainer standard>
 		<Container
-			x={165}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - LANDSCAPE_BASE_SIZE - 130}
+			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
+			y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
 		>
-			<Container scale={0.8} y={LANDSCAPE_BASE_SIZE * 0.5 - 150 - 170 * 3}>
-				{@render props.buttonPayTable({ anchor: 0.5 })}
-			</Container>
+			{#if stateUi.soundPanelOpen}
+				<SoundPanel />
+			{:else}
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
+					{@render props.buttonPayTable({ anchor: 0.5 })}
+				</Container>
 
-			<Container scale={0.8} y={LANDSCAPE_BASE_SIZE * 0.5 - 150 - 170 * 2}>
-				{@render props.buttonGameRules({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
+					{@render props.buttonGameRules({ anchor: 0.5 })}
+				</Container>
 
-			<Container scale={0.8} y={LANDSCAPE_BASE_SIZE * 0.5 - 150 - 170 * 1}>
-				{@render props.buttonSettings({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
+					{@render props.buttonSettings({ anchor: 0.5 })}
+				</Container>
 
-			<Container scale={0.8} y={LANDSCAPE_BASE_SIZE * 0.5 - 150}>
-				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+					{@render props.buttonSoundSwitch({ anchor: 0.5 })}
+				</Container>
 
-			<Container scale={0.8} y={LANDSCAPE_BASE_SIZE * 0.5}>
-				{@render props.buttonMenuClose({ anchor: 0.5 })}
-			</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
+					{@render props.buttonMenuClose({ anchor: 0.5 })}
+				</Container>
+			{/if}
 		</Container>
 	</MainContainer>
 {/if}
