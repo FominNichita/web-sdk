@@ -4,12 +4,10 @@
 	import { stateBet, stateModal, stateUi, INFINITY_MARK } from 'state-shared';
 	import { getContextEventEmitter } from 'utils-event-emitter';
 
-	import BaseIcon from './BaseIcon.svelte';
 	import BaseTitle from './BaseTitle.svelte';
 	import BaseContent from './BaseContent.svelte';
 	import BaseScrollable from './BaseScrollable.svelte';
 	import BaseButtonWrap from './BaseButtonWrap.svelte';
-	import BaseButtonContent from './BaseButtonContent.svelte';
 	import { stateBonus, stateBonusDerived } from '../stateBonus.svelte';
 	import { i18nDerived } from '../i18n/i18nDerived';
 	import type { EmitterEventModal } from '../types';
@@ -34,10 +32,10 @@
 	<Popup zIndex={zIndex.dialog} onclose={() => (stateModal.modal = { name: 'buyBonus' })}>
 		<BaseContent maxWidth="500px">
 			<BaseTitle>
-				{stateBonusDerived.selectedBetModeData().text.title}
+				<span class="confirm-title">{stateBonusDerived.selectedBetModeData().text.title}</span>
 			</BaseTitle>
 			<BaseScrollable type="column">
-				{stateBonusDerived.selectedBetModeData().text.dialog}
+				<span class="confirm-dialog">{stateBonusDerived.selectedBetModeData().text.dialog}</span>
 			</BaseScrollable>
 			<BaseButtonWrap type="max-width">
 				<Button
@@ -48,12 +46,72 @@
 						stateModal.modal = null;
 					}}
 				>
-					<BaseIcon width="100%" height="3rem" />
-					<BaseButtonContent>
-						<span style="font-size: 1rem;">{i18nDerived.confirm()}</span>
-					</BaseButtonContent>
+					<span class="confirm-button-bg">
+						<span class="confirm-button-text">{i18nDerived.confirm()}</span>
+					</span>
 				</Button>
 			</BaseButtonWrap>
 		</BaseContent>
 	</Popup>
 {/if}
+
+<style lang="scss">
+	.confirm-title {
+		display: block;
+		max-width: min(28rem, 86vw);
+		font-family: 'Sancreek', serif;
+		font-size: clamp(1.35rem, 3vw, 2.2rem);
+		line-height: 1.05;
+		color: #ffffff;
+		-webkit-text-stroke: 1.5px #000000;
+		paint-order: stroke fill;
+		text-align: center;
+		text-shadow: 0 1px 0 #000000;
+		overflow-wrap: anywhere;
+	}
+
+	.confirm-dialog {
+		display: block;
+		max-width: min(28rem, 86vw);
+		max-height: min(34vh, 14rem);
+		overflow: hidden;
+		font-family: 'KleeOne-SemiBold', sans-serif;
+		font-size: clamp(0.9rem, 1.7vw, 1.08rem);
+		line-height: 1.25;
+		color: #ffffff;
+		-webkit-text-stroke: 0.55px #000000;
+		paint-order: stroke fill;
+		text-align: center;
+		text-shadow: 0 1px 0 #000000;
+		white-space: pre-line;
+	}
+
+	.confirm-button-bg {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		min-height: 3rem;
+		padding: 0 1rem;
+		background-image: url('/assets/sprites/panels/activateBG_panel.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100% 100%;
+		box-sizing: border-box;
+	}
+
+	.confirm-button-text {
+		display: block;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-family: 'KleeOne-SemiBold', sans-serif;
+		font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+		line-height: 1;
+		color: #000000;
+		-webkit-text-stroke: 0.35px #000000;
+		paint-order: stroke fill;
+		text-align: center;
+	}
+</style>

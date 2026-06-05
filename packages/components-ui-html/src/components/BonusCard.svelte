@@ -22,22 +22,29 @@
 
 <style lang="scss">
 	.bonus-card-wrap {
-		padding: 0.5rem;
+		position: relative;
+		width: clamp(172px, 18vw, 220px);
+		min-height: clamp(248px, 30vh, 310px);
+		padding: 1.05rem 1rem 0.95rem;
 		flex-direction: column;
 		display: flex;
 		justify-content: space-between;
 
-		border-radius: 10px;
-		background: rgba(0, 0, 0, 0.5);
-		text-align: left;
-		min-width: 155px;
-		max-width: 180px;
-		gap: 0.5rem;
+		background-image: url('/assets/sprites/panels/activationBG_panel.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100% 100%;
+		box-sizing: border-box;
+		text-align: center;
+		gap: 0.75rem;
+		overflow: hidden;
 	}
 
 	.info {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5em;
+		align-items: center;
+		gap: 0.55rem;
+		min-width: 0;
 	}
 </style>

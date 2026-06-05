@@ -158,6 +158,22 @@ export default {
 		type: 'sprite',
 		src: '/assets/sprites/buttons/Plus.png',
 	},
+	buyBonusPanelIncrementBg: {
+		type: 'sprite',
+		src: '/assets/sprites/panels/incrementBG_panel.png',
+	},
+	buyBonusPanelCurrencyBg: {
+		type: 'sprite',
+		src: '/assets/sprites/panels/currencyBG_panel.png',
+	},
+	buyBonusPanelCardBg: {
+		type: 'sprite',
+		src: '/assets/sprites/panels/activationBG_panel.png',
+	},
+	buyBonusPanelActivateBg: {
+		type: 'sprite',
+		src: '/assets/sprites/panels/activateBG_panel.png',
+	},
 	anticipation: {
 		type: 'spine',
 		src: {

@@ -4,9 +4,7 @@
 	import { getContextEventEmitter } from 'utils-event-emitter';
 	import { numberToCurrencyString } from 'utils-shared/amount';
 
-	import BaseIcon from './BaseIcon.svelte';
 	import BonusCard from './BonusCard.svelte';
-	import BaseButtonContent from './BaseButtonContent.svelte';
 	import { stateBonus } from '../stateBonus.svelte';
 	import type { EmitterEventModal } from '../types';
 
@@ -51,10 +49,9 @@
 					disabled={stateBet.betAmount <= 0 ||
 						stateBet.balanceAmount < stateBet.betAmount * betModeData.costMultiplier}
 				>
-					<BaseIcon width="100%" height="2rem" border="2px solid white;" />
-					<BaseButtonContent>
-						<span style="font-size: 1rem;">{betModeData.text.button}</span>
-					</BaseButtonContent>
+					<span class="activate-button-bg">
+						<span class="activate-button-text">{betModeData.text.button}</span>
+					</span>
 				</Button>
 			{/snippet}
 		</BonusCard>
@@ -63,18 +60,34 @@
 
 <style lang="scss">
 	.title {
-		font-size: 1rem;
-		line-height: 1rem;
+		max-width: 100%;
+		font-family: 'Sancreek', serif;
+		font-size: clamp(1rem, 1.7vw, 1.35rem);
+		line-height: 1.05;
+		color: #ffffff;
+		-webkit-text-stroke: 1.5px #000000;
+		paint-order: stroke fill;
+		text-shadow: 0 1px 0 #000000;
 		text-align: center;
+		overflow-wrap: anywhere;
 	}
 
 	.description {
-		font-size: 0.75rem;
+		max-width: 100%;
+		font-family: 'KleeOne-SemiBold', sans-serif;
+		font-size: clamp(0.58rem, 1.1vw, 0.78rem);
+		line-height: 1.18;
+		color: #ffffff;
+		-webkit-text-stroke: 0.55px #000000;
+		paint-order: stroke fill;
+		text-shadow: 0 1px 0 #000000;
 		text-align: center;
-		min-height: 4rem;
+		min-height: 4.5rem;
+		max-height: 6.4rem;
 		white-space: pre-line;
 		display: inline-flex;
 		align-items: center;
+		overflow: hidden;
 	}
 
 	.description:empty {
@@ -82,9 +95,47 @@
 	}
 
 	.price {
-		font-size: 1rem;
-		line-height: 1rem;
+		max-width: 100%;
+		font-family: 'Sancreek', serif;
+		font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+		line-height: 1.05;
+		color: #ffffff;
+		-webkit-text-stroke: 1.2px #000000;
+		paint-order: stroke fill;
+		text-shadow: 0 1px 0 #000000;
 		text-align: center;
 		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.activate-button-bg {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: min(100%, 10.25rem);
+		height: 2.6rem;
+		padding: 0 1rem;
+		margin: 0 auto;
+		background-image: url('/assets/sprites/panels/activateBG_panel.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100% 100%;
+		box-sizing: border-box;
+	}
+
+	.activate-button-text {
+		display: block;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-family: 'KleeOne-SemiBold', sans-serif;
+		font-size: clamp(0.72rem, 1.2vw, 1rem);
+		line-height: 1;
+		color: #000000;
+		-webkit-text-stroke: 0.35px #000000;
+		paint-order: stroke fill;
+		text-align: center;
 	}
 </style>

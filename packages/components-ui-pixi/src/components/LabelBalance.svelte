@@ -18,6 +18,10 @@
 	const balanceTween = new Tween(stateBet.balanceAmount);
 	const label = $derived(i18nDerived.balance());
 	const value = $derived(numberToCurrencyString(balanceTween.current));
+	const balanceValueStyle = {
+		...uiLabelTextStyles.balance,
+		fontSize: 28,
+	} as const;
 
 	$effect(() => {
 		balanceTween.set(stateBet.balanceAmount);
@@ -30,7 +34,7 @@
 	{value}
 	assetKey="uiBalanceBg"
 	labelStyle={uiLabelTextStyles.balance}
-	valueStyle={uiLabelTextStyles.balance}
+	valueStyle={balanceValueStyle}
 	width={props.width}
 	height={props.height}
 	stacked={props.stacked}
