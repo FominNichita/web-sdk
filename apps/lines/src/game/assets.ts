@@ -342,6 +342,50 @@ export default {
 		type: 'sprites',
 		src: new URL('../../assets/sprites/symbolsStatic/symbolsStatic.json', import.meta.url).href,
 	},
+	symbolStaticL1: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Symbol3.png',
+	},
+	symbolStaticL2: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Symbol1.png',
+	},
+	symbolStaticL3: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Symbol4.png',
+	},
+	symbolStaticL4: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Symbol2.png',
+	},
+	symbolStaticL5: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Ring.png',
+	},
+	symbolStaticS: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/FreeSpinSymbol.png',
+	},
+	symbolStaticW: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/CheryBoom.png',
+	},
+	symbolStaticH1: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Treasure1.png',
+	},
+	symbolStaticH2: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Treasure3.png',
+	},
+	symbolStaticH3: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Treasure2.png',
+	},
+	symbolStaticH4: {
+		type: 'sprite',
+		src: '/assets/sprites/symbolsStatic/Symbols/Treasure4.png',
+	},
 	coins: {
 		type: 'spriteSheet',
 		src: new URL('../../assets/sprites/coin/SD2_Coin.json', import.meta.url).href,
