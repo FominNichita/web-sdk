@@ -19,7 +19,6 @@
 	import type { LayoutUiProps } from '../types';
 	import LabelFreeSpinCounter from './LabelFreeSpinCounter.svelte';
 	import { MENU_OPTION_BUTTON_GAP, MENU_OPTION_BUTTON_SIZES } from '../constants';
-	import SoundPanel from './SoundPanel.svelte';
 
 	type Props = {
 		gameName: LayoutUiProps['gameName'];
@@ -95,10 +94,7 @@
 			height={context.stateLayoutDerived.canvasSizes().height}
 			x={context.stateLayoutDerived.canvasSizes().width * 0.5}
 			y={context.stateLayoutDerived.canvasSizes().height * 0.5}
-			onpointerup={() => {
-				stateUi.soundPanelOpen = false;
-				stateUi.menuOpen = false;
-			}}
+			onpointerup={() => (stateUi.menuOpen = false)}
 		/>
 
 		<MainContainer standard>
@@ -106,29 +102,25 @@
 				x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
 				y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
 			>
-				{#if stateUi.soundPanelOpen}
-					<SoundPanel />
-				{:else}
-					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
-						<ButtonPayTable anchor={0.5} />
-					</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
+					<ButtonPayTable anchor={0.5} />
+				</Container>
 
-					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
-						<ButtonGameRules anchor={0.5} />
-					</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
+					<ButtonGameRules anchor={0.5} />
+				</Container>
 
-					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
-						<ButtonSettings anchor={0.5} />
-					</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
+					<ButtonSettings anchor={0.5} />
+				</Container>
 
-					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
-						<ButtonSoundSwitch anchor={0.5} />
-					</Container>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+					<ButtonSoundSwitch anchor={0.5} />
+				</Container>
 
-					<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
-						<ButtonMenuClose anchor={0.5} />
-					</Container>
-				{/if}
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
+					<ButtonMenuClose anchor={0.5} />
+				</Container>
 			</Container>
 		</MainContainer>
 	{/if}

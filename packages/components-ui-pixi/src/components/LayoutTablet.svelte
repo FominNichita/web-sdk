@@ -7,7 +7,6 @@
 	import { getContext } from '../context';
 	import type { LayoutUiProps } from '../types';
 	import LabelFreeSpinCounter from './LabelFreeSpinCounter.svelte';
-	import SoundPanel from './SoundPanel.svelte';
 	import {
 		DESKTOP_BASE_SIZE,
 		DESKTOP_BACKGROUND_WIDTH_LIST,
@@ -139,10 +138,7 @@
 		height={context.stateLayoutDerived.canvasSizes().height}
 		x={context.stateLayoutDerived.canvasSizes().width * 0.5}
 		y={context.stateLayoutDerived.canvasSizes().height * 0.5}
-		onpointerup={() => {
-			stateUi.soundPanelOpen = false;
-			stateUi.menuOpen = false;
-		}}
+		onpointerup={() => (stateUi.menuOpen = false)}
 	/>
 
 	<MainContainer standard>
@@ -150,29 +146,25 @@
 			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
 			y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
 		>
-			{#if stateUi.soundPanelOpen}
-				<SoundPanel />
-			{:else}
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
-					{@render props.buttonPayTable({ anchor: 0.5 })}
-				</Container>
+			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
+				{@render props.buttonPayTable({ anchor: 0.5 })}
+			</Container>
 
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
-					{@render props.buttonGameRules({ anchor: 0.5 })}
-				</Container>
+			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
+				{@render props.buttonGameRules({ anchor: 0.5 })}
+			</Container>
 
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
-					{@render props.buttonSettings({ anchor: 0.5 })}
-				</Container>
+			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
+				{@render props.buttonSettings({ anchor: 0.5 })}
+			</Container>
 
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
-					{@render props.buttonSoundSwitch({ anchor: 0.5 })}
-				</Container>
+			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
+			</Container>
 
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
-					{@render props.buttonMenuClose({ anchor: 0.5 })}
-				</Container>
-			{/if}
+			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
+				{@render props.buttonMenuClose({ anchor: 0.5 })}
+			</Container>
 		</Container>
 	</MainContainer>
 {/if}

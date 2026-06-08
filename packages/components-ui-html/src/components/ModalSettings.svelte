@@ -5,7 +5,6 @@
 
 	import BaseTitle from './BaseTitle.svelte';
 	import BaseContent from './BaseContent.svelte';
-	import BaseScrollable from './BaseScrollable.svelte';
 	import ModalSettingsSound from './ModalSettingsSound.svelte';
 	import { i18nDerived } from '../i18n/i18nDerived';
 </script>
@@ -13,38 +12,75 @@
 {#if stateModal.modal?.name === 'settings'}
 	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
 		<BaseContent maxWidth="100%">
-			<BaseTitle>{i18nDerived.settings()}</BaseTitle>
-			<BaseScrollable type="column">
-				<wrap class="wrap">
-					<ModalSettingsSound bind:value={stateSound.volumeValueMaster}>
-						{i18nDerived.masterVolume()}
-					</ModalSettingsSound>
+			<div class="settings-modal">
+				<BaseTitle>SOUND</BaseTitle>
+				<div class="settings-panel">
+					<div class="settings-rows">
+						<ModalSettingsSound bind:value={stateSound.volumeValueMaster}>
+							{i18nDerived.masterVolume()}
+						</ModalSettingsSound>
 
-					<ModalSettingsSound bind:value={stateSound.volumeValueMusic}>
-						{i18nDerived.musicVolume()}
-					</ModalSettingsSound>
+						<ModalSettingsSound bind:value={stateSound.volumeValueMusic}>
+							{i18nDerived.musicVolume()}
+						</ModalSettingsSound>
 
-					<ModalSettingsSound bind:value={stateSound.volumeValueSoundEffect}>
-						{i18nDerived.soundEffectVolume()}
-					</ModalSettingsSound>
-				</wrap>
-			</BaseScrollable>
+						<ModalSettingsSound bind:value={stateSound.volumeValueSoundEffect}>
+							{i18nDerived.soundEffectVolume()}
+						</ModalSettingsSound>
+					</div>
+				</div>
+			</div>
 		</BaseContent>
 	</Popup>
 {/if}
 
 <style lang="scss">
-	.wrap {
+	.settings-modal {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		align-items: center;
+		gap: clamp(0.7rem, 2vw, 1rem);
+		width: min(92vw, 760px);
+		font-family: 'Sancreek', serif;
+		color: #989898;
 
-		@media (min-width: 480px) {
-			min-width: 360px;
+		:global(.ui-modal-title-wrap) {
+			font-size: clamp(2.4rem, 7vw, 4.8rem);
+			line-height: 1;
+			color: #989898;
+			text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
+		}
+	}
+
+	.settings-panel {
+		width: 100%;
+		aspect-ratio: 800 / 414;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: clamp(2.2rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+		background-image: url('/assets/sprites/panels/panelBG_elonged.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100% 100%;
+	}
+
+	.settings-rows {
+		width: min(100%, 620px);
+		display: flex;
+		flex-direction: column;
+		gap: clamp(0.7rem, 2.3vw, 1.45rem);
+	}
+
+	@media (max-width: 520px) {
+		.settings-modal {
+			width: min(96vw, 760px);
 		}
 
-		@media (min-width: 800px) {
-			min-width: 480px;
+		.settings-panel {
+			aspect-ratio: 800 / 500;
+			padding-inline: 1.4rem;
 		}
 	}
 </style>

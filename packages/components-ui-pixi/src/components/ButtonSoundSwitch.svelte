@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ButtonProps } from 'components-pixi';
-	import { stateUi } from 'state-shared';
+	import { stateSound } from 'state-shared';
 
 	import UiButton from './UiButton.svelte';
 	import {
@@ -16,7 +16,11 @@
 
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
-		stateUi.soundPanelOpen = true;
+		if (stateSound.volumeValueMaster === 0) {
+			stateSound.volumeValueMaster = 50;
+		} else {
+			stateSound.volumeValueMaster = 0;
+		}
 	};
 </script>
 
@@ -24,7 +28,7 @@
 	{...props}
 	{sizes}
 	{onpress}
-	icon="soundOn"
+	icon={stateSound.volumeValueMaster > 0 ? 'soundOn' : 'soundOff'}
 	assetKey="uiMenuOptionButtonBg"
 	textStyle={MENU_OPTION_TEXT_STYLE}
 	textMaxWidth={MENU_OPTION_TEXT_MAX_WIDTH}
