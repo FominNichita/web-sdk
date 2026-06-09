@@ -13,13 +13,16 @@
 	const symbolInfo = $derived(
 		getSymbolInfo({ rawSymbol: props.reelSymbol.rawSymbol, state: props.reelSymbol.symbolState }),
 	);
+	const animating = $derived(
+		props.reelSymbol.symbolState === 'win' ||
+			(symbolInfo.type === 'spine' && props.reelSymbol.symbolState === 'land'),
+	);
 </script>
 
 <SymbolWrap
 	x={getSymbolX(props.reelIndex)}
 	y={props.reelSymbol.symbolY()}
-	animating={symbolInfo.type === 'spine' &&
-		(props.reelSymbol.symbolState === 'land' || props.reelSymbol.symbolState === 'win')}
+	{animating}
 >
 	<Symbol
 		state={props.reelSymbol.symbolState}
