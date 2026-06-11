@@ -1,21 +1,11 @@
 <script lang="ts">
-	import { getContextLayout } from 'utils-layout';
 	import { stateUi, AUTO_SPINS_TEXT_OPTIONS } from 'state-shared';
 	import { OptionsGrid } from 'components-shared';
 
 	import BaseIcon from './BaseIcon.svelte';
 	import BaseButtonContent from './BaseButtonContent.svelte';
 
-	const { stateLayoutDerived } = getContextLayout();
-	const AUTO_SPINS_TEXT_OPTIONS_PORTRAIT = AUTO_SPINS_TEXT_OPTIONS.filter(
-		(value) => value !== '1000',
-	);
-
-	const options = $derived(
-		stateLayoutDerived.layoutType() === 'landscape'
-			? AUTO_SPINS_TEXT_OPTIONS_PORTRAIT
-			: AUTO_SPINS_TEXT_OPTIONS,
-	);
+	const options = AUTO_SPINS_TEXT_OPTIONS;
 </script>
 
 <OptionsGrid

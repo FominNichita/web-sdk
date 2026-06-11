@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { blur } from 'svelte/transition';
-	import { onMount, type Snippet } from 'svelte';
+	import { onDestroy, onMount, type Snippet } from 'svelte';
 
 	import { waitForTimeout } from 'utils-shared/wait';
 
@@ -25,11 +25,23 @@
 	const closeModal = () => (props.persistent ? undefined : props.onclose());
 
 	let disabled = $state(true);
+	let previousBodyOverflow = '';
+	let previousDocumentOverflow = '';
 
 	onMount(async () => {
+		previousBodyOverflow = document.body.style.overflow;
+		previousDocumentOverflow = document.documentElement.style.overflow;
+		document.body.style.overflow = 'hidden';
+		document.documentElement.style.overflow = 'hidden';
+
 		await waitForTimeout(300);
 
 		disabled = false;
+	});
+
+	onDestroy(() => {
+		document.body.style.overflow = previousBodyOverflow;
+		document.documentElement.style.overflow = previousDocumentOverflow;
 	});
 </script>
 
@@ -74,6 +86,8 @@
 		top: 0;
 		bottom: 0;
 		right: 0;
+		overflow: hidden;
+		overscroll-behavior: contain;
 
 		display: flex !important;
 		justify-content: center;
