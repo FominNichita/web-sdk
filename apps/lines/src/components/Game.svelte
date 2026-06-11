@@ -4,10 +4,10 @@
 	import { EnablePixiExtension } from 'components-pixi';
 	import { EnableHotkey } from 'components-shared';
 	import { MainContainer } from 'components-layout';
-	import { App, Sprite, Text, REM } from 'pixi-svelte';
+	import { App, Sprite } from 'pixi-svelte';
 	import { stateModal } from 'state-shared';
 
-	import { UI, UiGameName } from 'components-ui-pixi';
+	import { UI } from 'components-ui-pixi';
 	import { GameVersion, Modals } from 'components-ui-html';
 
 	import { getContext } from '../game/context';
@@ -25,24 +25,27 @@
 	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
-	import I18nTest from './I18nTest.svelte';
 	import GlobalMultiplier from './GlobalMultiplier.svelte';
 	import GlobalMultiplierFrame from './GlobalMultiplierFrame.svelte';
+	import BoardClock from './BoardClock.svelte';
 
 	const context = getContext();
 
 	const VIDEO_BACKGROUND_URL = '/assets/video/background_LostTreasure/Animated%20BG.mp4';
 	const SAN_FONT_URL = '/assets/fonts/fontFormats/Sancreek-Regular.ttf';
+	const AGU_FONT_URL = '/assets/fonts/fontFormats/AguDisplay-Regular-VariableFont_MORF.ttf';
 
-	let sancreekFontLoaded = $state(false);
+	let gameFontsLoaded = $state(false);
 
 	onMount(() => (context.stateLayout.showLoadingScreen = true));
 	onMount(async () => {
 		const sancreekFont = new FontFace('Sancreek', `url("${SAN_FONT_URL}")`);
+		const aguFont = new FontFace('AguDisplay', `url("${AGU_FONT_URL}")`);
 
-		await sancreekFont.load();
+		await Promise.all([sancreekFont.load(), aguFont.load()]);
 		document.fonts.add(sancreekFont);
-		sancreekFontLoaded = true;
+		document.fonts.add(aguFont);
+		gameFontsLoaded = true;
 	});
 
 	context.eventEmitter.subscribeOnMount({
@@ -86,6 +89,9 @@
 
 				<MainContainer>
 					<BoardFrame />
+					{#if gameFontsLoaded}
+						<BoardClock />
+					{/if}
 				</MainContainer>
 
 				<MainContainer>
@@ -93,23 +99,11 @@
 					<Anticipations />
 				</MainContainer>
 
-				{#if sancreekFontLoaded}
+				{#if gameFontsLoaded}
 					<UI>
 						{#snippet gameName()}
-							<UiGameName name="LINES GAME" />
 						{/snippet}
 						{#snippet logo()}
-							<Text
-								anchor={{ x: 1, y: 0 }}
-								text="ADD YOUR LOGO"
-								style={{
-									fontFamily: 'proxima-nova',
-									fontSize: REM * 1.5,
-									fontWeight: '600',
-									lineHeight: REM * 2,
-									fill: 0xffffff,
-								}}
-							/>
 						{/snippet}
 						{#snippet footerBar({ width, height })}
 							<Sprite key="uiFooterBarBg" anchor={0.5} {width} {height} />
@@ -128,8 +122,6 @@
 
 				<FreeSpinOutro />
 				<Transition />
-
-				<I18nTest />
 			{/if}
 		</App>
 	</div>

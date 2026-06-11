@@ -24,9 +24,10 @@
 	const BALANCE_PANEL_HEIGHT = 88;
 	const BALANCE_TOP_MARGIN = 28;
 	const BALANCE_RIGHT_MARGIN = 28;
-	const MENU_OPTION_COUNT = 5;
+	const MENU_OPTION_COUNT = 4;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
+	const MENU_CLOSE_MARGIN = 72;
 
 	const DRAWER_Y = {
 		unfold: 0,
@@ -213,6 +214,13 @@
 
 	<MainContainer standard>
 		<Container
+			x={context.stateLayoutDerived.mainLayoutStandard().width - MENU_CLOSE_MARGIN}
+			y={MENU_CLOSE_MARGIN}
+		>
+			{@render props.buttonMenuClose({ anchor: 0.5 })}
+		</Container>
+
+		<Container
 			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
 			y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
 		>
@@ -230,10 +238,6 @@
 
 			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
 				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
-			</Container>
-
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
-				{@render props.buttonMenuClose({ anchor: 0.5 })}
 			</Container>
 		</Container>
 	</MainContainer>

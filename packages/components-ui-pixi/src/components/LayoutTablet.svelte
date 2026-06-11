@@ -38,9 +38,10 @@
 	const FOOTER_BAR_WIDTH = DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0);
 	const FOOTER_BAR_HEIGHT = 110;
 	const FOOTER_BAR_Y = FOOTER_BUTTON_Y - 10;
-	const MENU_OPTION_COUNT = 5;
+	const MENU_OPTION_COUNT = 4;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
+	const MENU_CLOSE_MARGIN = 72;
 </script>
 
 <Container x={20}>
@@ -155,6 +156,13 @@
 
 	<MainContainer standard>
 		<Container
+			x={context.stateLayoutDerived.mainLayoutStandard().width - MENU_CLOSE_MARGIN}
+			y={MENU_CLOSE_MARGIN}
+		>
+			{@render props.buttonMenuClose({ anchor: 0.5 })}
+		</Container>
+
+		<Container
 			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
 			y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
 		>
@@ -172,10 +180,6 @@
 
 			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
 				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
-			</Container>
-
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
-				{@render props.buttonMenuClose({ anchor: 0.5 })}
 			</Container>
 		</Container>
 	</MainContainer>

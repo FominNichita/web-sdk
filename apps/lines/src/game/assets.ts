@@ -166,6 +166,10 @@ export default {
 		type: 'sprite',
 		src: '/assets/sprites/buttons/menuButtonBG.png',
 	},
+	uiButtonExit: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/Exit.png',
+	},
 	uiSettingsPanelBg: {
 		type: 'sprite',
 		src: '/assets/sprites/panels/panelBG_elonged.png',

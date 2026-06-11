@@ -68,7 +68,7 @@
 		position: relative;
 		display: block;
 		width: 100%;
-		aspect-ratio: 329 / 34;
+		aspect-ratio: 329 / 14;
 		cursor: pointer;
 		touch-action: none;
 	}

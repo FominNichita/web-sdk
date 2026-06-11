@@ -24,8 +24,8 @@ export const MENU_OPTION_TEXT_MAX_WIDTH = MENU_OPTION_BUTTON_SIZES.width * 0.8;
 export const MENU_OPTION_TEXT_STYLE = {
 	fontFamily: 'Sancreek',
 	fontSize: 34,
-	fill: '#E4C5AA',
-	stroke: { color: '#000000', width: 3 },
+	fill: '#000000',
+	stroke: { color: '#E4C5AA', width: 2 },
 };
 
 // desktop

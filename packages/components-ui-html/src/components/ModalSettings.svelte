@@ -11,8 +11,8 @@
 
 {#if stateModal.modal?.name === 'settings'}
 	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
-		<BaseContent maxWidth="100%">
-			<div class="settings-modal">
+		<div class="settings-modal">
+			<BaseContent maxWidth="100%">
 				<BaseTitle>SOUND</BaseTitle>
 				<div class="settings-panel">
 					<div class="settings-rows">
@@ -29,8 +29,8 @@
 						</ModalSettingsSound>
 					</div>
 				</div>
-			</div>
-		</BaseContent>
+			</BaseContent>
+		</div>
 	</Popup>
 {/if}
 
@@ -47,9 +47,37 @@
 		:global(.ui-modal-title-wrap) {
 			font-size: clamp(2.4rem, 7vw, 4.8rem);
 			line-height: 1;
-			color: #989898;
-			text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
+			color: #e7a926;
+			background: linear-gradient(
+				180deg,
+				#e18d28 0%,
+				#fee17e 31%,
+				#f1b63d 66%,
+				#7b4d16 100%
+			);
+			background-clip: text;
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			-webkit-text-stroke: 1px #050505;
+			paint-order: stroke fill;
 		}
+	}
+
+	:global(.pop-up-wrap:has(.settings-modal) .close-button-wrap) {
+		top: 1.25rem;
+		right: 1.25rem;
+	}
+
+	:global(.pop-up-wrap:has(.settings-modal) .close-button) {
+		width: 2.025rem;
+		height: 2.025rem;
+		padding: 0;
+		border: 0;
+		background: url('/assets/sprites/buttons/Exit.png') center / contain no-repeat;
+		color: transparent;
+		font-size: 0;
+		line-height: 0;
+		filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.75));
 	}
 
 	.settings-panel {
