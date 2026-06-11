@@ -23,6 +23,7 @@
 	type Props = {
 		gameName: LayoutUiProps['gameName'];
 		logo: LayoutUiProps['logo'];
+		footerBar?: LayoutUiProps['footerBar'];
 	};
 
 	const props: Props = $props();

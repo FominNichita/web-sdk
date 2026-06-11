@@ -4,7 +4,7 @@
 	import { EnablePixiExtension } from 'components-pixi';
 	import { EnableHotkey } from 'components-shared';
 	import { MainContainer } from 'components-layout';
-	import { App, Text, REM } from 'pixi-svelte';
+	import { App, Sprite, Text, REM } from 'pixi-svelte';
 	import { stateModal } from 'state-shared';
 
 	import { UI, UiGameName } from 'components-ui-pixi';
@@ -110,6 +110,9 @@
 									fill: 0xffffff,
 								}}
 							/>
+						{/snippet}
+						{#snippet footerBar({ width, height })}
+							<Sprite key="uiFooterBarBg" anchor={0.5} {width} {height} />
 						{/snippet}
 					</UI>
 				{/if}

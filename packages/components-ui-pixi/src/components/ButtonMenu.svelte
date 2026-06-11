@@ -7,7 +7,7 @@
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const sizes = { width: 116, height: 72 };
+	const sizes = { width: 92, height: 58 };
 	const textStyle = {
 		fontFamily: 'Sancreek',
 		fill: '#E4C5AA',

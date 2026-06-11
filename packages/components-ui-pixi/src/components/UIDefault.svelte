@@ -24,10 +24,12 @@
 	import ButtonMenu from './ButtonMenu.svelte';
 	import ButtonMenuClose from './ButtonMenuClose.svelte';
 	import ButtonSoundSwitch from './ButtonSoundSwitch.svelte';
+	import type { FooterBarLayoutProps } from '../types';
 
 	type Props = {
 		gameName: Snippet;
 		logo: Snippet;
+		footerBar?: Snippet<[FooterBarLayoutProps]>;
 	};
 
 	const props: Props = $props();
@@ -54,6 +56,12 @@
 
 		{#snippet logo()}
 			{@render props.logo()}
+		{/snippet}
+
+		{#snippet footerBar(layoutProps)}
+			{#if props.footerBar}
+				{@render props.footerBar(layoutProps)}
+			{/if}
 		{/snippet}
 
 		{#snippet amountBalance(labelProps)}

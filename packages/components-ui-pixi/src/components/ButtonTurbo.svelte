@@ -7,8 +7,8 @@
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const sizes = { width: 150, height: 72 };
-	const textStyle = { fontFamily: 'Sancreek', fill: '#E4C5AA' };
+	const sizes = { width: 136, height: 60 };
+	const textStyle = { fontFamily: 'Sancreek', fill: '#111111' };
 	const active = $derived(stateBet.isTurbo);
 	const disabled = $derived(stateBet.isSpaceHold);
 

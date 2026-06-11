@@ -41,9 +41,15 @@ export type AmountLabelLayoutProps = {
 	height?: number;
 };
 
+export type FooterBarLayoutProps = {
+	width: number;
+	height: number;
+};
+
 export type LayoutUiProps = {
 	gameName: Snippet;
 	logo: Snippet;
+	footerBar?: Snippet<[FooterBarLayoutProps]>;
 	amountBalance: Snippet<[AmountLabelLayoutProps]>;
 	amountWin: Snippet<[AmountLabelLayoutProps]>;
 	amountBet: Snippet<[AmountLabelLayoutProps]>;

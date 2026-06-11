@@ -150,6 +150,10 @@ export default {
 		type: 'sprite',
 		src: '/assets/sprites/buttons/footerBG.png',
 	},
+	uiFooterBarBg: {
+		type: 'sprite',
+		src: '/assets/sprites/buttons/footerBG_Bar.png',
+	},
 	uiButtonMinus: {
 		type: 'sprite',
 		src: '/assets/sprites/buttons/Minus.png',

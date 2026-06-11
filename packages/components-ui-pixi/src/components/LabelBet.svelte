@@ -18,6 +18,10 @@
 	const context = getContext();
 	const label = $derived(stateBetDerived.activeBetMode()?.text.betAmountLabel || i18nDerived.bet());
 	const value = $derived(numberToCurrencyString(stateBetDerived.betCost()));
+	const valueStyle = {
+		...uiLabelTextStyles.bet,
+		fontSize: 32,
+	} as const;
 	const disabled = $derived(!context.stateXstateDerived.isIdle());
 
 	const onpress = () => {
@@ -34,9 +38,11 @@
 		{value}
 		assetKey="uiBetBg"
 		labelStyle={uiLabelTextStyles.bet}
-		valueStyle={uiLabelTextStyles.bet}
+		{valueStyle}
 		width={props.width}
 		height={props.height}
 		stacked={props.stacked}
+		stackedLabelYOffset={-13}
+		stackedValueYOffset={15}
 	/>
 </Container>

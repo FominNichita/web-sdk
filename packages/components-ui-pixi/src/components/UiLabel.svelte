@@ -11,6 +11,7 @@
 		},
 		win: {
 			fontFamily: 'Sancreek',
+			fontSize: 28,
 			fill: '#000000',
 			stroke: { color: GOLD_TEXT_FILL, width: 4 },
 		},
@@ -39,14 +40,24 @@
 		height?: number;
 		tiled?: boolean;
 		stacked?: boolean;
+		stackedLabelYOffset?: number;
+		stackedValueYOffset?: number;
 	};
 
 	const props: Props = $props();
 	const panelWidth = $derived(props.width ?? 320);
 	const panelHeight = $derived(props.height ?? 88);
-	const valueMaxWidth = $derived(panelWidth - 48);
+	const valueMaxWidth = $derived(panelWidth - 36);
+	const valueMaxHeight = $derived(panelHeight * 0.34);
 	let valueTextWidth = $state(0);
-	const valueScale = $derived(valueTextWidth > 0 ? Math.min(1, valueMaxWidth / valueTextWidth) : 1);
+	let valueTextHeight = $state(0);
+	const stackedLabelYOffset = $derived(props.stackedLabelYOffset ?? -panelHeight * 0.18);
+	const stackedValueYOffset = $derived(props.stackedValueYOffset ?? panelHeight * 0.18);
+	const valueScale = $derived.by(() => {
+		if (!valueTextWidth || !valueTextHeight) return 1;
+
+		return Math.min(1, valueMaxWidth / valueTextWidth, valueMaxHeight / valueTextHeight);
+	});
 
 	const labelStyle = {
 		fontFamily: 'proxima-nova',
@@ -73,13 +84,16 @@
 			borderRadius={20}
 		/>
 	{/if}
-	<Text anchor={0.5} text={props.label} style={labelStyle} y={-panelHeight * 0.18} />
-	<Container y={panelHeight * 0.18} scale={valueScale}>
+	<Text anchor={0.5} text={props.label} style={labelStyle} y={stackedLabelYOffset} />
+	<Container y={stackedValueYOffset} scale={valueScale}>
 		<Text
 			anchor={0.5}
 			text={props.value}
 			style={valueStyle}
-			onresize={({ width }) => (valueTextWidth = width)}
+			onresize={({ width, height }) => {
+				valueTextWidth = width;
+				valueTextHeight = height;
+			}}
 		/>
 	</Container>
 {:else}
@@ -98,7 +112,10 @@
 			anchor={{ x: 0, y: 0.5 }}
 			text={props.value}
 			style={valueStyle}
-			onresize={({ width }) => (valueTextWidth = width)}
+			onresize={({ width, height }) => {
+				valueTextWidth = width;
+				valueTextHeight = height;
+			}}
 		/>
 	</Container>
 {/if}

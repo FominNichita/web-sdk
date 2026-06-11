@@ -7,8 +7,8 @@
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const sizes = { width: 72, height: 72 };
-	const textStyle = { fontFamily: 'Sancreek', fill: '#E4C5AA' };
+	const sizes = { width: 65, height: 65 };
+	const textStyle = { fontFamily: 'Sancreek',fontSize: 50, fill: '#E4C5AA' };
 	const smallest = $derived(stateConfig.betAmountOptions[0]);
 	const disabled = $derived(
 		!context.stateXstateDerived.isIdle() || stateBet.betAmount === smallest,

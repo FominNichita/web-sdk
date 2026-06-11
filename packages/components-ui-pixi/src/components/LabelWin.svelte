@@ -18,6 +18,10 @@
 	const winBookEventAmountTween = new Tween(stateBet.winBookEventAmount);
 	const label = $derived(i18nDerived.win());
 	const value = $derived(bookEventAmountToCurrencyString(winBookEventAmountTween.current));
+	const valueStyle = {
+		...uiLabelTextStyles.win,
+		fontSize: 32,
+	} as const;
 
 	$effect(() => {
 		winBookEventAmountTween.set(stateBet.winBookEventAmount);
@@ -30,8 +34,10 @@
 	{value}
 	assetKey="uiWinBg"
 	labelStyle={uiLabelTextStyles.win}
-	valueStyle={uiLabelTextStyles.win}
+	{valueStyle}
 	width={props.width}
 	height={props.height}
 	stacked={props.stacked}
+	stackedLabelYOffset={-13}
+	stackedValueYOffset={15}
 />

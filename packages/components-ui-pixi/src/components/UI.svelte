@@ -3,12 +3,14 @@
 
 	import { stateUi } from 'state-shared';
 
+	import type { FooterBarLayoutProps } from '../types';
 	import UIDefault from './UIDefault.svelte';
 	import UIReplay from './UIReplay.svelte';
 
 	type Props = {
 		gameName: Snippet;
 		logo: Snippet;
+		footerBar?: Snippet<[FooterBarLayoutProps]>;
 	};
 
 	const props: Props = $props();
@@ -28,5 +30,11 @@
 
 	{#snippet logo()}
 		{@render props.logo()}
+	{/snippet}
+
+	{#snippet footerBar(layoutProps)}
+		{#if props.footerBar}
+			{@render props.footerBar(layoutProps)}
+		{/if}
 	{/snippet}
 </UIComponent>

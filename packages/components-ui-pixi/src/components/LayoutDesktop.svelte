@@ -22,18 +22,21 @@
 	const AMOUNT_PANEL_WIDTH = 320;
 	const AMOUNT_PANEL_HEIGHT = 88;
 	const WIN_BET_PANEL_CENTER_X = 900;
-	const WIN_BET_PANEL_Y = DESKTOP_BASE_SIZE * 0.5 - 220;
+	const WIN_BET_PANEL_Y = DESKTOP_BASE_SIZE * 0.5 - 120;
 	const WIN_BET_GAP = 24;
 	const WIN_BET_PANEL_OFFSET = AMOUNT_PANEL_WIDTH * 0.5 + WIN_BET_GAP * 0.5;
 	const FOOTER_BUTTON_Y = DESKTOP_BASE_SIZE * 0.5 + 16;
-	const FOOTER_LEFT_MENU_X = 170;
-	const FOOTER_LEFT_BUY_BONUS_X = 308;
-	const FOOTER_CENTER_X = 900;
-	const FOOTER_BUTTON_WIDTH = 150;
-	const FOOTER_BUTTON_GAP = 18;
+	const FOOTER_LEFT_MENU_X = 70;
+	const FOOTER_LEFT_BUY_BONUS_X = 208;
+	const FOOTER_CENTER_X = 880;
+	const FOOTER_BUTTON_WIDTH = 136;
+	const FOOTER_BUTTON_GAP = 44;
 	const FOOTER_CENTER_OFFSET = FOOTER_BUTTON_WIDTH + FOOTER_BUTTON_GAP;
 	const FOOTER_RIGHT_DECREASE_X = 1508;
 	const FOOTER_RIGHT_GAP = 88;
+	const FOOTER_BAR_WIDTH = DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0);
+	const FOOTER_BAR_HEIGHT = 140;
+	const FOOTER_BAR_Y = FOOTER_BUTTON_Y - 20;
 	const MENU_OPTION_COUNT = 5;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
@@ -74,6 +77,15 @@
 			},
 		})}
 	>
+		{#if props.footerBar}
+			<Container x={FOOTER_BAR_WIDTH * 0.5} y={FOOTER_BAR_Y}>
+				{@render props.footerBar({
+					width: FOOTER_BAR_WIDTH,
+					height: FOOTER_BAR_HEIGHT,
+				})}
+			</Container>
+		{/if}
+
 		<Container y={WIN_BET_PANEL_Y} x={WIN_BET_PANEL_CENTER_X - WIN_BET_PANEL_OFFSET}>
 			{@render props.amountWin({
 				stacked: true,

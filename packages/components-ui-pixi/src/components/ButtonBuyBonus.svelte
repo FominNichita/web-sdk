@@ -8,15 +8,17 @@
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const { stateXstateDerived, eventEmitter } = getContext();
-	const sizes = { width: 150, height: 72 };
+	const sizes = { width: 152, height: 58 };
 	const disabled = $derived(!stateXstateDerived.isIdle());
 	const active = $derived(stateBetDerived.activeBetMode()?.type === 'activate');
 	const label = $derived(active ? i18nDerived.disable() : i18nDerived.buyBonus());
 	const textStyle = {
-		fontFamily: 'Sancreek',
-		fill: '#E4C5AA',
-		stroke: { color: '#000000', width: 3 },
-	};
+	fontFamily: 'Sancreek',
+	fontSize: 28,
+	fill: '#E4C5AA',
+	stroke: { color: '#000000', width: 3 },
+	wordWrap: false,
+};
 
 	const openModal = () => (stateModal.modal = { name: 'buyBonus' });
 	const disableActiveBetMode = () => (stateBet.activeBetModeKey = 'BASE');

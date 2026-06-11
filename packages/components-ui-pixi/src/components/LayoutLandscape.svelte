@@ -29,11 +29,14 @@
 	const FOOTER_LEFT_MENU_X = 130;
 	const FOOTER_LEFT_BUY_BONUS_X = 268;
 	const FOOTER_CENTER_X = 910;
-	const FOOTER_BUTTON_WIDTH = 150;
-	const FOOTER_BUTTON_GAP = 18;
+	const FOOTER_BUTTON_WIDTH = 136;
+	const FOOTER_BUTTON_GAP = 24;
 	const FOOTER_CENTER_OFFSET = FOOTER_BUTTON_WIDTH + FOOTER_BUTTON_GAP;
 	const FOOTER_RIGHT_DECREASE_X = 1568;
 	const FOOTER_RIGHT_GAP = 88;
+	const FOOTER_BAR_WIDTH = LANDSCAPE_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0);
+	const FOOTER_BAR_HEIGHT = 110;
+	const FOOTER_BAR_Y = FOOTER_BUTTON_Y - 10;
 	const MENU_OPTION_COUNT = 5;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
@@ -74,6 +77,15 @@
 			},
 		})}
 	>
+		{#if props.footerBar}
+			<Container x={FOOTER_BAR_WIDTH * 0.5} y={FOOTER_BAR_Y}>
+				{@render props.footerBar({
+					width: FOOTER_BAR_WIDTH,
+					height: FOOTER_BAR_HEIGHT,
+				})}
+			</Container>
+		{/if}
+
 		<Container y={FOOTER_BUTTON_Y} x={FOOTER_LEFT_MENU_X}>
 			{@render props.buttonMenu({ anchor: 0.5 })}
 		</Container>
