@@ -32,18 +32,43 @@
 
 {#if stateModal.modal?.name === 'buyBonus'}
 	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
-		<BonusContentWrap maxListLength={Math.max(activateList.length, buyList.length)}>
-			{#snippet betAmount()}
-				<BetMenuAmountToggle />
-			{/snippet}
+		<div class="buy-bonus-modal-close-theme">
+			<BonusContentWrap maxListLength={Math.max(activateList.length, buyList.length)}>
+				{#snippet betAmount()}
+					<BetMenuAmountToggle />
+				{/snippet}
 
-			{#snippet bonusCardsActivate()}
-				<BonusCards list={activateList} />
-			{/snippet}
+				{#snippet bonusCardsActivate()}
+					<BonusCards list={activateList} />
+				{/snippet}
 
-			{#snippet bonusCardsBuy()}
-				<BonusCards list={buyList} />
-			{/snippet}
-		</BonusContentWrap>
+				{#snippet bonusCardsBuy()}
+					<BonusCards list={buyList} />
+				{/snippet}
+			</BonusContentWrap>
+		</div>
 	</Popup>
 {/if}
+
+<style lang="scss">
+	.buy-bonus-modal-close-theme {
+		display: contents;
+	}
+
+	:global(.pop-up-wrap:has(.buy-bonus-modal-close-theme) .close-button-wrap) {
+		top: 1.25rem;
+		right: 1.25rem;
+	}
+
+	:global(.pop-up-wrap:has(.buy-bonus-modal-close-theme) .close-button) {
+		width: 2.025rem;
+		height: 2.025rem;
+		padding: 0;
+		border: 0;
+		background: url('/assets/sprites/buttons/Exit.png') center / contain no-repeat;
+		color: transparent;
+		font-size: 0;
+		line-height: 0;
+		filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.75));
+	}
+</style>

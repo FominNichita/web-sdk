@@ -58,6 +58,8 @@
 
 <style lang="scss">
 	.toggle-wrap {
+		--bet-toggle-control-size: 4rem;
+
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -67,8 +69,18 @@
 	}
 
 	.step-button {
-		width: 4rem;
-		flex: 0 0 4rem;
+		width: var(--bet-toggle-control-size);
+		height: var(--bet-toggle-control-size);
+		flex: 0 0 var(--bet-toggle-control-size);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.step-button :global(.button) {
+		width: var(--bet-toggle-control-size);
+		height: var(--bet-toggle-control-size);
+		align-items: center;
 	}
 
 	.control-bg,
@@ -82,14 +94,14 @@
 	}
 
 	.control-bg {
-		width: 4rem;
-		height: 4rem;
+		width: var(--bet-toggle-control-size);
+		height: var(--bet-toggle-control-size);
 		background-image: url('/assets/sprites/panels/incrementBG_panel.png');
 	}
 
 	.amount-bg {
 		width: min(15rem, 56vw);
-		height: 4rem;
+		height: var(--bet-toggle-control-size);
 		padding: 0 1rem;
 		background-image: url('/assets/sprites/panels/currencyBG_panel.png');
 		box-sizing: border-box;

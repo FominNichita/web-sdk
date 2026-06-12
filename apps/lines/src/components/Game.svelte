@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	import { EnablePixiExtension } from 'components-pixi';
 	import { EnableHotkey } from 'components-shared';
@@ -32,10 +32,81 @@
 	const context = getContext();
 
 	const VIDEO_BACKGROUND_URL = '/assets/video/background_LostTreasure/Animated%20BG.mp4';
+	const VIDEO_BACKGROUND_CROSSFADE_SECONDS = 0.45;
+	const VIDEO_BACKGROUND_RESET_SECONDS = 0.08;
 	const SAN_FONT_URL = '/assets/fonts/fontFormats/Sancreek-Regular.ttf';
 	const AGU_FONT_URL = '/assets/fonts/fontFormats/AguDisplay-Regular-VariableFont_MORF.ttf';
 
 	let gameFontsLoaded = $state(false);
+	let activeBackgroundVideo = $state(0);
+	let backgroundVideoA: HTMLVideoElement;
+	let backgroundVideoB: HTMLVideoElement;
+	let backgroundLoopFrame = 0;
+	let backgroundCrossfadeTimeout = 0;
+	let isBackgroundCrossfading = false;
+
+	const getBackgroundVideos = () => [backgroundVideoA, backgroundVideoB].filter(Boolean);
+
+	const playBackgroundVideo = (video: HTMLVideoElement) => {
+		const playPromise = video.play();
+		if (playPromise) playPromise.catch(() => undefined);
+	};
+
+	const monitorBackgroundLoop = () => {
+		const videos = getBackgroundVideos();
+		const activeVideo = videos[activeBackgroundVideo];
+
+		if (
+			activeVideo &&
+			Number.isFinite(activeVideo.duration) &&
+			activeVideo.duration > VIDEO_BACKGROUND_CROSSFADE_SECONDS
+		) {
+			const remainingSeconds = activeVideo.duration - activeVideo.currentTime;
+
+			if (!isBackgroundCrossfading && remainingSeconds <= VIDEO_BACKGROUND_CROSSFADE_SECONDS) {
+				crossfadeBackgroundVideo();
+			}
+		}
+
+		backgroundLoopFrame = requestAnimationFrame(monitorBackgroundLoop);
+	};
+
+	const crossfadeBackgroundVideo = () => {
+		const videos = getBackgroundVideos();
+		if (videos.length < 2) return;
+
+		isBackgroundCrossfading = true;
+		const previousIndex = activeBackgroundVideo;
+		const nextIndex = previousIndex === 0 ? 1 : 0;
+		const previousVideo = videos[previousIndex];
+		const nextVideo = videos[nextIndex];
+
+		nextVideo.currentTime = VIDEO_BACKGROUND_RESET_SECONDS;
+		playBackgroundVideo(nextVideo);
+		activeBackgroundVideo = nextIndex;
+
+		backgroundCrossfadeTimeout = window.setTimeout(() => {
+			previousVideo.pause();
+			previousVideo.currentTime = VIDEO_BACKGROUND_RESET_SECONDS;
+			isBackgroundCrossfading = false;
+		}, VIDEO_BACKGROUND_CROSSFADE_SECONDS * 1000);
+	};
+
+	const startBackgroundLoop = () => {
+		const videos = getBackgroundVideos();
+		if (videos.length < 2 || videos.some((video) => video.readyState < HTMLMediaElement.HAVE_METADATA)) {
+			return;
+		}
+		if (backgroundLoopFrame) return;
+
+		for (const video of videos) {
+			video.currentTime = VIDEO_BACKGROUND_RESET_SECONDS;
+		}
+
+		activeBackgroundVideo = 0;
+		playBackgroundVideo(videos[0]);
+		backgroundLoopFrame = requestAnimationFrame(monitorBackgroundLoop);
+	};
 
 	onMount(() => (context.stateLayout.showLoadingScreen = true));
 	onMount(async () => {
@@ -53,17 +124,33 @@
 			stateModal.modal = { name: 'buyBonusConfirm' };
 		},
 	});
+
+	onDestroy(() => {
+		if (backgroundLoopFrame) cancelAnimationFrame(backgroundLoopFrame);
+		if (backgroundCrossfadeTimeout) clearTimeout(backgroundCrossfadeTimeout);
+	});
 </script>
 
 <div class="game-root">
 	<video
-		class="video-background"
+		bind:this={backgroundVideoA}
+		class={`video-background ${activeBackgroundVideo === 0 ? 'video-background--active' : ''}`}
 		src={VIDEO_BACKGROUND_URL}
 		autoplay
 		muted
-		loop
 		playsinline
 		preload="auto"
+		onloadedmetadata={startBackgroundLoop}
+	></video>
+
+	<video
+		bind:this={backgroundVideoB}
+		class={`video-background ${activeBackgroundVideo === 1 ? 'video-background--active' : ''}`}
+		src={VIDEO_BACKGROUND_URL}
+		muted
+		playsinline
+		preload="auto"
+		onloadedmetadata={startBackgroundLoop}
 	></video>
 
 	<div class="pixi-layer">
@@ -158,7 +245,13 @@
 		object-fit: contain;
 
 		z-index: 0;
+		opacity: 0;
 		pointer-events: none;
+		transition: opacity 450ms linear;
+	}
+
+	.video-background--active {
+		opacity: 1;
 	}
 
 	.pixi-layer {
