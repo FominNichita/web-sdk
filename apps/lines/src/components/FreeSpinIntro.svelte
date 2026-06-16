@@ -7,16 +7,28 @@
 
 <script lang="ts">
 	import { CanvasSizeRectangle } from 'components-layout';
-	import { stateUrlDerived } from 'state-shared';
 	import { FadeContainer } from 'components-pixi';
 	import { waitForResolve } from 'utils-shared/wait';
-	import { BitmapText, Sprite } from 'pixi-svelte';
+	import { BitmapText, Text } from 'pixi-svelte';
 
 	import { getContext } from '../game/context';
 	import PressToContinue from './PressToContinue.svelte';
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
 
 	const context = getContext();
+
+	// Pixi Text in this project does not reliably support fill arrays.
+	// Use a solid gold value instead of a gradient array.
+	const GOLD_TEXT_FILL = '#FEE17E';
+
+	const WHITE_TEXT_STYLE = {
+		fontFamily: 'KleeOne-SemiBold',
+		fill: '#ffffff',
+		stroke: {
+			color: '#343434',
+			width: 2,
+		},
+	} as const;
 
 	let show = $state(false);
 	let freeSpinsFromEvent = $state(0);
@@ -26,10 +38,6 @@
 		freeSpinIntroShow: () => (show = true),
 		freeSpinIntroHide: () => (show = false),
 		freeSpinIntroUpdate: async (emitterEvent) => {
-			// if (emitterEvent.extraSpins) {
-			// 	context.eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_fs_respins' });
-			// }
-			// freeSpinsFromEvent = emitterEvent.extraSpins ?? emitterEvent.totalFreeSpins;
 			freeSpinsFromEvent = emitterEvent.totalFreeSpins;
 			await waitForResolve((resolve) => (oncomplete = resolve));
 		},
@@ -41,11 +49,65 @@
 
 	<FreeSpinAnimation>
 		{#snippet children({ sizes })}
-			<Sprite
-				anchor={{ x: 0.5, y: 1.2 }}
-				width={500 * 2.2}
-				height={156 * 2.2}
-				key="freespins_{stateUrlDerived.lang()}.png"
+			<Text
+				x={0}
+				y={sizes.height * -1.1875 + 3}
+				anchor={{ x: 0.5, y: 0.5 }}
+				text="CONGRATULATIONS!"
+				style={{
+					fontFamily: 'Sancreek',
+					fontSize: sizes.width * 0.1640625,
+					fill: '#000000',
+					stroke: {
+						color: '#000000',
+						width: 1,
+					},
+				}}
+			/>
+
+			<Text
+				x={0}
+				y={sizes.height * -1.1875}
+				anchor={{ x: 0.5, y: 0.5 }}
+				text="CONGRATULATIONS!"
+				style={{
+					fontFamily: 'Sancreek',
+					fontSize: sizes.width * 0.1640625,
+					fill: GOLD_TEXT_FILL,
+					stroke: {
+						color: '#343434',
+						width: 1,
+					},
+					dropShadow: {
+						color: '#F1B63D',
+						alpha: 0.55,
+						blur: 4,
+						distance: 0,
+					},
+				}}
+			/>
+
+			<Text
+				x={0}
+				y={sizes.height * -0.58 + 3}
+				anchor={{ x: 0.5, y: 0.5 }}
+				text="YOU WON"
+				style={{
+					...WHITE_TEXT_STYLE,
+					fontSize: sizes.width * 0.135,
+					fill: '#000000',
+				}}
+			/>
+
+			<Text
+				x={0}
+				y={sizes.height * -0.58}
+				anchor={{ x: 0.5, y: 0.5 }}
+				text="YOU WON"
+				style={{
+					...WHITE_TEXT_STYLE,
+					fontSize: sizes.width * 0.135,
+				}}
 			/>
 
 			<BitmapText
@@ -58,7 +120,28 @@
 				}}
 			/>
 
-			<Sprite anchor={{ x: 0.5, y: -3 }} width={183 * 2.2} height={42 * 2.2} key="freespins.png" />
+			<Text
+				x={0}
+				y={sizes.height * 0.65 + 3}
+				anchor={{ x: 0.5, y: 0.5 }}
+				text="FREE SPINS"
+				style={{
+					...WHITE_TEXT_STYLE,
+					fontSize: sizes.width * 0.135,
+					fill: '#000000',
+				}}
+			/>
+
+			<Text
+				x={0}
+				y={sizes.height * 0.65}
+				anchor={{ x: 0.5, y: 0.5 }}
+				text="FREE SPINS"
+				style={{
+					...WHITE_TEXT_STYLE,
+					fontSize: sizes.width * 0.135,
+				}}
+			/>
 		{/snippet}
 	</FreeSpinAnimation>
 

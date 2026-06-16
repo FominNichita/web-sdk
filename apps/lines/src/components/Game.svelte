@@ -36,6 +36,7 @@
 	const VIDEO_BACKGROUND_RESET_SECONDS = 0.08;
 	const SAN_FONT_URL = '/assets/fonts/fontFormats/Sancreek-Regular.ttf';
 	const AGU_FONT_URL = '/assets/fonts/fontFormats/AguDisplay-Regular-VariableFont_MORF.ttf';
+	const KLEE_FONT_URL = '/assets/fonts/fontFormats/KleeOne-SemiBold.ttf';
 
 	let gameFontsLoaded = $state(false);
 	let activeBackgroundVideo = $state(0);
@@ -112,10 +113,12 @@
 	onMount(async () => {
 		const sancreekFont = new FontFace('Sancreek', `url("${SAN_FONT_URL}")`);
 		const aguFont = new FontFace('AguDisplay', `url("${AGU_FONT_URL}")`);
+		const kleeFont = new FontFace('KleeOne-SemiBold', `url("${KLEE_FONT_URL}")`);
 
-		await Promise.all([sancreekFont.load(), aguFont.load()]);
+		await Promise.all([sancreekFont.load(), aguFont.load(), kleeFont.load()]);
 		document.fonts.add(sancreekFont);
 		document.fonts.add(aguFont);
+		document.fonts.add(kleeFont);
 		gameFontsLoaded = true;
 	});
 

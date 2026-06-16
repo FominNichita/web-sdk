@@ -8,13 +8,12 @@
 </script>
 
 <script lang="ts">
-	import { Sprite, SpineProvider, SpineTrack, SpineSlot } from 'pixi-svelte';
+	import { Text, SpineProvider, SpineTrack, SpineSlot } from 'pixi-svelte';
 	import { FadeContainer, WinCountUpProvider, ResponsiveBitmapText } from 'components-pixi';
 	import { bookEventAmountToCurrencyString } from 'utils-shared/amount';
 	import { waitForResolve } from 'utils-shared/wait';
 	import { CanvasSizeRectangle } from 'components-layout';
 	import { OnMount } from 'components-shared';
-	import { stateUrlDerived } from 'state-shared';
 
 	import { getContext } from '../game/context';
 	import FreeSpinAnimation from './FreeSpinAnimation.svelte';
@@ -24,6 +23,11 @@
 	type AnimationName = 'intro' | 'idle';
 
 	const context = getContext();
+	const WHITE_TEXT_STYLE = {
+		fontFamily: 'KleeOne-SemiBold',
+		fill: '#ffffff',
+		stroke: { color: '#343434', width: 2 },
+	};
 
 	let show = $state(true);
 	let animationName = $state<AnimationName>('intro');
@@ -55,23 +59,29 @@
 
 				<FreeSpinAnimation>
 					{#snippet children({ sizes })}
-						{#if isBigWin}
-							<Sprite
-								anchor={{ x: 0.5, y: 1.2 }}
-								width={500 * 2.2}
-								height={156 * 2.2}
-								key="freespins_{stateUrlDerived.lang()}.png"
-							/>
-						{:else}
-							<Sprite
-								anchor={{ x: 0.5, y: 1.2 }}
-								width={500 * 4.5}
-								height={80 * 4.5}
-								key="winsmall_{stateUrlDerived.lang()}.png"
-							/>
-						{/if}
+						<Text
+							x={0}
+							y={sizes.height * -0.6 + 4}
+							anchor={{ x: 0.5, y: 0.5 }}
+							text="YOU WON"
+							style={{
+								...WHITE_TEXT_STYLE,
+								fontSize: sizes.width * (isBigWin ? 0.1575 : 0.18),
+								fill: '#000000',
+							}}
+						/>
+						<Text
+							x={0}
+							y={sizes.height * -0.6}
+							anchor={{ x: 0.5, y: 0.5 }}
+							text="YOU WON"
+							style={{
+								...WHITE_TEXT_STYLE,
+								fontSize: sizes.width * (isBigWin ? 0.1575 : 0.18),
+							}}
+						/>
 
-						<SpineProvider key="fsOutroNumber" width={sizes.width * 0.4}>
+						<SpineProvider key="fsOutroNumber" width={sizes.width * 0.4} y={sizes.height * -0.0625}>
 							<SpineTrack
 								trackIndex={0}
 								{animationName}
@@ -85,7 +95,7 @@
 									anchor={0.5}
 									style={{
 										fontFamily: 'gold',
-										fontSize: sizes.width * 0.08,
+										fontSize: sizes.width * 0.1,
 									}}
 									text={bookEventAmountToCurrencyString(countUpAmount)}
 									maxWidth={sizes.width}
@@ -93,11 +103,26 @@
 							</SpineSlot>
 						</SpineProvider>
 
-						<Sprite
-							anchor={{ x: 0.5, y: isBigWin ? -3.2 : -2 }}
-							width={177 * (isBigWin ? 2.2 : 3)}
-							height={42 * (isBigWin ? 2.2 : 3)}
-							key="totalwin.png"
+						<Text
+							x={0}
+							y={sizes.height * 0.58 + 4}
+							anchor={{ x: 0.5, y: 0.5 }}
+							text="TOTAL WIN"
+							style={{
+								...WHITE_TEXT_STYLE,
+								fontSize: sizes.width * (isBigWin ? 0.14625 : 0.16875),
+								fill: '#000000',
+							}}
+						/>
+						<Text
+							x={0}
+							y={sizes.height * 0.58}
+							anchor={{ x: 0.5, y: 0.5 }}
+							text="TOTAL WIN"
+							style={{
+								...WHITE_TEXT_STYLE,
+								fontSize: sizes.width * (isBigWin ? 0.14625 : 0.16875),
+							}}
 						/>
 					{/snippet}
 				</FreeSpinAnimation>
