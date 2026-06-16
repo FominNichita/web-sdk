@@ -65,7 +65,7 @@
 		height: 2.025rem;
 		padding: 0;
 		border: 0;
-		background: url('/assets/sprites/buttons/Exit.png') center / contain no-repeat;
+		background: var(--lines-ui-exit-button-url) center / contain no-repeat;
 		color: transparent;
 		font-size: 0;
 		line-height: 0;

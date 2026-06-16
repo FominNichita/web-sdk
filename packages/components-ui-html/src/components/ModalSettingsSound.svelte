@@ -16,14 +16,8 @@
 	</div>
 
 	<label class="slider" aria-label="Volume">
-		<img class="slider-empty" src="/assets/sprites/buttons/sliderEmpty.png" alt="" draggable="false" />
-		<img
-			class="slider-filled"
-			src="/assets/sprites/buttons/sliderFilled.png"
-			alt=""
-			draggable="false"
-			style={`clip-path: inset(0 ${fillInset} 0 0);`}
-		/>
+		<span class="slider-empty"></span>
+		<span class="slider-filled" style={`clip-path: inset(0 ${fillInset} 0 0);`}></span>
 		<input bind:value type="range" min="0" max="100" step="1" />
 	</label>
 
@@ -79,9 +73,19 @@
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		object-fit: fill;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 100% 100%;
 		pointer-events: none;
 		user-select: none;
+	}
+
+	.slider-empty {
+		background-image: var(--lines-ui-slider-empty-url);
+	}
+
+	.slider-filled {
+		background-image: var(--lines-ui-slider-filled-url);
 	}
 
 	input {

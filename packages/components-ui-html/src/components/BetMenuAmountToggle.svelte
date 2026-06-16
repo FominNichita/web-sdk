@@ -96,14 +96,14 @@
 	.control-bg {
 		width: var(--bet-toggle-control-size);
 		height: var(--bet-toggle-control-size);
-		background-image: url('/assets/sprites/panels/incrementBG_panel.png');
+		background-image: var(--lines-ui-increment-panel-url);
 	}
 
 	.amount-bg {
 		width: min(15rem, 56vw);
 		height: var(--bet-toggle-control-size);
 		padding: 0 1rem;
-		background-image: url('/assets/sprites/panels/currencyBG_panel.png');
+		background-image: var(--lines-ui-currency-panel-url);
 		box-sizing: border-box;
 	}
 

@@ -117,7 +117,7 @@
 		height: 2.6rem;
 		padding: 0 1rem;
 		margin: 0 auto;
-		background-image: url('/assets/sprites/panels/activateBG_panel.png');
+		background-image: var(--lines-ui-activate-panel-url);
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 100% 100%;

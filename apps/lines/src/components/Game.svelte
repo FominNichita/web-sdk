@@ -31,12 +31,31 @@
 
 	const context = getContext();
 
-	const VIDEO_BACKGROUND_URL = '/assets/video/background_LostTreasure/Animated%20BG.mp4';
+	const VIDEO_BACKGROUND_URL = new URL(
+		'../../assets/video/background_LostTreasure/Animated BG.mp4',
+		import.meta.url,
+	).href;
 	const VIDEO_BACKGROUND_CROSSFADE_SECONDS = 0.45;
 	const VIDEO_BACKGROUND_RESET_SECONDS = 0.08;
-	const SAN_FONT_URL = '/assets/fonts/fontFormats/Sancreek-Regular.ttf';
-	const AGU_FONT_URL = '/assets/fonts/fontFormats/AguDisplay-Regular-VariableFont_MORF.ttf';
-	const KLEE_FONT_URL = '/assets/fonts/fontFormats/KleeOne-SemiBold.ttf';
+	const SAN_FONT_URL = new URL('../../assets/fonts/fontFormats/Sancreek-Regular.ttf', import.meta.url)
+		.href;
+	const AGU_FONT_URL = new URL(
+		'../../assets/fonts/fontFormats/AguDisplay-Regular-VariableFont_MORF.ttf',
+		import.meta.url,
+	).href;
+	const KLEE_FONT_URL = new URL('../../assets/fonts/fontFormats/KleeOne-SemiBold.ttf', import.meta.url)
+		.href;
+	const UI_ASSET_URLS = {
+		exitButton: new URL('../../assets/sprites/buttons/Exit.png', import.meta.url).href,
+		menuButton: new URL('../../assets/sprites/buttons/menuButtonBG.png', import.meta.url).href,
+		activatePanel: new URL('../../assets/sprites/panels/activateBG_panel.png', import.meta.url).href,
+		activationPanel: new URL('../../assets/sprites/panels/activationBG_panel.png', import.meta.url).href,
+		incrementPanel: new URL('../../assets/sprites/panels/incrementBG_panel.png', import.meta.url).href,
+		currencyPanel: new URL('../../assets/sprites/panels/currencyBG_panel.png', import.meta.url).href,
+		settingsPanel: new URL('../../assets/sprites/panels/panelBG_elonged.png', import.meta.url).href,
+		sliderEmpty: new URL('../../assets/sprites/buttons/sliderEmpty.png', import.meta.url).href,
+		sliderFilled: new URL('../../assets/sprites/buttons/sliderFilled.png', import.meta.url).href,
+	};
 
 	let gameFontsLoaded = $state(false);
 	let activeBackgroundVideo = $state(0);
@@ -110,6 +129,18 @@
 	};
 
 	onMount(() => (context.stateLayout.showLoadingScreen = true));
+	onMount(() => {
+		const rootStyle = document.documentElement.style;
+		rootStyle.setProperty('--lines-ui-exit-button-url', `url("${UI_ASSET_URLS.exitButton}")`);
+		rootStyle.setProperty('--lines-ui-menu-button-url', `url("${UI_ASSET_URLS.menuButton}")`);
+		rootStyle.setProperty('--lines-ui-activate-panel-url', `url("${UI_ASSET_URLS.activatePanel}")`);
+		rootStyle.setProperty('--lines-ui-activation-panel-url', `url("${UI_ASSET_URLS.activationPanel}")`);
+		rootStyle.setProperty('--lines-ui-increment-panel-url', `url("${UI_ASSET_URLS.incrementPanel}")`);
+		rootStyle.setProperty('--lines-ui-currency-panel-url', `url("${UI_ASSET_URLS.currencyPanel}")`);
+		rootStyle.setProperty('--lines-ui-settings-panel-url', `url("${UI_ASSET_URLS.settingsPanel}")`);
+		rootStyle.setProperty('--lines-ui-slider-empty-url', `url("${UI_ASSET_URLS.sliderEmpty}")`);
+		rootStyle.setProperty('--lines-ui-slider-filled-url', `url("${UI_ASSET_URLS.sliderFilled}")`);
+	});
 	onMount(async () => {
 		const sancreekFont = new FontFace('Sancreek', `url("${SAN_FONT_URL}")`);
 		const aguFont = new FontFace('AguDisplay', `url("${AGU_FONT_URL}")`);

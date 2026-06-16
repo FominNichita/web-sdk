@@ -30,7 +30,7 @@
 		display: flex;
 		justify-content: space-between;
 
-		background-image: url('/assets/sprites/panels/activationBG_panel.png');
+		background-image: var(--lines-ui-activation-panel-url);
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 100% 100%;

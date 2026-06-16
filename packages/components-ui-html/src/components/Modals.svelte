@@ -35,7 +35,7 @@
 <style lang="scss">
 	@font-face {
 		font-family: 'Sancreek';
-		src: url('/assets/fonts/fontFormats/Sancreek-Regular.ttf') format('truetype');
+		src: url('../../../assets/fonts/fontFormats/Sancreek-Regular.ttf') format('truetype');
 		font-weight: 400;
 		font-style: normal;
 		font-display: swap;
@@ -43,7 +43,7 @@
 
 	@font-face {
 		font-family: 'KleeOne-SemiBold';
-		src: url('/assets/fonts/fontFormats/KleeOne-SemiBold.ttf') format('truetype');
+		src: url('../../../assets/fonts/fontFormats/KleeOne-SemiBold.ttf') format('truetype');
 		font-weight: 600;
 		font-style: normal;
 		font-display: swap;

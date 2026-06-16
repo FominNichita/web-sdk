@@ -17,7 +17,7 @@
 		height: 2.025rem;
 		padding: 0;
 		border: 0;
-		background: url('/assets/sprites/buttons/Exit.png') center / contain no-repeat;
+		background: var(--lines-ui-exit-button-url) center / contain no-repeat;
 		color: transparent;
 		font-size: 0;
 		line-height: 0;
@@ -87,7 +87,7 @@
 		height: 2.5rem;
 		border: 0 !important;
 		border-radius: 0;
-		background: url('/assets/sprites/panels/activateBG_panel.png') center / 100% 100% no-repeat;
+		background: var(--lines-ui-activate-panel-url) center / 100% 100% no-repeat;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
 	}
 
@@ -121,7 +121,7 @@
 
 	:global(.fantasy-modal .ui-modal-button-wrap .rectangle) {
 		height: 3rem;
-		background: url('/assets/sprites/buttons/menuButtonBG.png') center / 100% 100% no-repeat;
+		background: var(--lines-ui-menu-button-url) center / 100% 100% no-repeat;
 	}
 
 	:global(.fantasy-modal .ui-modal-button-wrap .base-button-content) {

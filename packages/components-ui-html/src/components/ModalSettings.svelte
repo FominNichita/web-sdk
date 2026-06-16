@@ -73,7 +73,7 @@
 		height: 2.025rem;
 		padding: 0;
 		border: 0;
-		background: url('/assets/sprites/buttons/Exit.png') center / contain no-repeat;
+		background: var(--lines-ui-exit-button-url) center / contain no-repeat;
 		color: transparent;
 		font-size: 0;
 		line-height: 0;
@@ -88,7 +88,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: clamp(2.2rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-		background-image: url('/assets/sprites/panels/panelBG_elonged.png');
+		background-image: var(--lines-ui-settings-panel-url);
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 100% 100%;

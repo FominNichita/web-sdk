@@ -128,75 +128,75 @@ export default {
 	},
 	uiBalanceBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/balanceBG.png',
+		src: new URL('../../assets/sprites/buttons/balanceBG.png', import.meta.url).href,
 	},
 	uiWinBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/winBG.png',
+		src: new URL('../../assets/sprites/buttons/winBG.png', import.meta.url).href,
 	},
 	uiBetBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/betBG.png',
+		src: new URL('../../assets/sprites/buttons/betBG.png', import.meta.url).href,
 	},
 	uiButtonMenuBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/violetBG.png',
+		src: new URL('../../assets/sprites/buttons/violetBG.png', import.meta.url).href,
 	},
 	uiButtonBuyBonusBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/brownBG.png',
+		src: new URL('../../assets/sprites/buttons/brownBG.png', import.meta.url).href,
 	},
 	uiButtonFooterBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/footerBG.png',
+		src: new URL('../../assets/sprites/buttons/footerBG.png', import.meta.url).href,
 	},
 	uiFooterBarBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/footerBG_Bar.png',
+		src: new URL('../../assets/sprites/buttons/footerBG_Bar.png', import.meta.url).href,
 	},
 	uiButtonMinus: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/Minus.png',
+		src: new URL('../../assets/sprites/buttons/Minus.png', import.meta.url).href,
 	},
 	uiButtonPlus: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/Plus.png',
+		src: new URL('../../assets/sprites/buttons/Plus.png', import.meta.url).href,
 	},
 	uiMenuOptionButtonBg: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/menuButtonBG.png',
+		src: new URL('../../assets/sprites/buttons/menuButtonBG.png', import.meta.url).href,
 	},
 	uiButtonExit: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/Exit.png',
+		src: new URL('../../assets/sprites/buttons/Exit.png', import.meta.url).href,
 	},
 	uiSettingsPanelBg: {
 		type: 'sprite',
-		src: '/assets/sprites/panels/panelBG_elonged.png',
+		src: new URL('../../assets/sprites/panels/panelBG_elonged.png', import.meta.url).href,
 	},
 	uiSettingsSliderEmpty: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/sliderEmpty.png',
+		src: new URL('../../assets/sprites/buttons/sliderEmpty.png', import.meta.url).href,
 	},
 	uiSettingsSliderFilled: {
 		type: 'sprite',
-		src: '/assets/sprites/buttons/sliderFilled.png',
+		src: new URL('../../assets/sprites/buttons/sliderFilled.png', import.meta.url).href,
 	},
 	buyBonusPanelIncrementBg: {
 		type: 'sprite',
-		src: '/assets/sprites/panels/incrementBG_panel.png',
+		src: new URL('../../assets/sprites/panels/incrementBG_panel.png', import.meta.url).href,
 	},
 	buyBonusPanelCurrencyBg: {
 		type: 'sprite',
-		src: '/assets/sprites/panels/currencyBG_panel.png',
+		src: new URL('../../assets/sprites/panels/currencyBG_panel.png', import.meta.url).href,
 	},
 	buyBonusPanelCardBg: {
 		type: 'sprite',
-		src: '/assets/sprites/panels/activationBG_panel.png',
+		src: new URL('../../assets/sprites/panels/activationBG_panel.png', import.meta.url).href,
 	},
 	buyBonusPanelActivateBg: {
 		type: 'sprite',
-		src: '/assets/sprites/panels/activateBG_panel.png',
+		src: new URL('../../assets/sprites/panels/activateBG_panel.png', import.meta.url).href,
 	},
 	anticipation: {
 		type: 'spine',
@@ -241,7 +241,7 @@ export default {
 	},
 	globalMultiplierFrame: {
 		type: 'spriteSheet',
-		src: '/assets/sprites/animationFrames/Skeletoncik.json',
+		src: new URL('../../assets/sprites/animationFrames/Skeletoncik.json', import.meta.url).href,
 	},
 	fsIntro: {
 		type: 'spine',
@@ -352,47 +352,47 @@ export default {
 	},
 	symbolStaticL1: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Symbol3.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Symbol3.png', import.meta.url).href,
 	},
 	symbolStaticL2: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Symbol1.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Symbol1.png', import.meta.url).href,
 	},
 	symbolStaticL3: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Symbol4.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Symbol4.png', import.meta.url).href,
 	},
 	symbolStaticL4: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Symbol2.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Symbol2.png', import.meta.url).href,
 	},
 	symbolStaticL5: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Ring.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Ring.png', import.meta.url).href,
 	},
 	symbolStaticS: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/FreeSpinSymbol.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/FreeSpinSymbol.png', import.meta.url).href,
 	},
 	symbolStaticW: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/CheryBoom.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/CheryBoom.png', import.meta.url).href,
 	},
 	symbolStaticH1: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Treasure1.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Treasure1.png', import.meta.url).href,
 	},
 	symbolStaticH2: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Treasure3.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Treasure3.png', import.meta.url).href,
 	},
 	symbolStaticH3: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Treasure2.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Treasure2.png', import.meta.url).href,
 	},
 	symbolStaticH4: {
 		type: 'sprite',
-		src: '/assets/sprites/symbolsStatic/Symbols/Treasure4.png',
+		src: new URL('../../assets/sprites/symbolsStatic/Symbols/Treasure4.png', import.meta.url).href,
 	},
 	coins: {
 		type: 'spriteSheet',
