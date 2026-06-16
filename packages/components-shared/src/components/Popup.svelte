@@ -23,6 +23,10 @@
 	};
 
 	const closeModal = () => (props.persistent ? undefined : props.onclose());
+	const closeModalFromBackdrop = (event: MouseEvent | KeyboardEvent) => {
+		if (event.target !== event.currentTarget) return;
+		closeModal();
+	};
 
 	let disabled = $state(true);
 	let previousBodyOverflow = '';
@@ -61,8 +65,8 @@
 		<div
 			tabindex={0}
 			class="click-to-close-layer"
-			onclick={closeModal}
-			onkeypress={closeModal}
+			onclick={closeModalFromBackdrop}
+			onkeypress={closeModalFromBackdrop}
 			role="button"
 			style="--zIndex: {zIndexInternal.clickToCloseLayer}"
 		></div>
@@ -72,7 +76,9 @@
 				<button class="close-button" data-test="close-button" onclick={closeModal}>×</button>
 			</div>
 		{/if}
-		{@render props.children()}
+		<div class="content-layer" style="--zIndex: {zIndexInternal.contentLayer}">
+			{@render props.children()}
+		</div>
 	</div>
 </div>
 
@@ -125,6 +131,15 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
+	}
+
+	.content-layer {
+		position: relative;
+		z-index: var(--zIndex);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.close-button-wrap {

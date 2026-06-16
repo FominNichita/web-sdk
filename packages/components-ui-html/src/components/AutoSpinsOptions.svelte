@@ -16,7 +16,7 @@
 	{#snippet option({ option })}
 		<BaseIcon
 			width="100%"
-			height="2rem"
+			height="2.5rem"
 			border={option === stateUi.autoSpinsText ? '2px white solid' : '2px black solid'}
 		/>
 		<BaseButtonContent>

@@ -153,7 +153,46 @@
 		width: min(34rem, 94vw);
 	}
 
+	:global(.fantasy-modal-auto-spin) {
+		width: min(34rem, 94vw);
+	}
+
 	:global(.fantasy-modal-bet .grid) {
 		width: min(33.75rem, 100%);
+	}
+
+	:global(.fantasy-modal-auto-spin .wrap) {
+		width: min(33.75rem, 100%);
+		min-width: 0;
+		flex: 0 0 auto;
+	}
+
+	:global(.fantasy-modal-auto-spin .content.column),
+	:global(.fantasy-modal-auto-spin .content-wrap) {
+		width: 100%;
+	}
+
+	:global(.fantasy-modal-auto-spin .grid) {
+		width: 100%;
+		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+		grid-auto-rows: 2.5rem;
+		align-items: center;
+	}
+
+	:global(.fantasy-modal-auto-spin .grid .button) {
+		width: 100%;
+		height: 2.5rem;
+		min-width: 0;
+	}
+
+	:global(.fantasy-modal-auto-spin .grid .rectangle) {
+		width: 100%;
+		height: 2.5rem !important;
+	}
+
+	:global(.fantasy-modal-auto-spin .advanced-panel) {
+		width: min(33.75rem, 100%);
+		flex: 0 0 auto;
+		box-sizing: border-box;
 	}
 </style>
