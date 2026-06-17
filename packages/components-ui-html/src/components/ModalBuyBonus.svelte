@@ -17,7 +17,7 @@
 	);
 
 	const buyList = $derived(
-		stateMetaDerived.betModeMetaList().filter((item) => item.type === 'buy'),
+		stateMetaDerived.betModeMetaList().filter((item) => item.type === 'buy' && item.mode !== 'SUPER'),
 	);
 
 	const COMPONENT_MAP = {

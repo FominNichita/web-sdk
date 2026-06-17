@@ -14,28 +14,33 @@
 
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
 
+	const selectedBetModeData = $derived(stateBonusDerived.selectedBetModeData());
+	const selectedBetModeSupported = $derived(stateBonus.selectedBetModeKey !== 'SUPER');
+
 	const confirm = () => {
+		if (!selectedBetModeData || !selectedBetModeSupported) return;
+
 		stateBet.activeBetModeKey = stateBonus.selectedBetModeKey;
 
-		if (stateBonusDerived.selectedBetModeData().type === 'buy') {
+		if (selectedBetModeData.type === 'buy') {
 			eventEmitter.broadcast({ type: 'bet' });
 		}
 
-		if (stateBonusDerived.selectedBetModeData().type === 'activate') {
+		if (selectedBetModeData.type === 'activate') {
 			stateUi.autoSpinsLossLimitText = INFINITY_MARK;
 			stateUi.autoSpinsSingleWinLimitText = INFINITY_MARK;
 		}
 	};
 </script>
 
-{#if stateModal.modal?.name === 'buyBonusConfirm'}
+{#if stateModal.modal?.name === 'buyBonusConfirm' && selectedBetModeData && selectedBetModeSupported}
 	<Popup zIndex={zIndex.dialog} onclose={() => (stateModal.modal = { name: 'buyBonus' })}>
 		<BaseContent maxWidth="500px">
 			<BaseTitle>
-				<span class="confirm-title">{stateBonusDerived.selectedBetModeData().text.title}</span>
+				<span class="confirm-title">{selectedBetModeData.text.title}</span>
 			</BaseTitle>
 			<BaseScrollable type="column">
-				<span class="confirm-dialog">{stateBonusDerived.selectedBetModeData().text.dialog}</span>
+				<span class="confirm-dialog">{selectedBetModeData.text.dialog}</span>
 			</BaseScrollable>
 			<BaseButtonWrap type="max-width">
 				<Button

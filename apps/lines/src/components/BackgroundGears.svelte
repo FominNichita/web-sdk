@@ -21,15 +21,22 @@
 		originY: number;
 	};
 
-	const gearBaseUrl = '/assets/sprites/gears';
+	const gearUrls = {
+		gear1: new URL('../../assets/sprites/gears/1.png', import.meta.url).href,
+		gear2: new URL('../../assets/sprites/gears/2.png', import.meta.url).href,
+		gear3: new URL('../../assets/sprites/gears/3.png', import.meta.url).href,
+		gear4: new URL('../../assets/sprites/gears/4.png', import.meta.url).href,
+		ropeA: new URL('../../assets/sprites/gears/a.png', import.meta.url).href,
+		ropeB: new URL('../../assets/sprites/gears/b.png', import.meta.url).href,
+	};
 
 	// Tune these percentages against the background video.
 	// x/y are the gear center positions inside a centered 16:9 stage; width is stage-relative.
 	const gears: GearConfig[] = [
-		{ src: `${gearBaseUrl}/1.png`, x: 80.8, y: 2.8, width: 15.2, duration: 21.6 },
-		{ src: `${gearBaseUrl}/2.png`, x: 92.4, y: 23.7, width: 35.2, duration: 38.4, reverse: true },
-		{ src: `${gearBaseUrl}/3.png`, x: 98.8, y: 62.4, width: 18.2, duration: 21.6, reverse: true },
-		{ src: `${gearBaseUrl}/4.png`, x: 100.2, y: 93.9, width: 37, duration: 40.8 },
+		{ src: gearUrls.gear1, x: 80.8, y: 2.8, width: 15.2, duration: 21.6 },
+		{ src: gearUrls.gear2, x: 92.4, y: 23.7, width: 35.2, duration: 38.4, reverse: true },
+		{ src: gearUrls.gear3, x: 98.8, y: 62.4, width: 18.2, duration: 21.6, reverse: true },
+		{ src: gearUrls.gear4, x: 100.2, y: 93.9, width: 37, duration: 40.8 },
 	];
 
 	// Tune these percentages against the background video.
@@ -37,7 +44,7 @@
 	// sway = side movement, twist = rotation degrees, duration = wind cycle seconds.
 	const ropes: RopeConfig[] = [
 		{
-			src: `${gearBaseUrl}/a.png`,
+			src: gearUrls.ropeA,
 			x: 96,
 			y: 17,
 			width: 30,
@@ -48,7 +55,7 @@
 			originY: 0,
 		},
 		{
-			src: `${gearBaseUrl}/b.png`,
+			src: gearUrls.ropeB,
 			x: 101,
 			y: 92,
 			width: 35.5,
