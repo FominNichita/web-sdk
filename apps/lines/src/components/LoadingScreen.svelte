@@ -15,6 +15,11 @@
 	const context = getContext();
 
 	let loadingType = $state<'start' | 'transition'>('start');
+
+	const PROGRESS_BAR_WIDTH = 390;
+	const PROGRESS_BAR_HEIGHT = PROGRESS_BAR_WIDTH * (86 / 600);
+	const PROGRESS_BAR_FILL_PADDING_X = PROGRESS_BAR_WIDTH * (12 / 600);
+	const PROGRESS_BAR_FILL_PADDING_Y = PROGRESS_BAR_HEIGHT * (12 / 86);
 </script>
 
 <!-- logo and loading progress -->
@@ -34,15 +39,20 @@
 				height={375}
 			/>
 			{#if !context.stateApp.loaded}
-				<LoadingProgress y={250} width={1967 * 0.2} height={346 * 0.2}>
+				<LoadingProgress y={250} width={PROGRESS_BAR_WIDTH} height={PROGRESS_BAR_HEIGHT}>
 					{#snippet background(sizes)}
-						<Sprite key="progressBarBackground.png" {...sizes} />
+						<Sprite key="loadingProgressBackground" {...sizes} />
 					{/snippet}
 					{#snippet progress(sizes)}
-						<Sprite key="progressBar.png" {...sizes} />
+						<Sprite
+							key="loadingProgressFill"
+							x={PROGRESS_BAR_FILL_PADDING_X}
+							y={PROGRESS_BAR_FILL_PADDING_Y}
+							width={sizes.width - PROGRESS_BAR_FILL_PADDING_X * 2}
+							height={sizes.height - PROGRESS_BAR_FILL_PADDING_Y * 2}
+						/>
 					{/snippet}
 					{#snippet frame(sizes)}
-						<Sprite key="progressBarFrame.png" {...sizes} />
 					{/snippet}
 				</LoadingProgress>
 			{/if}

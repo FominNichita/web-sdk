@@ -326,9 +326,14 @@ export default {
 			scale: 2,
 		},
 	},
-	progressBar: {
-		type: 'sprites',
-		src: new URL('../../assets/sprites/progressBar/progressBar.json', import.meta.url).href,
+	loadingProgressBackground: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/progressBar/Progress-Bar_BG.png', import.meta.url).href,
+		preload: true,
+	},
+	loadingProgressFill: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/progressBar/Progress-Bar.png', import.meta.url).href,
 		preload: true,
 	},
 	freeSpins: {
