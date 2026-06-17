@@ -9,12 +9,15 @@
 	const context = getContext();
 	const sizes = { width: 136, height: 60 };
 	const textStyle = { fontFamily: 'Sancreek', fill: '#111111' };
-	const active = $derived(stateBet.isTurbo);
+	let selected = $state(stateBet.isTurbo);
+	const active = $derived(selected);
+	const assetKey = $derived(active ? 'uiWinBg' : 'uiButtonFooterBg');
 	const disabled = $derived(stateBet.isSpaceHold);
 
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
-		stateBetDerived.updateIsTurbo(!stateBet.isTurbo, { persistent: true });
+		selected = !selected;
+		stateBetDerived.updateIsTurbo(selected, { persistent: true });
 	};
 
 	context.eventEmitter.subscribeOnMount({
@@ -30,6 +33,6 @@
 	{onpress}
 	{disabled}
 	icon="turbo"
-	assetKey="uiButtonFooterBg"
+	{assetKey}
 	{textStyle}
 />

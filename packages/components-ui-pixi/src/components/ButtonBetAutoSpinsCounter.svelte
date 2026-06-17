@@ -1,31 +1,28 @@
 <script lang="ts">
-	import { Text, Rectangle } from 'pixi-svelte';
+	import { Text } from 'pixi-svelte';
 	import { stateBet } from 'state-shared';
-	import { WHITE } from 'constants-shared/colors';
 
 	import { UI_BASE_SIZE } from '../constants';
 
 	const fontSizeMultiplier = $derived.by(() => {
-		if (stateBet.autoSpinsCounter === Infinity) return 3;
-		if (stateBet.autoSpinsCounter > 99) return 1.5;
-		if (stateBet.autoSpinsCounter > 9) return 2;
-		return 2.5;
+		if (stateBet.autoSpinsCounter === Infinity) return 1.8;
+		if (stateBet.autoSpinsCounter > 99) return 1.45;
+		if (stateBet.autoSpinsCounter > 9) return 1.8;
+		return 2.05;
 	});
+	const counterTextOffsetY = $derived(
+		stateBet.autoSpinsCounter === Infinity ? UI_BASE_SIZE * 0.05 : UI_BASE_SIZE * 0.02,
+	);
 </script>
 
 {#if stateBet.autoSpinsCounter > 0}
-	<Rectangle
-		anchor={0.5}
-		width={UI_BASE_SIZE * 0.9}
-		height={UI_BASE_SIZE * 0.9}
-		borderRadius={50}
-	/>
 	<Text
 		anchor={0.5}
+		y={counterTextOffsetY}
 		text={stateBet.autoSpinsCounter === Infinity ? '∞' : stateBet.autoSpinsCounter}
 		style={{
-			fontFamily: 'proxima-nova',
-			fill: WHITE,
+			fontFamily: 'Sancreek',
+			fill: '#111111',
 			fontWeight: 'bold',
 			fontSize: fontSizeMultiplier * UI_BASE_SIZE * 0.2,
 		}}

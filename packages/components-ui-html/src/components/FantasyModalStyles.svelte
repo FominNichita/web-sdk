@@ -190,6 +190,10 @@
 		height: 2.5rem !important;
 	}
 
+	:global(.fantasy-modal-auto-spin .grid .button:has(.auto-spin-option-selected) .rectangle) {
+		background: var(--lines-ui-activate-panel-hover-url) center / 100% 100% no-repeat;
+	}
+
 	:global(.fantasy-modal-auto-spin .advanced-panel) {
 		width: min(33.75rem, 100%);
 		flex: 0 0 auto;

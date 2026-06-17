@@ -33,6 +33,8 @@
 	{active}
 	{onpress}
 	{disabled}
+	dimDisabled={false}
+	hideText={active}
 	icon="autoSpin"
 	assetKey="uiButtonFooterBg"
 	{textStyle}

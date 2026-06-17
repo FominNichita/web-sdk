@@ -35,6 +35,7 @@
 		'../../assets/video/background_LostTreasure/Animated BG.mp4',
 		import.meta.url,
 	).href;
+	const LOGO_VIDEO_URL = '/assets/video/Logo.mov';
 	const VIDEO_BACKGROUND_CROSSFADE_SECONDS = 0.45;
 	const VIDEO_BACKGROUND_RESET_SECONDS = 0.08;
 	const SAN_FONT_URL = new URL('../../assets/fonts/fontFormats/Sancreek-Regular.ttf', import.meta.url)
@@ -49,6 +50,8 @@
 		exitButton: new URL('../../assets/sprites/buttons/Exit.png', import.meta.url).href,
 		menuButton: new URL('../../assets/sprites/buttons/menuButtonBG.png', import.meta.url).href,
 		activatePanel: new URL('../../assets/sprites/panels/activateBG_panel.png', import.meta.url).href,
+		activatePanelHover: new URL('../../assets/sprites/panels/activateBG_panel_HOVER.png', import.meta.url)
+			.href,
 		activationPanel: new URL('../../assets/sprites/panels/activationBG_panel.png', import.meta.url).href,
 		incrementPanel: new URL('../../assets/sprites/panels/incrementBG_panel.png', import.meta.url).href,
 		currencyPanel: new URL('../../assets/sprites/panels/currencyBG_panel.png', import.meta.url).href,
@@ -64,6 +67,7 @@
 	let backgroundLoopFrame = 0;
 	let backgroundCrossfadeTimeout = 0;
 	let isBackgroundCrossfading = false;
+	let showLoadingLogo = $state(true);
 
 	const getBackgroundVideos = () => [backgroundVideoA, backgroundVideoB].filter(Boolean);
 
@@ -128,12 +132,16 @@
 		backgroundLoopFrame = requestAnimationFrame(monitorBackgroundLoop);
 	};
 
-	onMount(() => (context.stateLayout.showLoadingScreen = true));
+	onMount(() => {
+		context.stateLayout.showLoadingScreen = true;
+		showLoadingLogo = true;
+	});
 	onMount(() => {
 		const rootStyle = document.documentElement.style;
 		rootStyle.setProperty('--lines-ui-exit-button-url', `url("${UI_ASSET_URLS.exitButton}")`);
 		rootStyle.setProperty('--lines-ui-menu-button-url', `url("${UI_ASSET_URLS.menuButton}")`);
 		rootStyle.setProperty('--lines-ui-activate-panel-url', `url("${UI_ASSET_URLS.activatePanel}")`);
+		rootStyle.setProperty('--lines-ui-activate-panel-hover-url', `url("${UI_ASSET_URLS.activatePanelHover}")`);
 		rootStyle.setProperty('--lines-ui-activation-panel-url', `url("${UI_ASSET_URLS.activationPanel}")`);
 		rootStyle.setProperty('--lines-ui-increment-panel-url', `url("${UI_ASSET_URLS.incrementPanel}")`);
 		rootStyle.setProperty('--lines-ui-currency-panel-url', `url("${UI_ASSET_URLS.currencyPanel}")`);
@@ -187,6 +195,18 @@
 		onloadedmetadata={startBackgroundLoop}
 	></video>
 
+	{#if context.stateLayout.showLoadingScreen && showLoadingLogo}
+		<video
+			class="loading-logo-video"
+			src={LOGO_VIDEO_URL}
+			autoplay
+			muted
+			loop
+			playsinline
+			preload="auto"
+		></video>
+	{/if}
+
 	<div class="pixi-layer">
 		<App>
 			<EnableSound />
@@ -197,7 +217,10 @@
 			<Background />
 
 			{#if context.stateLayout.showLoadingScreen}
-				<LoadingScreen onloaded={() => (context.stateLayout.showLoadingScreen = false)} />
+				<LoadingScreen
+					onstarttransition={() => (showLoadingLogo = false)}
+					onloaded={() => (context.stateLayout.showLoadingScreen = false)}
+				/>
 			{:else}
 				<ResumeBet />
 
@@ -286,6 +309,19 @@
 
 	.video-background--active {
 		opacity: 1;
+	}
+
+	.loading-logo-video {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 2;
+		width: min(300px, 46vw);
+		max-height: 42vh;
+		object-fit: contain;
+		opacity: 1;
+		pointer-events: none;
+		transform: translate(-50%, -50%);
 	}
 
 	.pixi-layer {

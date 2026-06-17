@@ -22,6 +22,9 @@
 			border={option === stateUi.autoSpinsLossLimitText ? '2px white solid' : '2px black solid'}
 		/>
 		<BaseButtonContent>
+			{#if option === stateUi.autoSpinsLossLimitText}
+				<span class="auto-spin-option-selected" aria-hidden="true"></span>
+			{/if}
 			<span
 				style="font-size: 1rem;"
 				class:infinity={option === '∞'}

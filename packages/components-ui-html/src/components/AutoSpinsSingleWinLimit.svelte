@@ -24,6 +24,9 @@
 				: '2px black solid'}
 		/>
 		<BaseButtonContent>
+			{#if option === stateUi.autoSpinsSingleWinLimitText}
+				<span class="auto-spin-option-selected" aria-hidden="true"></span>
+			{/if}
 			<span
 				style="font-size: 1rem;"
 				class:infinity={option === '∞'}

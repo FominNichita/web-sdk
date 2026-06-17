@@ -19,6 +19,8 @@
 		textMaxWidth?: number;
 		textStyle?: TextProps['style'];
 		variant?: 'dark' | 'light';
+		dimDisabled?: boolean;
+		activeTint?: SpriteProps['tint'];
 	};
 
 	const {
@@ -30,6 +32,8 @@
 		textMaxWidth,
 		textStyle,
 		variant = 'dark',
+		dimDisabled = true,
+		activeTint,
 		children: childrenFromParent,
 		...buttonProps
 	}: Props = $props();
@@ -65,7 +69,7 @@
 			{assetKey}
 			width={buttonProps.sizes.width}
 			height={buttonProps.sizes.height}
-			tint={buttonProps.disabled && assetKey ? 0x999999 : undefined}
+			tint={buttonProps.disabled && dimDisabled && assetKey ? 0x999999 : active ? activeTint : undefined}
 			backgroundColor={variant === 'dark' ? 0x000000 : 0xffffff}
 			{...buttonProps.disabled
 				? {
