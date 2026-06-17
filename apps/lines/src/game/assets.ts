@@ -14,6 +14,16 @@ export default {
 			.href,
 		preload: true,
 	},
+	loadingLogo: {
+		type: 'spriteSheet',
+		src: [
+			new URL('../../assets/video/LogoAttlas/sequence_600_0.json', import.meta.url).href,
+			new URL('../../assets/video/LogoAttlas/sequence_600_1.json', import.meta.url).href,
+			new URL('../../assets/video/LogoAttlas/sequence_600_2.json', import.meta.url).href,
+			new URL('../../assets/video/LogoAttlas/sequence_600_3.json', import.meta.url).href,
+		],
+		preload: true,
+	},
 	H1: {
 		type: 'spine',
 		src: {

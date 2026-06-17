@@ -35,7 +35,6 @@
 		'../../assets/video/background_LostTreasure/Animated BG.mp4',
 		import.meta.url,
 	).href;
-	const LOGO_VIDEO_URL = '/assets/video/Logo.mov';
 	const VIDEO_BACKGROUND_CROSSFADE_SECONDS = 0.45;
 	const VIDEO_BACKGROUND_RESET_SECONDS = 0.08;
 	const SAN_FONT_URL = new URL('../../assets/fonts/fontFormats/Sancreek-Regular.ttf', import.meta.url)
@@ -67,7 +66,6 @@
 	let backgroundLoopFrame = 0;
 	let backgroundCrossfadeTimeout = 0;
 	let isBackgroundCrossfading = false;
-	let showLoadingLogo = $state(true);
 
 	const getBackgroundVideos = () => [backgroundVideoA, backgroundVideoB].filter(Boolean);
 
@@ -134,7 +132,6 @@
 
 	onMount(() => {
 		context.stateLayout.showLoadingScreen = true;
-		showLoadingLogo = true;
 	});
 	onMount(() => {
 		const rootStyle = document.documentElement.style;
@@ -195,18 +192,6 @@
 		onloadedmetadata={startBackgroundLoop}
 	></video>
 
-	{#if context.stateLayout.showLoadingScreen && showLoadingLogo}
-		<video
-			class="loading-logo-video"
-			src={LOGO_VIDEO_URL}
-			autoplay
-			muted
-			loop
-			playsinline
-			preload="auto"
-		></video>
-	{/if}
-
 	<div class="pixi-layer">
 		<App>
 			<EnableSound />
@@ -217,10 +202,7 @@
 			<Background />
 
 			{#if context.stateLayout.showLoadingScreen}
-				<LoadingScreen
-					onstarttransition={() => (showLoadingLogo = false)}
-					onloaded={() => (context.stateLayout.showLoadingScreen = false)}
-				/>
+				<LoadingScreen onloaded={() => (context.stateLayout.showLoadingScreen = false)} />
 			{:else}
 				<ResumeBet />
 
@@ -309,19 +291,6 @@
 
 	.video-background--active {
 		opacity: 1;
-	}
-
-	.loading-logo-video {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		z-index: 2;
-		width: min(300px, 46vw);
-		max-height: 42vh;
-		object-fit: contain;
-		opacity: 1;
-		pointer-events: none;
-		transform: translate(-50%, -50%);
 	}
 
 	.pixi-layer {

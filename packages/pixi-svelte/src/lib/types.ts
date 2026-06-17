@@ -26,12 +26,16 @@ export type RawAudio = LoadedAudio<string>;
 export type RawSpine = PIXI.Dict<SPINE_PIXI.TextureAtlas | Uint8Array>;
 export type RawSprite = LoadedSprite;
 export type RawSprites = { textures: PIXI.Dict<LoadedSprite> };
-export type RawSpriteSheet = { textures: PIXI.Dict<LoadedSprite> };
-export type RawAsset = RawSpine | RawSprite | RawSprites | RawSpriteSheet | RawAudio;
+export type RawSpriteSheet = {
+	textures: PIXI.Dict<LoadedSprite>;
+	animations?: PIXI.Dict<LoadedSprite[]>;
+};
+export type RawSpriteSheets = PIXI.Dict<RawSpriteSheet> | RawSpriteSheet[];
+export type RawAsset = RawSpine | RawSprite | RawSprites | RawSpriteSheet | RawSpriteSheets | RawAudio;
 export type RawType = 'spine' | 'sprite' | 'sprites' | 'spriteSheet' | 'font' | 'audio';
 
 export type SpineSrc = { skeleton: string; atlas: string; scale?: number };
-export type Asset = { type: RawType; src: string | SpineSrc; preload?: boolean };
+export type Asset = { type: RawType; src: string | string[] | SpineSrc; preload?: boolean };
 export type Assets = PIXI.Dict<Asset>;
 
 export type ParticleSpawnOption =

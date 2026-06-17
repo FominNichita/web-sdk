@@ -1,0 +1,82 @@
+{
+  "frames": {
+    "PNG Sequences_00189.png": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 510,
+        "h": 411
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 45,
+        "y": 97,
+        "w": 510,
+        "h": 411
+      },
+      "sourceSize": {
+        "w": 600,
+        "h": 600
+      }
+    },
+    "PNG Sequences_00190.png": {
+      "frame": {
+        "x": 515,
+        "y": 1,
+        "w": 510,
+        "h": 411
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 45,
+        "y": 97,
+        "w": 510,
+        "h": 411
+      },
+      "sourceSize": {
+        "w": 600,
+        "h": 600
+      }
+    },
+    "PNG Sequences_00191.png": {
+      "frame": {
+        "x": 1029,
+        "y": 1,
+        "w": 510,
+        "h": 411
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 45,
+        "y": 97,
+        "w": 510,
+        "h": 411
+      },
+      "sourceSize": {
+        "w": 600,
+        "h": 600
+      }
+    }
+  },
+  "animations": {
+    "sequence": [
+      "PNG Sequences_00189.png",
+      "PNG Sequences_00190.png",
+      "PNG Sequences_00191.png"
+    ]
+  },
+  "meta": {
+    "app": "OpenAI Pixi atlas converter",
+    "version": "1.0",
+    "image": "sequence_600_3.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1542,
+      "h": 415
+    },
+    "scale": "1"
+  }
+}

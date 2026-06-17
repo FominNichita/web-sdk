@@ -13,7 +13,7 @@
 
 	const { key, ...animateSpriteProps }: Props = $props();
 	const textures = $derived(context.stateApp.loadedAssets?.[key] as LoadedSpriteSheet);
-	const isValid = $derived(textures && 'length' in textures);
+	const isValid = $derived(textures && textures.length > 0);
 </script>
 
 {#if !isValid}
@@ -21,4 +21,6 @@
 	{console.log('loadedAssets', $state.snapshot(context).stateApp.loadedAssets)}
 {/if}
 
-<AnimatedSprite {...animateSpriteProps} textures={isValid ? textures : []} />
+{#if isValid && textures}
+	<AnimatedSprite {...animateSpriteProps} textures={textures} />
+{/if}
