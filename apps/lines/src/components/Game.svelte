@@ -16,6 +16,7 @@
 	import ResumeBet from './ResumeBet.svelte';
 	import Sound from './Sound.svelte';
 	import Background from './Background.svelte';
+	import BackgroundGears from './BackgroundGears.svelte';
 	import LoadingScreen from './LoadingScreen.svelte';
 	import BoardFrame from './BoardFrame.svelte';
 	import Board from './Board.svelte';
@@ -192,6 +193,8 @@
 		onloadedmetadata={startBackgroundLoop}
 	></video>
 
+	<BackgroundGears />
+
 	<div class="pixi-layer">
 		<App>
 			<EnableSound />
@@ -296,7 +299,7 @@
 	.pixi-layer {
 		position: absolute;
 		inset: 0;
-		z-index: 1;
+		z-index: 2;
 		width: 100%;
 		height: 100%;
 	}
