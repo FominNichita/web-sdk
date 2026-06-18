@@ -39,7 +39,7 @@
 	const FOOTER_BAR_WIDTH = DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0);
 	const FOOTER_BAR_HEIGHT = 110;
 	const FOOTER_BAR_Y = FOOTER_BUTTON_Y - 10;
-	const MENU_OPTION_COUNT = 4;
+	const MENU_OPTION_COUNT = 3;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 	const MENU_CLOSE_MARGIN = 72;
@@ -172,14 +172,10 @@
 			</Container>
 
 			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
-				{@render props.buttonGameRules({ anchor: 0.5 })}
-			</Container>
-
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
 				{@render props.buttonSettings({ anchor: 0.5 })}
 			</Container>
 
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
 				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
 			</Container>
 		</Container>

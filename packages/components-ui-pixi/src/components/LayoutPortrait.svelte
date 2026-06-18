@@ -25,7 +25,7 @@
 	const BALANCE_PANEL_HEIGHT = 88;
 	const BALANCE_TOP_MARGIN = 28;
 	const BALANCE_RIGHT_MARGIN = 28;
-	const MENU_OPTION_COUNT = 4;
+	const MENU_OPTION_COUNT = 3;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 	const MENU_CLOSE_MARGIN = 72;
@@ -230,14 +230,10 @@
 			</Container>
 
 			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
-				{@render props.buttonGameRules({ anchor: 0.5 })}
-			</Container>
-
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
 				{@render props.buttonSettings({ anchor: 0.5 })}
 			</Container>
 
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
 				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
 			</Container>
 		</Container>

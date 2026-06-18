@@ -25,6 +25,7 @@
 	{sizes}
 	{onpress}
 	icon="payTable"
+	label="GAME INFO"
 	assetKey="uiMenuOptionButtonBg"
 	textStyle={MENU_OPTION_TEXT_STYLE}
 	textMaxWidth={MENU_OPTION_TEXT_MAX_WIDTH}

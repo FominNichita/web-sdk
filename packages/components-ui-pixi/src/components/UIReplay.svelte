@@ -5,7 +5,6 @@
 	import LabelWin from './LabelWin.svelte';
 	import LabelBet from './LabelBet.svelte';
 	import ButtonPayTable from './ButtonPayTable.svelte';
-	import ButtonGameRules from './ButtonGameRules.svelte';
 	import ButtonSettings from './ButtonSettings.svelte';
 	import ButtonTurbo from './ButtonTurbo.svelte';
 	import ButtonMenu from './ButtonMenu.svelte';
@@ -32,7 +31,7 @@
 
 	const props: Props = $props();
 	const context = getContext();
-	const MENU_OPTION_COUNT = 5;
+	const MENU_OPTION_COUNT = 4;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 </script>
@@ -112,18 +111,14 @@
 				</Container>
 
 				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
-					<ButtonGameRules anchor={0.5} />
-				</Container>
-
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
 					<ButtonSettings anchor={0.5} />
 				</Container>
 
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
 					<ButtonSoundSwitch anchor={0.5} />
 				</Container>
 
-				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 4}>
+				<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 3}>
 					<ButtonMenuClose anchor={0.5} />
 				</Container>
 			</Container>

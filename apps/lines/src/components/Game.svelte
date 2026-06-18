@@ -29,6 +29,7 @@
 	import GlobalMultiplier from './GlobalMultiplier.svelte';
 	import GlobalMultiplierFrame from './GlobalMultiplierFrame.svelte';
 	import BoardClock from './BoardClock.svelte';
+	import PaytableContent from './PaytableContent.svelte';
 
 	const context = getContext();
 
@@ -259,6 +260,12 @@
 <Modals>
 	{#snippet version()}
 		<GameVersion version="0.0.0" />
+	{/snippet}
+	{#snippet payTable()}
+		<PaytableContent initialTab="paytable" />
+	{/snippet}
+	{#snippet gameRules()}
+		<PaytableContent initialTab="features" />
 	{/snippet}
 </Modals>
 
