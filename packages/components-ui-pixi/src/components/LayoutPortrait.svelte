@@ -16,6 +16,7 @@
 	import {
 		MENU_OPTION_BUTTON_GAP,
 		MENU_OPTION_BUTTON_SIZES,
+		MENU_BACKDROP_ALPHA,
 	} from '../constants';
 
 	const props: LayoutUiProps = $props();
@@ -202,7 +203,7 @@
 	<Rectangle
 		eventMode="static"
 		cursor="pointer"
-		alpha={0.5}
+		alpha={MENU_BACKDROP_ALPHA}
 		anchor={0.5}
 		backgroundColor={BLACK}
 		width={context.stateLayoutDerived.canvasSizes().width}

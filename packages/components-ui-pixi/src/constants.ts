@@ -28,6 +28,8 @@ export const MENU_OPTION_TEXT_STYLE = {
 	stroke: { color: '#E4C5AA', width: 2 },
 };
 
+export const MENU_BACKDROP_ALPHA = 0.7;
+
 // desktop
 export const DESKTOP_BASE_SIZE = UI_BASE_SIZE * 0.9;
 

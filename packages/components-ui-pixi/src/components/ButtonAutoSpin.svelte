@@ -12,6 +12,7 @@
 	const sizes = { width: 146, height: 60 };
 	const textStyle = { fontFamily: 'Sancreek', fill: '#111111' };
 	const active = $derived(stateBetDerived.hasAutoBetCounter());
+	const assetKey = $derived(active ? 'uiWinBg' : 'uiButtonFooterBg');
 	const disabled = $derived.by(() => {
 		if (stateBet.isSpaceHold) return true;
 		if (!context.stateXstateDerived.isIdle() && !stateBetDerived.hasAutoBetCounter()) return true;
@@ -36,7 +37,7 @@
 	dimDisabled={false}
 	hideText={active}
 	icon="autoSpin"
-	assetKey="uiButtonFooterBg"
+	{assetKey}
 	{textStyle}
 >
 	<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>

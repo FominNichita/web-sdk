@@ -18,7 +18,11 @@
 	import { getContext } from '../context';
 	import type { LayoutUiProps } from '../types';
 	import LabelFreeSpinCounter from './LabelFreeSpinCounter.svelte';
-	import { MENU_OPTION_BUTTON_GAP, MENU_OPTION_BUTTON_SIZES } from '../constants';
+	import {
+		MENU_BACKDROP_ALPHA,
+		MENU_OPTION_BUTTON_GAP,
+		MENU_OPTION_BUTTON_SIZES,
+	} from '../constants';
 
 	type Props = {
 		gameName: LayoutUiProps['gameName'];
@@ -88,7 +92,7 @@
 		<Rectangle
 			eventMode="static"
 			cursor="pointer"
-			alpha={0.5}
+			alpha={MENU_BACKDROP_ALPHA}
 			anchor={0.5}
 			backgroundColor={BLACK}
 			width={context.stateLayoutDerived.canvasSizes().width}

@@ -2,7 +2,15 @@
 	import { onMount, type Snippet } from 'svelte';
 
 	import { requestAuthenticate, requestReplay } from 'rgs-requests';
-	import { stateUrlDerived, stateBet, stateConfig, stateModal, stateUi } from 'state-shared';
+	import {
+		stateUrlDerived,
+		stateBet,
+		stateConfig,
+		stateMeta,
+		stateModal,
+		stateUi,
+		type BetModeMeta,
+	} from 'state-shared';
 	import { API_AMOUNT_MULTIPLIER, MOST_USED_BET_INDEXES } from 'constants-shared/bet';
 
 	type Props = { children: Snippet };
@@ -66,6 +74,34 @@
 				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
 				);
+
+				if (authenticateData.config.betModes) {
+					const supportedBetModeMeta = Object.entries(
+						authenticateData.config.betModes,
+					).reduce<BetModeMeta>((result, [key, betMode]) => {
+						const normalisedKey = key.toUpperCase();
+						const displayMeta =
+							stateMeta.betModeMeta[normalisedKey] ?? stateMeta.betModeMeta[key];
+
+						if (!betMode || !displayMeta) return result;
+
+						result[normalisedKey] = {
+							...displayMeta,
+							mode: betMode.mode ?? normalisedKey,
+							costMultiplier: betMode.costMultiplier ?? displayMeta.costMultiplier,
+						};
+
+						return result;
+					}, {});
+
+					if (Object.keys(supportedBetModeMeta).length > 0) {
+						stateMeta.betModeMeta = supportedBetModeMeta;
+
+						if (!stateMeta.betModeMeta[stateBet.activeBetModeKey.toUpperCase()]) {
+							stateBet.activeBetModeKey = 'BASE';
+						}
+					}
+				}
 			}
 
 			// round

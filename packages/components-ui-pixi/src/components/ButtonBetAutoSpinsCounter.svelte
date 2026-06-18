@@ -10,15 +10,11 @@
 		if (stateBet.autoSpinsCounter > 9) return 1.8;
 		return 2.05;
 	});
-	const counterTextOffsetY = $derived(
-		stateBet.autoSpinsCounter === Infinity ? UI_BASE_SIZE * 0.05 : UI_BASE_SIZE * 0.02,
-	);
 </script>
 
 {#if stateBet.autoSpinsCounter > 0}
 	<Text
 		anchor={0.5}
-		y={counterTextOffsetY}
 		text={stateBet.autoSpinsCounter === Infinity ? '∞' : stateBet.autoSpinsCounter}
 		style={{
 			fontFamily: 'Sancreek',
