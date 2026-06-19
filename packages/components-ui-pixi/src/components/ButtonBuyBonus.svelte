@@ -5,20 +5,30 @@
 	import UiButton from './UiButton.svelte';
 	import { getContext } from '../context';
 	import { i18nDerived } from '../i18n/i18nDerived';
+	import { compactPortraitLayout } from '../compactPortraitLayout';
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
-	const { stateXstateDerived, eventEmitter } = getContext();
+	const context = getContext();
+	const { stateXstateDerived, eventEmitter } = context;
+	const compactPortrait = $derived(
+		context.stateLayoutDerived.layoutType() === 'portrait' &&
+			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
+	);
 	const sizes = { width: 152, height: 58 };
 	const disabled = $derived(!stateXstateDerived.isIdle());
 	const active = $derived(stateBetDerived.activeBetMode()?.type === 'activate');
 	const label = $derived(active ? i18nDerived.disable() : i18nDerived.buyBonus());
-	const textStyle = {
-	fontFamily: 'Sancreek',
-	fontSize: 28,
-	fill: '#E4C5AA',
-	stroke: { color: '#000000', width: 3 },
-	wordWrap: false,
-};
+	const textStyle = $derived({
+		fontFamily: 'Sancreek',
+		fontSize: compactPortrait
+			? compactPortraitLayout.text.buyBonusSize
+			: context.stateLayoutDerived.layoutType() === 'portrait'
+				? 34
+				: 28,
+		fill: '#E4C5AA',
+		stroke: { color: '#000000', width: 3 },
+		wordWrap: false,
+	});
 
 	const openModal = () => (stateModal.modal = { name: 'buyBonus' });
 	const disableActiveBetMode = () => (stateBet.activeBetModeKey = 'BASE');
@@ -42,5 +52,12 @@
 	icon="menu"
 	{label}
 	assetKey="uiButtonBuyBonusBg"
+	textMaxWidth={compactPortrait
+		? sizes.width * (1 - compactPortraitLayout.textPadding.buttonHorizontalRatio * 2)
+		: undefined}
+	textMaxHeight={compactPortrait
+		? sizes.height * (1 - compactPortraitLayout.textPadding.buttonVerticalRatio * 2)
+		: undefined}
+	minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}
 	{textStyle}
 />

@@ -95,7 +95,7 @@
 	.background-gears {
 		position: absolute;
 		inset: 0;
-		z-index: 1;
+		z-index: 3;
 		pointer-events: none;
 		overflow: hidden;
 	}

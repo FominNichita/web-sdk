@@ -13,6 +13,7 @@
 	import ButtonDrawer from './ButtonDrawer.svelte';
 	import type { LayoutUiProps } from '../types';
 	import { getContext } from '../context';
+	import { compactPortraitLayout } from '../compactPortraitLayout';
 	import {
 		MENU_OPTION_BUTTON_GAP,
 		MENU_OPTION_BUTTON_SIZES,
@@ -29,6 +30,22 @@
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 	const MENU_CLOSE_MARGIN = 72;
+	const compactPortrait = $derived(
+		context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
+	);
+	const PRIMARY_CONTROL_ROW_Y = 1320;
+	const SECONDARY_CONTROL_ROW_Y = 1470;
+	const CONTROL_SCALE = {
+		menu: 1.9,
+		autoSpin: 1.75,
+		bet: 1.8,
+		turbo: 1.8,
+		buyBonus: 1.65,
+	};
+	const MINIMUM_CONTROL_HIT_SIZE = 132;
+	const BET_ROW_Y = 1680;
+	const BET_STEP_X_OFFSET = 390;
+	const BET_STEP_SCALE = 2.05;
 
 	const DRAWER_Y = {
 		unfold: 0,
@@ -87,69 +104,151 @@
 	{@render props.logo()}
 </Container>
 
-<MainContainer standard alignHorizontal="right">
-	<Container
-		x={context.stateLayoutDerived.mainLayoutStandard().width -
-			BALANCE_PANEL_WIDTH * 0.5 -
-			BALANCE_RIGHT_MARGIN}
-		y={BALANCE_TOP_MARGIN + BALANCE_PANEL_HEIGHT * 0.5}
-	>
-		{@render props.amountBalance({
-			stacked: true,
-			width: BALANCE_PANEL_WIDTH,
-			height: BALANCE_PANEL_HEIGHT,
-		})}
-	</Container>
-</MainContainer>
+{#if !compactPortrait}
+	<MainContainer standard alignHorizontal="right">
+		<Container
+			x={context.stateLayoutDerived.mainLayoutStandard().width -
+				BALANCE_PANEL_WIDTH * 0.5 -
+				BALANCE_RIGHT_MARGIN}
+			y={BALANCE_TOP_MARGIN + BALANCE_PANEL_HEIGHT * 0.5}
+		>
+			{@render props.amountBalance({
+				stacked: true,
+				width: BALANCE_PANEL_WIDTH,
+				height: BALANCE_PANEL_HEIGHT,
+			})}
+		</Container>
+	</MainContainer>
+{/if}
+
+{#if compactPortrait}
+	<MainContainer standard>
+		<Container
+			x={compactPortraitLayout.menu.x}
+			y={compactPortraitLayout.menu.y}
+			scale={compactPortraitLayout.menu.scale}
+		>
+			{@render props.buttonMenu({
+				anchor: 0.5,
+				minimumHitSize: compactPortraitLayout.minimumControlHitSize,
+			})}
+		</Container>
+
+		<Container
+			x={compactPortraitLayout.buyBonus.x}
+			y={compactPortraitLayout.buyBonus.y}
+			scale={compactPortraitLayout.buyBonus.scale}
+		>
+			{@render props.buttonBuyBonus({
+				anchor: 0.5,
+				minimumHitSize: compactPortraitLayout.minimumControlHitSize,
+			})}
+		</Container>
+	</MainContainer>
+{/if}
 
 <MainContainer standard alignVertical="bottom">
 	<!-- drawer container -->
 	<Container y={drawerTween.current}>
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - 440}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 400}
-		>
-			{@render props.buttonMenu({ anchor: 0.5 })}
-		</Container>
+		{#if compactPortrait}
+			<Container
+				x={compactPortraitLayout.betAction.x}
+				y={compactPortraitLayout.betAction.y}
+				scale={compactPortraitLayout.betAction.scale}
+			>
+				{@render props.buttonBet({
+					anchor: 0.5,
+					minimumHitSize: compactPortraitLayout.minimumControlHitSize,
+				})}
+			</Container>
 
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 + 440}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 400}
-		>
-			{@render props.buttonBuyBonus({ anchor: 0.5 })}
-		</Container>
+			<Container
+				x={compactPortraitLayout.autoSpin.x}
+				y={compactPortraitLayout.autoSpin.y}
+				scale={compactPortraitLayout.autoSpin.scale}
+			>
+				{@render props.buttonAutoSpin({
+					anchor: 0.5,
+					minimumHitSize: compactPortraitLayout.minimumControlHitSize,
+				})}
+			</Container>
 
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 400}
-		>
-			{@render props.buttonBet({ anchor: 0.5 })}
-		</Container>
+			<Container
+				x={compactPortraitLayout.turbo.x}
+				y={compactPortraitLayout.turbo.y}
+				scale={compactPortraitLayout.turbo.scale}
+			>
+				{@render props.buttonTurbo({
+					anchor: 0.5,
+					minimumHitSize: compactPortraitLayout.minimumControlHitSize,
+				})}
+			</Container>
+		{:else}
+			<Container x={360} y={SECONDARY_CONTROL_ROW_Y} scale={CONTROL_SCALE.menu}>
+				{@render props.buttonMenu({ anchor: 0.5, minimumHitSize: MINIMUM_CONTROL_HIT_SIZE })}
+			</Container>
 
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - 180}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 400}
-		>
-			{@render props.buttonAutoSpin({ anchor: 0.5 })}
-		</Container>
+			<Container x={720} y={SECONDARY_CONTROL_ROW_Y} scale={CONTROL_SCALE.buyBonus}>
+				{@render props.buttonBuyBonus({
+					anchor: 0.5,
+					minimumHitSize: MINIMUM_CONTROL_HIT_SIZE,
+				})}
+			</Container>
 
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 + 180}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 400}
-		>
-			{@render props.buttonTurbo({ anchor: 0.5 })}
-		</Container>
+			<Container x={540} y={PRIMARY_CONTROL_ROW_Y} scale={CONTROL_SCALE.bet}>
+				{@render props.buttonBet({ anchor: 0.5, minimumHitSize: MINIMUM_CONTROL_HIT_SIZE })}
+			</Container>
 
+			<Container x={240} y={PRIMARY_CONTROL_ROW_Y} scale={CONTROL_SCALE.autoSpin}>
+				{@render props.buttonAutoSpin({
+					anchor: 0.5,
+					minimumHitSize: MINIMUM_CONTROL_HIT_SIZE,
+				})}
+			</Container>
+
+			<Container x={840} y={PRIMARY_CONTROL_ROW_Y} scale={CONTROL_SCALE.turbo}>
+				{@render props.buttonTurbo({ anchor: 0.5, minimumHitSize: MINIMUM_CONTROL_HIT_SIZE })}
+			</Container>
+		{/if}
 	</Container>
 
-	<Container y={Math.min(drawerTween.current, 350)}>
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 670}
-		>
-			{@render props.amountWin({ stacked: true })}
+	{#if compactPortrait}
+		<Container y={Math.min(drawerTween.current, 350)}>
+			<Container x={compactPortraitLayout.winPanel.x} y={compactPortraitLayout.winPanel.y}>
+				{@render props.amountWin({
+					stacked: true,
+					width: compactPortraitLayout.winPanel.width,
+					height: compactPortraitLayout.winPanel.height,
+					labelFontSize: compactPortraitLayout.text.winLabelSize,
+					valueFontSize: compactPortraitLayout.text.winValueSize,
+					horizontalPadding: compactPortraitLayout.textPadding.infoPanelHorizontal,
+					verticalPadding: compactPortraitLayout.textPadding.infoPanelVertical,
+					minimumTextScale: compactPortraitLayout.text.minimumScale,
+				})}
+			</Container>
+
+			<Container x={compactPortraitLayout.balancePanel.x} y={compactPortraitLayout.balancePanel.y}>
+				{@render props.amountBalance({
+					stacked: true,
+					width: compactPortraitLayout.balancePanel.width,
+					height: compactPortraitLayout.balancePanel.height,
+					valueFontSize: compactPortraitLayout.text.balanceValueSize,
+					horizontalPadding: compactPortraitLayout.textPadding.infoPanelHorizontal,
+					verticalPadding: compactPortraitLayout.textPadding.infoPanelVertical,
+					minimumTextScale: compactPortraitLayout.text.minimumScale,
+				})}
+			</Container>
 		</Container>
-	</Container>
+	{:else}
+		<Container y={Math.min(drawerTween.current, 350)}>
+			<Container
+				x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
+				y={context.stateLayoutDerived.mainLayoutStandard().height - 670}
+			>
+				{@render props.amountWin({ stacked: true })}
+			</Container>
+		</Container>
+	{/if}
 </MainContainer>
 
 <MainContainer standard alignVertical="bottom">
@@ -162,22 +261,43 @@
 		</Container>
 	{:else}
 		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 130}
+			x={compactPortrait
+				? compactPortraitLayout.selectedBetPanel.x
+				: context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
+			y={compactPortrait ? compactPortraitLayout.selectedBetPanel.y : BET_ROW_Y}
 		>
-			{@render props.amountBet({ stacked: true })}
+			{@render props.amountBet({
+				stacked: true,
+				width: compactPortrait ? compactPortraitLayout.selectedBetPanel.width : undefined,
+				height: compactPortrait ? compactPortraitLayout.selectedBetPanel.height : undefined,
+				labelFontSize: compactPortrait ? compactPortraitLayout.text.betDisplayLabelSize : undefined,
+				valueFontSize: compactPortrait ? compactPortraitLayout.text.betDisplayValueSize : undefined,
+				horizontalPadding: compactPortrait
+					? compactPortraitLayout.textPadding.betPanelHorizontal
+					: undefined,
+				verticalPadding: compactPortrait
+					? compactPortraitLayout.textPadding.betPanelVertical
+					: undefined,
+				minimumTextScale: compactPortrait ? compactPortraitLayout.text.minimumScale : undefined,
+			})}
 		</Container>
 
 		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - 390}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 85}
+			x={compactPortrait
+				? compactPortraitLayout.minusButton.x
+				: context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - BET_STEP_X_OFFSET}
+			y={compactPortrait ? compactPortraitLayout.minusButton.y : BET_ROW_Y}
+			scale={compactPortrait ? compactPortraitLayout.minusButton.scale : BET_STEP_SCALE}
 		>
 			{@render props.buttonDecrease({ anchor: 0.5 })}
 		</Container>
 
 		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5 + 390}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 85}
+			x={compactPortrait
+				? compactPortraitLayout.plusButton.x
+				: context.stateLayoutDerived.mainLayoutStandard().width * 0.5 + BET_STEP_X_OFFSET}
+			y={compactPortrait ? compactPortraitLayout.plusButton.y : BET_ROW_Y}
+			scale={compactPortrait ? compactPortraitLayout.plusButton.scale : BET_STEP_SCALE}
 		>
 			{@render props.buttonIncrease({ anchor: 0.5 })}
 		</Container>

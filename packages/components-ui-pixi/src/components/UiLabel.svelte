@@ -42,33 +42,56 @@
 		stacked?: boolean;
 		stackedLabelYOffset?: number;
 		stackedValueYOffset?: number;
+		labelFontSize?: number;
+		valueFontSize?: number;
+		horizontalPadding?: number;
+		verticalPadding?: number;
+		minimumTextScale?: number;
 	};
 
 	const props: Props = $props();
 	const panelWidth = $derived(props.width ?? 320);
 	const panelHeight = $derived(props.height ?? 88);
-	const valueMaxWidth = $derived(panelWidth - 36);
-	const valueMaxHeight = $derived(panelHeight * 0.34);
+	const horizontalPadding = $derived(props.horizontalPadding ?? 18);
+	const verticalPadding = $derived(props.verticalPadding ?? 12);
+	const minimumTextScale = $derived(props.minimumTextScale ?? 0.6);
+	const innerWidth = $derived(panelWidth - horizontalPadding * 2);
+	const innerHeight = $derived(panelHeight - verticalPadding * 2);
+	const hasLabel = $derived(Boolean(props.label));
+	const textAreaHeight = $derived(hasLabel ? innerHeight * 0.46 : innerHeight);
+	let labelTextWidth = $state(0);
+	let labelTextHeight = $state(0);
 	let valueTextWidth = $state(0);
 	let valueTextHeight = $state(0);
 	const stackedLabelYOffset = $derived(props.stackedLabelYOffset ?? -panelHeight * 0.18);
 	const stackedValueYOffset = $derived(props.stackedValueYOffset ?? panelHeight * 0.18);
+	const labelScale = $derived.by(() => {
+		if (!labelTextWidth || !labelTextHeight) return 1;
+
+		return Math.max(
+			minimumTextScale,
+			Math.min(1, innerWidth / labelTextWidth, textAreaHeight / labelTextHeight),
+		);
+	});
 	const valueScale = $derived.by(() => {
 		if (!valueTextWidth || !valueTextHeight) return 1;
 
-		return Math.min(1, valueMaxWidth / valueTextWidth, valueMaxHeight / valueTextHeight);
+		return Math.max(
+			minimumTextScale,
+			Math.min(1, innerWidth / valueTextWidth, textAreaHeight / valueTextHeight),
+		);
 	});
 
 	const labelStyle = {
 		fontFamily: 'proxima-nova',
-		fontSize: UI_BASE_FONT_SIZE * 0.62,
+		fontSize: props.labelFontSize ?? UI_BASE_FONT_SIZE * 0.62,
 		fill: WHITE,
 		...props.labelStyle,
 	} as const;
 
 	const valueStyle = {
 		fontFamily: 'proxima-nova',
-		fontSize: UI_BASE_FONT_SIZE * 0.76,
+		fontSize: props.valueFontSize ?? UI_BASE_FONT_SIZE * 0.76,
 		fill: WHITE,
 		...props.valueStyle,
 	} as const;
@@ -84,7 +107,17 @@
 			borderRadius={20}
 		/>
 	{/if}
-	<Text anchor={0.5} text={props.label} style={labelStyle} y={stackedLabelYOffset} />
+	<Container y={stackedLabelYOffset} scale={labelScale}>
+		<Text
+			anchor={0.5}
+			text={props.label}
+			style={labelStyle}
+			onresize={({ width, height }) => {
+				labelTextWidth = width;
+				labelTextHeight = height;
+			}}
+		/>
+	</Container>
 	<Container y={stackedValueYOffset} scale={valueScale}>
 		<Text
 			anchor={0.5}

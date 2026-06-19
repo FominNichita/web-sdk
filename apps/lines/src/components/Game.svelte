@@ -41,7 +41,8 @@
 
 		const bonusMode = stateMeta.betModeMeta[bonusKey];
 		const title = 'TRIGGER FREE SPIN';
-		const description = 'Purchase guaranteed direct entry into Free Spins for 100× your selected bet.';
+		const description =
+			'Purchase guaranteed direct entry into Free Spins for 100× your selected bet.';
 		const dialog =
 			'Starts the Free Spins feature directly. The triggering spin awards 8, 12, or 15 Free Spins from 3, 4, or 5 Scatters. During Free Spins, participating multiplier Wilds add their values on each winning line, and Scatter symbols can award additional spins.';
 
@@ -67,29 +68,41 @@
 	).href;
 	const VIDEO_BACKGROUND_CROSSFADE_SECONDS = 0.45;
 	const VIDEO_BACKGROUND_RESET_SECONDS = 0.08;
-	const SAN_FONT_URL = new URL('../../assets/fonts/fontFormats/Sancreek-Regular.ttf', import.meta.url)
-		.href;
+	const SAN_FONT_URL = new URL(
+		'../../assets/fonts/fontFormats/Sancreek-Regular.ttf',
+		import.meta.url,
+	).href;
 	const AGU_FONT_URL = new URL(
 		'../../assets/fonts/fontFormats/AguDisplay-Regular-VariableFont_MORF.ttf',
 		import.meta.url,
 	).href;
-	const KLEE_FONT_URL = new URL('../../assets/fonts/fontFormats/KleeOne-SemiBold.ttf', import.meta.url)
-		.href;
+	const KLEE_FONT_URL = new URL(
+		'../../assets/fonts/fontFormats/KleeOne-SemiBold.ttf',
+		import.meta.url,
+	).href;
 	const UI_ASSET_URLS = {
 		exitButton: new URL('../../assets/sprites/buttons/Exit.png', import.meta.url).href,
 		menuButton: new URL('../../assets/sprites/buttons/menuButtonBG.png', import.meta.url).href,
-		activatePanel: new URL('../../assets/sprites/panels/activateBG_panel.png', import.meta.url).href,
-		activatePanelHover: new URL('../../assets/sprites/panels/activateBG_panel_HOVER.png', import.meta.url)
+		activatePanel: new URL('../../assets/sprites/panels/activateBG_panel.png', import.meta.url)
 			.href,
-		activationPanel: new URL('../../assets/sprites/panels/activationBG_panel.png', import.meta.url).href,
-		incrementPanel: new URL('../../assets/sprites/panels/incrementBG_panel.png', import.meta.url).href,
-		currencyPanel: new URL('../../assets/sprites/panels/currencyBG_panel.png', import.meta.url).href,
+		activatePanelHover: new URL(
+			'../../assets/sprites/panels/activateBG_panel_HOVER.png',
+			import.meta.url,
+		).href,
+		activationPanel: new URL('../../assets/sprites/panels/activationBG_panel.png', import.meta.url)
+			.href,
+		incrementPanel: new URL('../../assets/sprites/panels/incrementBG_panel.png', import.meta.url)
+			.href,
+		currencyPanel: new URL('../../assets/sprites/panels/currencyBG_panel.png', import.meta.url)
+			.href,
 		settingsPanel: new URL('../../assets/sprites/panels/panelBG_elonged.png', import.meta.url).href,
 		sliderEmpty: new URL('../../assets/sprites/buttons/sliderEmpty.png', import.meta.url).href,
 		sliderFilled: new URL('../../assets/sprites/buttons/sliderFilled.png', import.meta.url).href,
 	};
 
 	let gameFontsLoaded = $state(false);
+	let backgroundBackdrop: HTMLCanvasElement;
+	let backgroundPoster: HTMLCanvasElement;
 	let activeBackgroundVideo = $state(0);
 	let backgroundVideoA: HTMLVideoElement;
 	let backgroundVideoB: HTMLVideoElement;
@@ -102,6 +115,22 @@
 	const playBackgroundVideo = (video: HTMLVideoElement) => {
 		const playPromise = video.play();
 		if (playPromise) playPromise.catch(() => undefined);
+	};
+
+	const updateBackgroundBackdrop = (video: HTMLVideoElement) => {
+		if (!backgroundBackdrop || !video.videoWidth || !video.videoHeight) return;
+
+		const maxBackdropWidth = 960;
+		const scale = Math.min(1, maxBackdropWidth / video.videoWidth);
+		const width = Math.round(video.videoWidth * scale);
+		const height = Math.round(video.videoHeight * scale);
+
+		for (const canvas of [backgroundBackdrop, backgroundPoster]) {
+			if (!canvas) continue;
+			canvas.width = width;
+			canvas.height = height;
+			canvas.getContext('2d', { alpha: false })?.drawImage(video, 0, 0, width, height);
+		}
 	};
 
 	const monitorBackgroundLoop = () => {
@@ -146,7 +175,10 @@
 
 	const startBackgroundLoop = () => {
 		const videos = getBackgroundVideos();
-		if (videos.length < 2 || videos.some((video) => video.readyState < HTMLMediaElement.HAVE_METADATA)) {
+		if (
+			videos.length < 2 ||
+			videos.some((video) => video.readyState < HTMLMediaElement.HAVE_METADATA)
+		) {
 			return;
 		}
 		if (backgroundLoopFrame) return;
@@ -157,6 +189,7 @@
 
 		activeBackgroundVideo = 0;
 		playBackgroundVideo(videos[0]);
+		updateBackgroundBackdrop(videos[0]);
 		backgroundLoopFrame = requestAnimationFrame(monitorBackgroundLoop);
 	};
 
@@ -168,9 +201,18 @@
 		rootStyle.setProperty('--lines-ui-exit-button-url', `url("${UI_ASSET_URLS.exitButton}")`);
 		rootStyle.setProperty('--lines-ui-menu-button-url', `url("${UI_ASSET_URLS.menuButton}")`);
 		rootStyle.setProperty('--lines-ui-activate-panel-url', `url("${UI_ASSET_URLS.activatePanel}")`);
-		rootStyle.setProperty('--lines-ui-activate-panel-hover-url', `url("${UI_ASSET_URLS.activatePanelHover}")`);
-		rootStyle.setProperty('--lines-ui-activation-panel-url', `url("${UI_ASSET_URLS.activationPanel}")`);
-		rootStyle.setProperty('--lines-ui-increment-panel-url', `url("${UI_ASSET_URLS.incrementPanel}")`);
+		rootStyle.setProperty(
+			'--lines-ui-activate-panel-hover-url',
+			`url("${UI_ASSET_URLS.activatePanelHover}")`,
+		);
+		rootStyle.setProperty(
+			'--lines-ui-activation-panel-url',
+			`url("${UI_ASSET_URLS.activationPanel}")`,
+		);
+		rootStyle.setProperty(
+			'--lines-ui-increment-panel-url',
+			`url("${UI_ASSET_URLS.incrementPanel}")`,
+		);
 		rootStyle.setProperty('--lines-ui-currency-panel-url', `url("${UI_ASSET_URLS.currencyPanel}")`);
 		rootStyle.setProperty('--lines-ui-settings-panel-url', `url("${UI_ASSET_URLS.settingsPanel}")`);
 		rootStyle.setProperty('--lines-ui-slider-empty-url', `url("${UI_ASSET_URLS.sliderEmpty}")`);
@@ -211,6 +253,10 @@
 </script>
 
 <div class="game-root">
+	<canvas bind:this={backgroundBackdrop} class="background-extension" aria-hidden="true"></canvas>
+	<div class="background-extension-shade" aria-hidden="true"></div>
+	<canvas bind:this={backgroundPoster} class="background-poster" aria-hidden="true"></canvas>
+
 	<video
 		bind:this={backgroundVideoA}
 		class={`video-background ${activeBackgroundVideo === 0 ? 'video-background--active' : ''}`}
@@ -220,6 +266,7 @@
 		playsinline
 		preload="auto"
 		onloadedmetadata={startBackgroundLoop}
+		onloadeddata={() => updateBackgroundBackdrop(backgroundVideoA)}
 	></video>
 
 	<video
@@ -230,6 +277,9 @@
 		playsinline
 		preload="auto"
 		onloadedmetadata={startBackgroundLoop}
+		onloadeddata={() => {
+			if (!backgroundVideoA?.videoWidth) updateBackgroundBackdrop(backgroundVideoB);
+		}}
 	></video>
 
 	<BackgroundGears />
@@ -269,10 +319,8 @@
 
 				{#if gameFontsLoaded}
 					<UI>
-						{#snippet gameName()}
-						{/snippet}
-						{#snippet logo()}
-						{/snippet}
+						{#snippet gameName()}{/snippet}
+						{#snippet logo()}{/snippet}
 						{#snippet footerBar({ width, height })}
 							<Sprite key="uiFooterBarBg" anchor={0.5} {width} {height} />
 						{/snippet}
@@ -311,8 +359,45 @@
 		width: 100vw;
 		height: 100vh;
 		overflow: hidden;
-		background: black;
+		background: #130d09;
 		isolation: isolate;
+	}
+
+	.background-extension,
+	.background-extension-shade,
+	.background-poster {
+		position: absolute;
+		inset: -2rem;
+		width: calc(100% + 4rem);
+		height: calc(100% + 4rem);
+		pointer-events: none;
+		opacity: 0;
+	}
+
+	.background-extension {
+		z-index: 0;
+		object-fit: cover;
+		filter: blur(18px) saturate(0.88) brightness(0.72);
+		transform: scale(1.08);
+	}
+
+	.background-extension-shade {
+		z-index: 1;
+		background: linear-gradient(
+			180deg,
+			rgba(8, 5, 3, 0.5) 0%,
+			rgba(15, 9, 5, 0.18) 28%,
+			rgba(15, 9, 5, 0.2) 68%,
+			rgba(5, 3, 2, 0.62) 100%
+		);
+	}
+
+	.background-poster {
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		object-fit: contain;
 	}
 
 	.video-background {
@@ -329,7 +414,7 @@
 		*/
 		object-fit: contain;
 
-		z-index: 0;
+		z-index: 2;
 		opacity: 0;
 		pointer-events: none;
 		transition: opacity 450ms linear;
@@ -339,10 +424,38 @@
 		opacity: 1;
 	}
 
+	@media (orientation: portrait) {
+		.background-extension {
+			opacity: 0.82;
+		}
+
+		.background-extension-shade {
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.video-background {
+			display: none;
+		}
+
+		.background-poster {
+			opacity: 1;
+		}
+
+		.background-extension {
+			opacity: 0.82;
+		}
+
+		.background-extension-shade {
+			opacity: 1;
+		}
+	}
+
 	.pixi-layer {
 		position: absolute;
 		inset: 0;
-		z-index: 2;
+		z-index: 4;
 		width: 100%;
 		height: 100%;
 	}

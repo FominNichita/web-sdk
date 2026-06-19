@@ -12,6 +12,11 @@
 		stacked?: boolean;
 		width?: number;
 		height?: number;
+		labelFontSize?: number;
+		valueFontSize?: number;
+		horizontalPadding?: number;
+		verticalPadding?: number;
+		minimumTextScale?: number;
 	};
 
 	const props: Props = $props();
@@ -20,7 +25,11 @@
 	const value = $derived(bookEventAmountToCurrencyString(winBookEventAmountTween.current));
 	const valueStyle = {
 		...uiLabelTextStyles.win,
-		fontSize: 32,
+		fontSize: props.valueFontSize ?? 32,
+	} as const;
+	const labelStyle = {
+		...uiLabelTextStyles.win,
+		fontSize: props.labelFontSize ?? 28,
 	} as const;
 
 	$effect(() => {
@@ -33,11 +42,16 @@
 	{label}
 	{value}
 	assetKey="uiWinBg"
-	labelStyle={uiLabelTextStyles.win}
+	{labelStyle}
 	{valueStyle}
 	width={props.width}
 	height={props.height}
+	labelFontSize={props.labelFontSize}
+	valueFontSize={props.valueFontSize}
+	horizontalPadding={props.horizontalPadding}
+	verticalPadding={props.verticalPadding}
+	minimumTextScale={props.minimumTextScale}
 	stacked={props.stacked}
-	stackedLabelYOffset={-13}
-	stackedValueYOffset={15}
+	stackedLabelYOffset={props.height ? -props.height * 0.23 : -13}
+	stackedValueYOffset={props.height ? props.height * 0.23 : 15}
 />

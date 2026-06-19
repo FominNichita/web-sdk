@@ -11,6 +11,11 @@
 		stacked?: boolean;
 		width?: number;
 		height?: number;
+		labelFontSize?: number;
+		valueFontSize?: number;
+		horizontalPadding?: number;
+		verticalPadding?: number;
+		minimumTextScale?: number;
 	};
 
 	const props: Props = $props();
@@ -18,7 +23,7 @@
 	const value = $derived(numberToCurrencyString(balanceTween.current));
 	const balanceValueStyle = {
 		...uiLabelTextStyles.balance,
-		fontSize: 38,
+		fontSize: props.valueFontSize ?? 38,
 	} as const;
 
 	$effect(() => {
@@ -35,6 +40,11 @@
 	valueStyle={balanceValueStyle}
 	width={props.width}
 	height={props.height}
+	labelFontSize={props.labelFontSize}
+	valueFontSize={props.valueFontSize}
+	horizontalPadding={props.horizontalPadding}
+	verticalPadding={props.verticalPadding}
+	minimumTextScale={props.minimumTextScale}
 	stacked={props.stacked}
 	stackedValueYOffset={0}
 />

@@ -12,6 +12,11 @@
 		stacked?: boolean;
 		width?: number;
 		height?: number;
+		labelFontSize?: number;
+		valueFontSize?: number;
+		horizontalPadding?: number;
+		verticalPadding?: number;
+		minimumTextScale?: number;
 	};
 
 	const props: Props = $props();
@@ -20,7 +25,11 @@
 	const value = $derived(numberToCurrencyString(stateBetDerived.betCost()));
 	const valueStyle = {
 		...uiLabelTextStyles.bet,
-		fontSize: 32,
+		fontSize: props.valueFontSize ?? 32,
+	} as const;
+	const labelStyle = {
+		...uiLabelTextStyles.bet,
+		fontSize: props.labelFontSize ?? 30,
 	} as const;
 	const disabled = $derived(!context.stateXstateDerived.isIdle());
 
@@ -37,12 +46,17 @@
 		{label}
 		{value}
 		assetKey="uiBetBg"
-		labelStyle={uiLabelTextStyles.bet}
+		{labelStyle}
 		{valueStyle}
 		width={props.width}
 		height={props.height}
+		labelFontSize={props.labelFontSize}
+		valueFontSize={props.valueFontSize}
+		horizontalPadding={props.horizontalPadding}
+		verticalPadding={props.verticalPadding}
+		minimumTextScale={props.minimumTextScale}
 		stacked={props.stacked}
-		stackedLabelYOffset={-13}
-		stackedValueYOffset={15}
+		stackedLabelYOffset={props.height ? -props.height * 0.23 : -13}
+		stackedValueYOffset={props.height ? props.height * 0.23 : 15}
 	/>
 </Container>

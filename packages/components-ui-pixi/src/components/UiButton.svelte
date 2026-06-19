@@ -7,6 +7,7 @@
 	import type { Snippet } from 'svelte';
 	import { i18nDerived } from '../i18n/i18nDerived';
 	import { UI_BASE_FONT_SIZE } from '../constants';
+	import { getContextLayout } from 'utils-layout';
 
 	type Props = Omit<ButtonProps, 'children'> & {
 		icon: ButtonIcon;
@@ -18,6 +19,8 @@
 		hideText?: boolean;
 		label?: string;
 		textMaxWidth?: number;
+		textMaxHeight?: number;
+		minimumTextScale?: number;
 		textStyle?: TextProps['style'];
 		variant?: 'dark' | 'light';
 		dimDisabled?: boolean;
@@ -32,6 +35,8 @@
 		hideText,
 		label,
 		textMaxWidth,
+		textMaxHeight,
+		minimumTextScale = 0.6,
 		textStyle,
 		variant = 'dark',
 		dimDisabled = true,
@@ -39,16 +44,20 @@
 		children: childrenFromParent,
 		...buttonProps
 	}: Props = $props();
+	const { stateLayoutDerived } = getContextLayout();
 
 	const text = $derived(label ?? i18nDerived[icon]());
 	const maxTextWidth = $derived(textMaxWidth ?? buttonProps.sizes.width * 0.72);
-	const maxTextHeight = $derived(buttonProps.sizes.height * 0.62);
+	const maxTextHeight = $derived(textMaxHeight ?? buttonProps.sizes.height * 0.62);
 	let textWidth = $state(0);
 	let textHeight = $state(0);
 	const textScale = $derived.by(() => {
 		if (!textWidth || !textHeight) return 1;
 
-		return Math.min(1, maxTextWidth / textWidth, maxTextHeight / textHeight);
+		return Math.max(
+			minimumTextScale,
+			Math.min(1, maxTextWidth / textWidth, maxTextHeight / textHeight),
+		);
 	});
 
 	const buttonTextStyle = $derived({
@@ -57,7 +66,10 @@
 		wordWrapWidth: maxTextWidth,
 		fontFamily: 'proxima-nova',
 		fontWeight: '600',
-		fontSize: Math.min(UI_BASE_FONT_SIZE * 0.75, buttonProps.sizes.height * 0.34),
+		fontSize: Math.min(
+			UI_BASE_FONT_SIZE * 0.75,
+			buttonProps.sizes.height * (stateLayoutDerived.layoutType() === 'portrait' ? 0.52 : 0.34),
+		),
 		fill: variant === 'dark' ? 0xffffff : 0x000000,
 		...textStyle,
 	});

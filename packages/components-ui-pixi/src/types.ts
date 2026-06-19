@@ -39,6 +39,11 @@ export type AmountLabelLayoutProps = {
 	stacked?: boolean;
 	width?: number;
 	height?: number;
+	labelFontSize?: number;
+	valueFontSize?: number;
+	horizontalPadding?: number;
+	verticalPadding?: number;
+	minimumTextScale?: number;
 };
 
 export type FooterBarLayoutProps = {

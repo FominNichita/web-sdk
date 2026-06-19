@@ -25,6 +25,7 @@
 		onpress: () => void;
 		disabled?: boolean;
 		anchor?: PixiPoint;
+		minimumHitSize?: number;
 		children: Snippet<
 			[
 				{
@@ -39,7 +40,16 @@
 </script>
 
 <script lang="ts">
-	const { children, sizes, anchor, disabled, onpress, debug, ...containerProps }: Props = $props();
+	const {
+		children,
+		sizes,
+		anchor,
+		disabled,
+		onpress,
+		debug,
+		minimumHitSize = 0,
+		...containerProps
+	}: Props = $props();
 	const center = $derived({
 		x: sizes.width * 0.5,
 		y: sizes.height * 0.5,
@@ -79,6 +89,15 @@
 		onpress();
 	}}
 >
+	{#if minimumHitSize > 0}
+		<Rectangle
+			x={(sizes.width - Math.max(sizes.width, minimumHitSize)) * 0.5}
+			y={(sizes.height - Math.max(sizes.height, minimumHitSize)) * 0.5}
+			width={Math.max(sizes.width, minimumHitSize)}
+			height={Math.max(sizes.height, minimumHitSize)}
+			alpha={0.001}
+		/>
+	{/if}
 	{#if debug}
 		<Rectangle
 			width={sizes.width}
