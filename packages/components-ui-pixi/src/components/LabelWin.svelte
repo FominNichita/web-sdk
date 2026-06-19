@@ -17,6 +17,16 @@
 		horizontalPadding?: number;
 		verticalPadding?: number;
 		minimumTextScale?: number;
+		labelOffsetX?: number;
+		labelOffsetY?: number;
+		valueOffsetX?: number;
+		valueOffsetY?: number;
+		labelMaxWidth?: number;
+		labelMaxHeight?: number;
+		valueMaxWidth?: number;
+		valueMaxHeight?: number;
+		valueMinimumTextScale?: number;
+		useBalanceValueStyle?: boolean;
 	};
 
 	const props: Props = $props();
@@ -24,7 +34,7 @@
 	const label = $derived(i18nDerived.win());
 	const value = $derived(bookEventAmountToCurrencyString(winBookEventAmountTween.current));
 	const valueStyle = {
-		...uiLabelTextStyles.win,
+		...(props.useBalanceValueStyle ? uiLabelTextStyles.balance : uiLabelTextStyles.win),
 		fontSize: props.valueFontSize ?? 32,
 	} as const;
 	const labelStyle = {
@@ -51,6 +61,15 @@
 	horizontalPadding={props.horizontalPadding}
 	verticalPadding={props.verticalPadding}
 	minimumTextScale={props.minimumTextScale}
+	labelOffsetX={props.labelOffsetX}
+	labelOffsetY={props.labelOffsetY}
+	valueOffsetX={props.valueOffsetX}
+	valueOffsetY={props.valueOffsetY}
+	labelMaxWidth={props.labelMaxWidth}
+	labelMaxHeight={props.labelMaxHeight}
+	valueMaxWidth={props.valueMaxWidth}
+	valueMaxHeight={props.valueMaxHeight}
+	valueMinimumTextScale={props.valueMinimumTextScale}
 	stacked={props.stacked}
 	stackedLabelYOffset={props.height ? -props.height * 0.23 : -13}
 	stackedValueYOffset={props.height ? props.height * 0.23 : 15}

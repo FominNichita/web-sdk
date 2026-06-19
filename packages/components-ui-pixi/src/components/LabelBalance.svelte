@@ -16,6 +16,16 @@
 		horizontalPadding?: number;
 		verticalPadding?: number;
 		minimumTextScale?: number;
+		labelOffsetX?: number;
+		labelOffsetY?: number;
+		valueOffsetX?: number;
+		valueOffsetY?: number;
+		labelMaxWidth?: number;
+		labelMaxHeight?: number;
+		valueMaxWidth?: number;
+		valueMaxHeight?: number;
+		valueMinimumTextScale?: number;
+		useBalanceValueStyle?: boolean;
 	};
 
 	const props: Props = $props();
@@ -45,6 +55,15 @@
 	horizontalPadding={props.horizontalPadding}
 	verticalPadding={props.verticalPadding}
 	minimumTextScale={props.minimumTextScale}
+	labelOffsetX={props.labelOffsetX}
+	labelOffsetY={props.labelOffsetY}
+	valueOffsetX={props.valueOffsetX}
+	valueOffsetY={props.valueOffsetY}
+	labelMaxWidth={props.labelMaxWidth}
+	labelMaxHeight={props.labelMaxHeight}
+	valueMaxWidth={props.valueMaxWidth}
+	valueMaxHeight={props.valueMaxHeight}
+	valueMinimumTextScale={props.valueMinimumTextScale}
 	stacked={props.stacked}
 	stackedValueYOffset={0}
 />

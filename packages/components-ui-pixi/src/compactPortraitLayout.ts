@@ -21,20 +21,30 @@ export const compactPortraitLayout = {
 		scale: 1.75,
 	},
 
-	betAction: {
-		x: 540,
+	/**
+	 * Increasing row.y moves the complete row downward.
+	 * Decreasing row.y moves the complete row upward.
+	 * Increasing gap separates the buttons; decreasing it moves them closer.
+	 */
+	greenControlRow: {
+		centerX: 540,
 		y: 1240,
-		scale: 2.3,
+		gap: 34,
 	},
 	autoSpin: {
-		x: 350,
-		y: 1385,
-		scale: 1.9,
+		width: 277.4,
+		height: 114,
+		offsetY: 0,
+	},
+	betAction: {
+		width: 312.8,
+		height: 138,
+		offsetY: 0,
 	},
 	turbo: {
-		x: 730,
-		y: 1385,
-		scale: 1.95,
+		width: 265.2,
+		height: 117,
+		offsetY: 0,
 	},
 
 	winPanel: {
@@ -68,24 +78,84 @@ export const compactPortraitLayout = {
 	},
 
 	text: {
-		winLabelSize: 42,
-		winValueSize: 58,
 		balanceValueSize: 58,
-		betDisplayLabelSize: 40,
-		betDisplayValueSize: 52,
-		betActionSize: 38,
 		menuSize: 26,
 		buyBonusSize: 26,
-		autoSpinSize: 30,
-		turboSize: 30,
 		minimumScale: 0.72,
 	},
 
+	/**
+	 * Panel font sizes are source Pixi font sizes in the 1080 x 1920 design
+	 * space. All three information panels share the same portrait parent scale,
+	 * so matching source sizes produces matching final visible sizes.
+	 *
+	 * Increasing offsetY moves text downward; decreasing it moves text upward.
+	 * Increasing a preferred source font size enlarges the normal value.
+	 * minimumSourceFontSize controls the preferred lower fitting limit.
+	 * Increasing padding reduces usable text space; decreasing it moves text
+	 * closer to the decorative frame.
+	 */
+	winPanelText: {
+		headingSourceFontSize: 42,
+		valuePreferredSourceFontSize: 58,
+		valueMinimumSourceFontSize: 40,
+		headingOffsetX: 0,
+		headingOffsetY: -30,
+		valueOffsetX: 0,
+		valueOffsetY: 18,
+		paddingLeft: 42,
+		paddingRight: 42,
+		paddingTop: 12,
+		paddingBottom: 12,
+		headingMaxHeight: 38,
+		valueMaxHeight: 72,
+	},
+	selectedBetPanelText: {
+		headingSourceFontSize: 40,
+		valuePreferredSourceFontSize: 58,
+		valueMinimumSourceFontSize: 38,
+		headingOffsetX: 0,
+		headingOffsetY: -28,
+		valueOffsetX: 0,
+		valueOffsetY: 17,
+		paddingLeft: 44,
+		paddingRight: 44,
+		paddingTop: 10,
+		paddingBottom: 10,
+		headingMaxHeight: 36,
+		valueMaxHeight: 68,
+	},
+
+	/**
+	 * Text offsets are anchor-relative Pixi logical coordinates.
+	 * Increasing offsetY moves a label downward; decreasing it moves it upward.
+	 */
+	autoSpinText: {
+		fontSize: 30,
+		lineHeight: 27,
+		offsetX: 0,
+		offsetY: 1,
+		horizontalPadding: 24,
+		verticalPadding: 10,
+	},
+	betActionText: {
+		fontSize: 38,
+		offsetX: 0,
+		offsetY: 1,
+		horizontalPadding: 25,
+		verticalPadding: 12,
+	},
+	turboText: {
+		fontSize: 30,
+		offsetX: 0,
+		offsetY: 1,
+		horizontalPadding: 23,
+		verticalPadding: 11,
+	},
+
 	textPadding: {
-		infoPanelHorizontal: 42,
-		infoPanelVertical: 18,
-		betPanelHorizontal: 44,
-		betPanelVertical: 16,
+		balancePanelHorizontal: 42,
+		balancePanelVertical: 18,
 		buttonHorizontalRatio: 0.18,
 		buttonVerticalRatio: 0.18,
 	},

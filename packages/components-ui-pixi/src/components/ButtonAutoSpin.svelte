@@ -17,7 +17,13 @@
 	const sizes = { width: 146, height: 60 };
 	const textStyle = $derived({
 		fontFamily: 'Sancreek',
-		...(compactPortrait ? { fontSize: compactPortraitLayout.text.autoSpinSize } : {}),
+		...(compactPortrait
+			? {
+					fontSize: compactPortraitLayout.autoSpinText.fontSize,
+					lineHeight: compactPortraitLayout.autoSpinText.lineHeight,
+					align: 'center' as const,
+				}
+			: {}),
 		fill: '#111111',
 	});
 	const active = $derived(stateBetDerived.hasAutoBetCounter());
@@ -46,14 +52,17 @@
 	dimDisabled={false}
 	hideText={active}
 	icon="autoSpin"
+	label={compactPortrait ? 'AUTO\nSPIN' : undefined}
 	{assetKey}
 	textMaxWidth={compactPortrait
-		? sizes.width * (1 - compactPortraitLayout.textPadding.buttonHorizontalRatio * 2)
+		? sizes.width - compactPortraitLayout.autoSpinText.horizontalPadding * 2
 		: undefined}
 	textMaxHeight={compactPortrait
-		? sizes.height * (1 - compactPortraitLayout.textPadding.buttonVerticalRatio * 2)
+		? sizes.height - compactPortraitLayout.autoSpinText.verticalPadding * 2
 		: undefined}
 	minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}
+	textOffsetX={compactPortrait ? compactPortraitLayout.autoSpinText.offsetX : undefined}
+	textOffsetY={compactPortrait ? compactPortraitLayout.autoSpinText.offsetY : undefined}
 	{textStyle}
 >
 	<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>

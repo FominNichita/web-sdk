@@ -47,6 +47,15 @@
 		horizontalPadding?: number;
 		verticalPadding?: number;
 		minimumTextScale?: number;
+		labelOffsetX?: number;
+		labelOffsetY?: number;
+		valueOffsetX?: number;
+		valueOffsetY?: number;
+		labelMaxWidth?: number;
+		labelMaxHeight?: number;
+		valueMaxWidth?: number;
+		valueMaxHeight?: number;
+		valueMinimumTextScale?: number;
 	};
 
 	const props: Props = $props();
@@ -59,6 +68,11 @@
 	const innerHeight = $derived(panelHeight - verticalPadding * 2);
 	const hasLabel = $derived(Boolean(props.label));
 	const textAreaHeight = $derived(hasLabel ? innerHeight * 0.46 : innerHeight);
+	const labelMaxWidth = $derived(props.labelMaxWidth ?? innerWidth);
+	const labelMaxHeight = $derived(props.labelMaxHeight ?? textAreaHeight);
+	const valueMaxWidth = $derived(props.valueMaxWidth ?? innerWidth);
+	const valueMaxHeight = $derived(props.valueMaxHeight ?? textAreaHeight);
+	const valueMinimumTextScale = $derived(props.valueMinimumTextScale ?? minimumTextScale);
 	let labelTextWidth = $state(0);
 	let labelTextHeight = $state(0);
 	let valueTextWidth = $state(0);
@@ -70,16 +84,16 @@
 
 		return Math.max(
 			minimumTextScale,
-			Math.min(1, innerWidth / labelTextWidth, textAreaHeight / labelTextHeight),
+			Math.min(1, labelMaxWidth / labelTextWidth, labelMaxHeight / labelTextHeight),
 		);
 	});
 	const valueScale = $derived.by(() => {
 		if (!valueTextWidth || !valueTextHeight) return 1;
 
-		return Math.max(
-			minimumTextScale,
-			Math.min(1, innerWidth / valueTextWidth, textAreaHeight / valueTextHeight),
-		);
+		const fitScale = Math.min(1, valueMaxWidth / valueTextWidth, valueMaxHeight / valueTextHeight);
+
+		// The configured minimum is preferred, but border safety wins if a value is unusually long.
+		return fitScale < valueMinimumTextScale ? fitScale : Math.max(valueMinimumTextScale, fitScale);
 	});
 
 	const labelStyle = {
@@ -107,7 +121,11 @@
 			borderRadius={20}
 		/>
 	{/if}
-	<Container y={stackedLabelYOffset} scale={labelScale}>
+	<Container
+		x={Math.round(props.labelOffsetX ?? 0)}
+		y={Math.round(props.labelOffsetY ?? stackedLabelYOffset)}
+		scale={labelScale}
+	>
 		<Text
 			anchor={0.5}
 			text={props.label}
@@ -118,7 +136,11 @@
 			}}
 		/>
 	</Container>
-	<Container y={stackedValueYOffset} scale={valueScale}>
+	<Container
+		x={Math.round(props.valueOffsetX ?? 0)}
+		y={Math.round(props.valueOffsetY ?? stackedValueYOffset)}
+		scale={valueScale}
+	>
 		<Text
 			anchor={0.5}
 			text={props.value}

@@ -21,6 +21,8 @@
 		textMaxWidth?: number;
 		textMaxHeight?: number;
 		minimumTextScale?: number;
+		textOffsetX?: number;
+		textOffsetY?: number;
 		textStyle?: TextProps['style'];
 		variant?: 'dark' | 'light';
 		dimDisabled?: boolean;
@@ -37,6 +39,8 @@
 		textMaxWidth,
 		textMaxHeight,
 		minimumTextScale = 0.6,
+		textOffsetX = 0,
+		textOffsetY = 0,
 		textStyle,
 		variant = 'dark',
 		dimDisabled = true,
@@ -103,7 +107,11 @@
 		/>
 
 		{#if !hideText}
-			<Container {...center} scale={textScale}>
+			<Container
+				x={Math.round(center.x + textOffsetX)}
+				y={Math.round(center.y + textOffsetY)}
+				scale={textScale}
+			>
 				<Text
 					anchor={0.5}
 					{text}

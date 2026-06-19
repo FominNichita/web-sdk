@@ -19,7 +19,7 @@
 	const sizes = { width: 136, height: 60 };
 	const textStyle = $derived({
 		fontFamily: 'Sancreek',
-		...(compactPortrait ? { fontSize: compactPortraitLayout.text.betActionSize } : {}),
+		...(compactPortrait ? { fontSize: compactPortraitLayout.betActionText.fontSize } : {}),
 		fill: '#111111',
 	});
 </script>
@@ -40,12 +40,14 @@
 			assetKey="uiButtonFooterBg"
 			pressedAssetKey="uiWinBg"
 			textMaxWidth={compactPortrait
-				? sizes.width * (1 - compactPortraitLayout.textPadding.buttonHorizontalRatio * 2)
+				? sizes.width - compactPortraitLayout.betActionText.horizontalPadding * 2
 				: undefined}
 			textMaxHeight={compactPortrait
-				? sizes.height * (1 - compactPortraitLayout.textPadding.buttonVerticalRatio * 2)
+				? sizes.height - compactPortraitLayout.betActionText.verticalPadding * 2
 				: undefined}
 			minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}
+			textOffsetX={compactPortrait ? compactPortraitLayout.betActionText.offsetX : undefined}
+			textOffsetY={compactPortrait ? compactPortraitLayout.betActionText.offsetY : undefined}
 			{textStyle}
 		/>
 	{/snippet}

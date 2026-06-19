@@ -44,6 +44,16 @@ export type AmountLabelLayoutProps = {
 	horizontalPadding?: number;
 	verticalPadding?: number;
 	minimumTextScale?: number;
+	labelOffsetX?: number;
+	labelOffsetY?: number;
+	valueOffsetX?: number;
+	valueOffsetY?: number;
+	labelMaxWidth?: number;
+	labelMaxHeight?: number;
+	valueMaxWidth?: number;
+	valueMaxHeight?: number;
+	valueMinimumTextScale?: number;
+	useBalanceValueStyle?: boolean;
 };
 
 export type FooterBarLayoutProps = {

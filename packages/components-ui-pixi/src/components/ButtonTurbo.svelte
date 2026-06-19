@@ -15,7 +15,7 @@
 	const sizes = { width: 136, height: 60 };
 	const textStyle = $derived({
 		fontFamily: 'Sancreek',
-		...(compactPortrait ? { fontSize: compactPortraitLayout.text.turboSize } : {}),
+		...(compactPortrait ? { fontSize: compactPortraitLayout.turboText.fontSize } : {}),
 		fill: '#111111',
 	});
 	let selected = $state(stateBet.isTurbo);
@@ -44,11 +44,13 @@
 	icon="turbo"
 	{assetKey}
 	textMaxWidth={compactPortrait
-		? sizes.width * (1 - compactPortraitLayout.textPadding.buttonHorizontalRatio * 2)
+		? sizes.width - compactPortraitLayout.turboText.horizontalPadding * 2
 		: undefined}
 	textMaxHeight={compactPortrait
-		? sizes.height * (1 - compactPortraitLayout.textPadding.buttonVerticalRatio * 2)
+		? sizes.height - compactPortraitLayout.turboText.verticalPadding * 2
 		: undefined}
 	minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}
+	textOffsetX={compactPortrait ? compactPortraitLayout.turboText.offsetX : undefined}
+	textOffsetY={compactPortrait ? compactPortraitLayout.turboText.offsetY : undefined}
 	{textStyle}
 />

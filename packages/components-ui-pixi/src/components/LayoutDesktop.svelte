@@ -22,6 +22,17 @@
 	const BALANCE_RIGHT_MARGIN = 28;
 	const AMOUNT_PANEL_WIDTH = 320;
 	const AMOUNT_PANEL_HEIGHT = 88;
+	const AMOUNT_TEXT_LAYOUT = {
+		headingFontSize: 26,
+		valueFontSize: 34,
+		headingOffsetY: -17,
+		valueOffsetY: 16,
+		horizontalPadding: 30,
+		headingMaxHeight: 28,
+		valueMaxHeight: 36,
+		minimumValueFontSize: 24,
+	};
+	const AMOUNT_TEXT_MAX_WIDTH = AMOUNT_PANEL_WIDTH - AMOUNT_TEXT_LAYOUT.horizontalPadding * 2;
 	const WIN_BET_PANEL_CENTER_X = 900;
 	const WIN_BET_PANEL_Y = DESKTOP_BASE_SIZE * 0.5 - 120;
 	const WIN_BET_GAP = 24;
@@ -93,6 +104,16 @@
 				stacked: true,
 				width: AMOUNT_PANEL_WIDTH,
 				height: AMOUNT_PANEL_HEIGHT,
+				labelFontSize: AMOUNT_TEXT_LAYOUT.headingFontSize,
+				valueFontSize: AMOUNT_TEXT_LAYOUT.valueFontSize,
+				labelOffsetY: AMOUNT_TEXT_LAYOUT.headingOffsetY,
+				valueOffsetY: AMOUNT_TEXT_LAYOUT.valueOffsetY,
+				labelMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
+				labelMaxHeight: AMOUNT_TEXT_LAYOUT.headingMaxHeight,
+				valueMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
+				valueMaxHeight: AMOUNT_TEXT_LAYOUT.valueMaxHeight,
+				valueMinimumTextScale:
+					AMOUNT_TEXT_LAYOUT.minimumValueFontSize / AMOUNT_TEXT_LAYOUT.valueFontSize,
 			})}
 		</Container>
 
@@ -101,6 +122,16 @@
 				stacked: true,
 				width: AMOUNT_PANEL_WIDTH,
 				height: AMOUNT_PANEL_HEIGHT,
+				labelFontSize: AMOUNT_TEXT_LAYOUT.headingFontSize,
+				valueFontSize: AMOUNT_TEXT_LAYOUT.valueFontSize,
+				labelOffsetY: AMOUNT_TEXT_LAYOUT.headingOffsetY,
+				valueOffsetY: AMOUNT_TEXT_LAYOUT.valueOffsetY,
+				labelMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
+				labelMaxHeight: AMOUNT_TEXT_LAYOUT.headingMaxHeight,
+				valueMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
+				valueMaxHeight: AMOUNT_TEXT_LAYOUT.valueMaxHeight,
+				valueMinimumTextScale:
+					AMOUNT_TEXT_LAYOUT.minimumValueFontSize / AMOUNT_TEXT_LAYOUT.valueFontSize,
 			})}
 		</Container>
 

@@ -46,6 +46,55 @@
 	const BET_ROW_Y = 1680;
 	const BET_STEP_X_OFFSET = 390;
 	const BET_STEP_SCALE = 2.05;
+	const GREEN_CONTROL_NATIVE_SIZES = {
+		autoSpin: { width: 146, height: 60 },
+		betAction: { width: 136, height: 60 },
+		turbo: { width: 136, height: 60 },
+	};
+	const greenControlRowWidth =
+		compactPortraitLayout.autoSpin.width +
+		compactPortraitLayout.betAction.width +
+		compactPortraitLayout.turbo.width +
+		compactPortraitLayout.greenControlRow.gap * 2;
+	const greenControlRowLeft =
+		compactPortraitLayout.greenControlRow.centerX - greenControlRowWidth * 0.5;
+	const greenControlPositions = {
+		autoSpinX: greenControlRowLeft + compactPortraitLayout.autoSpin.width * 0.5,
+		betActionX:
+			greenControlRowLeft +
+			compactPortraitLayout.autoSpin.width +
+			compactPortraitLayout.greenControlRow.gap +
+			compactPortraitLayout.betAction.width * 0.5,
+		turboX:
+			greenControlRowLeft +
+			compactPortraitLayout.autoSpin.width +
+			compactPortraitLayout.betAction.width +
+			compactPortraitLayout.greenControlRow.gap * 2 +
+			compactPortraitLayout.turbo.width * 0.5,
+	};
+	const getUniformScale = (
+		target: { width: number; height: number },
+		native: { width: number; height: number },
+	) => Math.min(target.width / native.width, target.height / native.height);
+	const getSafeTextHeight = ({
+		panelHeight,
+		paddingTop,
+		paddingBottom,
+		offsetY,
+		maxHeight,
+	}: {
+		panelHeight: number;
+		paddingTop: number;
+		paddingBottom: number;
+		offsetY: number;
+		maxHeight: number;
+	}) => {
+		const safeTop = -panelHeight * 0.5 + paddingTop;
+		const safeBottom = panelHeight * 0.5 - paddingBottom;
+		const availableHeight = Math.max(0, Math.min(offsetY - safeTop, safeBottom - offsetY) * 2);
+
+		return Math.min(maxHeight, availableHeight);
+	};
 
 	const DRAWER_Y = {
 		unfold: 0,
@@ -152,9 +201,12 @@
 	<Container y={drawerTween.current}>
 		{#if compactPortrait}
 			<Container
-				x={compactPortraitLayout.betAction.x}
-				y={compactPortraitLayout.betAction.y}
-				scale={compactPortraitLayout.betAction.scale}
+				x={greenControlPositions.betActionX}
+				y={compactPortraitLayout.greenControlRow.y + compactPortraitLayout.betAction.offsetY}
+				scale={getUniformScale(
+					compactPortraitLayout.betAction,
+					GREEN_CONTROL_NATIVE_SIZES.betAction,
+				)}
 			>
 				{@render props.buttonBet({
 					anchor: 0.5,
@@ -163,9 +215,9 @@
 			</Container>
 
 			<Container
-				x={compactPortraitLayout.autoSpin.x}
-				y={compactPortraitLayout.autoSpin.y}
-				scale={compactPortraitLayout.autoSpin.scale}
+				x={greenControlPositions.autoSpinX}
+				y={compactPortraitLayout.greenControlRow.y + compactPortraitLayout.autoSpin.offsetY}
+				scale={getUniformScale(compactPortraitLayout.autoSpin, GREEN_CONTROL_NATIVE_SIZES.autoSpin)}
 			>
 				{@render props.buttonAutoSpin({
 					anchor: 0.5,
@@ -174,9 +226,9 @@
 			</Container>
 
 			<Container
-				x={compactPortraitLayout.turbo.x}
-				y={compactPortraitLayout.turbo.y}
-				scale={compactPortraitLayout.turbo.scale}
+				x={greenControlPositions.turboX}
+				y={compactPortraitLayout.greenControlRow.y + compactPortraitLayout.turbo.offsetY}
+				scale={getUniformScale(compactPortraitLayout.turbo, GREEN_CONTROL_NATIVE_SIZES.turbo)}
 			>
 				{@render props.buttonTurbo({
 					anchor: 0.5,
@@ -219,10 +271,39 @@
 					stacked: true,
 					width: compactPortraitLayout.winPanel.width,
 					height: compactPortraitLayout.winPanel.height,
-					labelFontSize: compactPortraitLayout.text.winLabelSize,
-					valueFontSize: compactPortraitLayout.text.winValueSize,
-					horizontalPadding: compactPortraitLayout.textPadding.infoPanelHorizontal,
-					verticalPadding: compactPortraitLayout.textPadding.infoPanelVertical,
+					labelFontSize: compactPortraitLayout.winPanelText.headingSourceFontSize,
+					valueFontSize: compactPortraitLayout.winPanelText.valuePreferredSourceFontSize,
+					labelOffsetX: compactPortraitLayout.winPanelText.headingOffsetX,
+					labelOffsetY: compactPortraitLayout.winPanelText.headingOffsetY,
+					valueOffsetX: compactPortraitLayout.winPanelText.valueOffsetX,
+					valueOffsetY: compactPortraitLayout.winPanelText.valueOffsetY,
+					labelMaxWidth:
+						compactPortraitLayout.winPanel.width -
+						compactPortraitLayout.winPanelText.paddingLeft -
+						compactPortraitLayout.winPanelText.paddingRight,
+					labelMaxHeight: getSafeTextHeight({
+						panelHeight: compactPortraitLayout.winPanel.height,
+						paddingTop: compactPortraitLayout.winPanelText.paddingTop,
+						paddingBottom: compactPortraitLayout.winPanelText.paddingBottom,
+						offsetY: compactPortraitLayout.winPanelText.headingOffsetY,
+						maxHeight: compactPortraitLayout.winPanelText.headingMaxHeight,
+					}),
+					valueMaxWidth:
+						compactPortraitLayout.winPanel.width -
+						compactPortraitLayout.winPanelText.paddingLeft -
+						compactPortraitLayout.winPanelText.paddingRight,
+					valueMaxHeight: getSafeTextHeight({
+						panelHeight: compactPortraitLayout.winPanel.height,
+						paddingTop: compactPortraitLayout.winPanelText.paddingTop,
+						paddingBottom: compactPortraitLayout.winPanelText.paddingBottom,
+						offsetY: compactPortraitLayout.winPanelText.valueOffsetY,
+						maxHeight: compactPortraitLayout.winPanelText.valueMaxHeight,
+					}),
+					valueMinimumTextScale:
+						compactPortraitLayout.winPanelText.valueMinimumSourceFontSize /
+						compactPortraitLayout.winPanelText.valuePreferredSourceFontSize,
+					horizontalPadding: 0,
+					verticalPadding: 0,
 					minimumTextScale: compactPortraitLayout.text.minimumScale,
 				})}
 			</Container>
@@ -233,8 +314,8 @@
 					width: compactPortraitLayout.balancePanel.width,
 					height: compactPortraitLayout.balancePanel.height,
 					valueFontSize: compactPortraitLayout.text.balanceValueSize,
-					horizontalPadding: compactPortraitLayout.textPadding.infoPanelHorizontal,
-					verticalPadding: compactPortraitLayout.textPadding.infoPanelVertical,
+					horizontalPadding: compactPortraitLayout.textPadding.balancePanelHorizontal,
+					verticalPadding: compactPortraitLayout.textPadding.balancePanelVertical,
 					minimumTextScale: compactPortraitLayout.text.minimumScale,
 				})}
 			</Container>
@@ -270,14 +351,58 @@
 				stacked: true,
 				width: compactPortrait ? compactPortraitLayout.selectedBetPanel.width : undefined,
 				height: compactPortrait ? compactPortraitLayout.selectedBetPanel.height : undefined,
-				labelFontSize: compactPortrait ? compactPortraitLayout.text.betDisplayLabelSize : undefined,
-				valueFontSize: compactPortrait ? compactPortraitLayout.text.betDisplayValueSize : undefined,
-				horizontalPadding: compactPortrait
-					? compactPortraitLayout.textPadding.betPanelHorizontal
+				labelFontSize: compactPortrait
+					? compactPortraitLayout.selectedBetPanelText.headingSourceFontSize
 					: undefined,
-				verticalPadding: compactPortrait
-					? compactPortraitLayout.textPadding.betPanelVertical
+				valueFontSize: compactPortrait
+					? compactPortraitLayout.selectedBetPanelText.valuePreferredSourceFontSize
 					: undefined,
+				labelOffsetX: compactPortrait
+					? compactPortraitLayout.selectedBetPanelText.headingOffsetX
+					: undefined,
+				labelOffsetY: compactPortrait
+					? compactPortraitLayout.selectedBetPanelText.headingOffsetY
+					: undefined,
+				valueOffsetX: compactPortrait
+					? compactPortraitLayout.selectedBetPanelText.valueOffsetX
+					: undefined,
+				valueOffsetY: compactPortrait
+					? compactPortraitLayout.selectedBetPanelText.valueOffsetY
+					: undefined,
+				labelMaxWidth: compactPortrait
+					? compactPortraitLayout.selectedBetPanel.width -
+						compactPortraitLayout.selectedBetPanelText.paddingLeft -
+						compactPortraitLayout.selectedBetPanelText.paddingRight
+					: undefined,
+				labelMaxHeight: compactPortrait
+					? getSafeTextHeight({
+							panelHeight: compactPortraitLayout.selectedBetPanel.height,
+							paddingTop: compactPortraitLayout.selectedBetPanelText.paddingTop,
+							paddingBottom: compactPortraitLayout.selectedBetPanelText.paddingBottom,
+							offsetY: compactPortraitLayout.selectedBetPanelText.headingOffsetY,
+							maxHeight: compactPortraitLayout.selectedBetPanelText.headingMaxHeight,
+						})
+					: undefined,
+				valueMaxWidth: compactPortrait
+					? compactPortraitLayout.selectedBetPanel.width -
+						compactPortraitLayout.selectedBetPanelText.paddingLeft -
+						compactPortraitLayout.selectedBetPanelText.paddingRight
+					: undefined,
+				valueMaxHeight: compactPortrait
+					? getSafeTextHeight({
+							panelHeight: compactPortraitLayout.selectedBetPanel.height,
+							paddingTop: compactPortraitLayout.selectedBetPanelText.paddingTop,
+							paddingBottom: compactPortraitLayout.selectedBetPanelText.paddingBottom,
+							offsetY: compactPortraitLayout.selectedBetPanelText.valueOffsetY,
+							maxHeight: compactPortraitLayout.selectedBetPanelText.valueMaxHeight,
+						})
+					: undefined,
+				valueMinimumTextScale: compactPortrait
+					? compactPortraitLayout.selectedBetPanelText.valueMinimumSourceFontSize /
+						compactPortraitLayout.selectedBetPanelText.valuePreferredSourceFontSize
+					: undefined,
+				horizontalPadding: compactPortrait ? 0 : undefined,
+				verticalPadding: compactPortrait ? 0 : undefined,
 				minimumTextScale: compactPortrait ? compactPortraitLayout.text.minimumScale : undefined,
 			})}
 		</Container>
