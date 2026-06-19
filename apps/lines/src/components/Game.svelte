@@ -26,8 +26,6 @@
 	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
-	import GlobalMultiplier from './GlobalMultiplier.svelte';
-	import GlobalMultiplierFrame from './GlobalMultiplierFrame.svelte';
 	import BoardClock from './BoardClock.svelte';
 	import PaytableContent from './PaytableContent.svelte';
 	import gameConfig from '../game/config';
@@ -182,11 +180,21 @@
 		const sancreekFont = new FontFace('Sancreek', `url("${SAN_FONT_URL}")`);
 		const aguFont = new FontFace('AguDisplay', `url("${AGU_FONT_URL}")`);
 		const kleeFont = new FontFace('KleeOne-SemiBold', `url("${KLEE_FONT_URL}")`);
+		const modalSancreekFont = new FontFace('LinesModalSancreek', `url("${SAN_FONT_URL}")`);
+		const modalKleeFont = new FontFace('LinesModalKlee', `url("${KLEE_FONT_URL}")`);
 
-		await Promise.all([sancreekFont.load(), aguFont.load(), kleeFont.load()]);
+		await Promise.all([
+			sancreekFont.load(),
+			aguFont.load(),
+			kleeFont.load(),
+			modalSancreekFont.load(),
+			modalKleeFont.load(),
+		]);
 		document.fonts.add(sancreekFont);
 		document.fonts.add(aguFont);
 		document.fonts.add(kleeFont);
+		document.fonts.add(modalSancreekFont);
+		document.fonts.add(modalKleeFont);
 		gameFontsLoaded = true;
 	});
 
@@ -272,8 +280,6 @@
 				{/if}
 
 				<Win />
-				<GlobalMultiplier />
-				<GlobalMultiplierFrame />
 				<FreeSpinIntro />
 
 				{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}

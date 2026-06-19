@@ -27,7 +27,7 @@
 	:global(.fantasy-modal) {
 		width: min(25rem, 92vw);
 		color: #efe1c5;
-		font-family: 'KleeOne-SemiBold', serif;
+		font-family: 'LinesModalKlee', 'KleeOne-SemiBold', serif;
 		text-align: center;
 		pointer-events: auto;
 	}
@@ -51,7 +51,7 @@
 		);
 		background-clip: text;
 		-webkit-background-clip: text;
-		font-family: Sancreek, serif;
+		font-family: 'LinesModalSancreek', Sancreek, serif;
 		font-size: clamp(1.65rem, 5vw, 2.45rem);
 		line-height: 1;
 		letter-spacing: 0;
@@ -65,7 +65,7 @@
 	:global(.fantasy-modal .menu-subtitle) {
 		margin-top: -0.15rem;
 		color: #dfd4c0;
-		font-family: 'KleeOne-SemiBold', serif;
+		font-family: 'LinesModalKlee', 'KleeOne-SemiBold', serif;
 		font-size: 0.72rem;
 		line-height: 1;
 		text-shadow: 0 1px 2px #000;
@@ -97,7 +97,7 @@
 
 	:global(.fantasy-modal .base-button-content) {
 		color: #080808;
-		font-family: 'KleeOne-SemiBold', serif;
+		font-family: 'LinesModalKlee', 'KleeOne-SemiBold', serif;
 		font-weight: 700;
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 	}
@@ -125,7 +125,7 @@
 	}
 
 	:global(.fantasy-modal .ui-modal-button-wrap .base-button-content) {
-		font-family: Sancreek, serif;
+		font-family: 'LinesModalSancreek', Sancreek, serif;
 	}
 
 	:global(.fantasy-modal .toggle) {
@@ -135,7 +135,7 @@
 		border-radius: 999px;
 		background: rgba(50, 50, 50, 0.72);
 		color: #e4dfd6;
-		font-family: 'KleeOne-SemiBold', serif;
+		font-family: 'LinesModalKlee', 'KleeOne-SemiBold', serif;
 		font-size: 0.7rem;
 		text-transform: uppercase;
 		box-shadow: inset 0 1px rgba(255, 255, 255, 0.12);

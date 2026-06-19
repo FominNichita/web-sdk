@@ -71,7 +71,11 @@
 			assetKey={pressed && pressedAssetKey ? pressedAssetKey : assetKey}
 			width={buttonProps.sizes.width}
 			height={buttonProps.sizes.height}
-			tint={buttonProps.disabled && dimDisabled && assetKey ? 0x999999 : active ? activeTint : undefined}
+			tint={buttonProps.disabled && dimDisabled && assetKey
+				? 0x999999
+				: active && activeTint !== undefined
+					? activeTint
+					: 0xffffff}
 			backgroundColor={variant === 'dark' ? 0x000000 : 0xffffff}
 			{...buttonProps.disabled
 				? {
