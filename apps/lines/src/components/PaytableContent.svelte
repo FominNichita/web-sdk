@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { stateI18nDerived } from 'state-shared';
+
 	import {
 		BASE_FREE_SPINS,
 		GAME_FACTS,
@@ -8,8 +10,10 @@
 		SCATTER_SYMBOL,
 		WILD_MULTIPLIERS,
 	} from '../game/paytable';
+	import { VISIBLE_BONUS_INFO_ENTRIES } from '../game/bonusInfo';
+	import BonusInfoList from './BonusInfoList.svelte';
 
-	type Tab = 'paytable' | 'features' | 'paylines';
+	type Tab = 'paytable' | 'features' | 'bonuses' | 'paylines';
 	type Props = {
 		initialTab: Tab;
 	};
@@ -20,6 +24,7 @@
 	const tabs: readonly { id: Tab; label: string }[] = [
 		{ id: 'paytable', label: 'Paytable' },
 		{ id: 'features', label: 'Features & Rules' },
+		{ id: 'bonuses', label: 'BONUSES' },
 		{ id: 'paylines', label: 'Paylines' },
 	];
 
@@ -30,7 +35,7 @@
 
 <section class="paytable-modal" aria-label="Paytable and game rules">
 	<header class="header">
-		<h1>Game Info</h1>
+		<h1>GAME INFO</h1>
 		<p>{GAME_FACTS.reels} reels · {GAME_FACTS.rows} rows · {GAME_FACTS.paylines} fixed paylines</p>
 	</header>
 
@@ -42,7 +47,7 @@
 				aria-pressed={activeTab === tab.id}
 				onclick={() => (activeTab = tab.id)}
 			>
-				{tab.label}
+				{tab.id === 'bonuses' ? stateI18nDerived.translate('BONUS_INFO_TAB') : tab.label}
 			</button>
 		{/each}
 	</nav>
@@ -67,7 +72,9 @@
 				<img src={SCATTER_SYMBOL.image} alt={SCATTER_SYMBOL.name} draggable="false" />
 				<div>
 					<h2>{SCATTER_SYMBOL.name}</h2>
-					<p>Scatter awards Free Spins and does not have a line payout or need to follow a payline.</p>
+					<p>
+						Scatter awards Free Spins and does not have a line payout or need to follow a payline.
+					</p>
 				</div>
 			</article>
 
@@ -86,12 +93,12 @@
 				<article>
 					<h2>Cherry Wild</h2>
 					<p>
-						Wild substitutes for the regular dragon-stone, suit, and ring symbols. It also has
-						its own payouts.
+						Wild substitutes for the regular dragon-stone, suit, and ring symbols. It also has its
+						own payouts.
 					</p>
 					<p>
-						If leading Wilds could form either a Wild win or another symbol's win, the higher
-						valid base payout is used.
+						If leading Wilds could form either a Wild win or another symbol's win, the higher valid
+						base payout is used.
 					</p>
 				</article>
 
@@ -132,10 +139,10 @@
 					<p>Base game cost: {GAME_FACTS.baseCost}× · Bonus Buy cost: {GAME_FACTS.bonusCost}×</p>
 				</article>
 			</div>
+		{:else if activeTab === 'bonuses'}
+			<BonusInfoList entries={VISIBLE_BONUS_INFO_ENTRIES} />
 		{:else}
-			<p class="payline-intro">
-				Wins follow the highlighted path from the first reel on the left.
-			</p>
+			<p class="payline-intro">Wins follow the highlighted path from the first reel on the left.</p>
 			<div class="payline-grid">
 				{#each PAYLINES as line, index}
 					<article class="payline-card">
@@ -204,7 +211,7 @@
 
 	.tabs {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 0.35rem;
 		padding: 0.55rem 0.75rem;
 		background: rgba(0, 0, 0, 0.32);
