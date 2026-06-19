@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { stateI18nDerived } from 'state-shared';
-
 	import {
 		BASE_FREE_SPINS,
 		GAME_FACTS,
@@ -24,7 +22,7 @@
 	const tabs: readonly { id: Tab; label: string }[] = [
 		{ id: 'paytable', label: 'Paytable' },
 		{ id: 'features', label: 'Features & Rules' },
-		{ id: 'bonuses', label: 'BONUSES' },
+		{ id: 'bonuses', label: 'Bonuses' },
 		{ id: 'paylines', label: 'Paylines' },
 	];
 
@@ -47,7 +45,7 @@
 				aria-pressed={activeTab === tab.id}
 				onclick={() => (activeTab = tab.id)}
 			>
-				{tab.id === 'bonuses' ? stateI18nDerived.translate('BONUS_INFO_TAB') : tab.label}
+				{tab.label}
 			</button>
 		{/each}
 	</nav>

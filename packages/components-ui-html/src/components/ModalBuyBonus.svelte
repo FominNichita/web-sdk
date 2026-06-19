@@ -13,11 +13,13 @@
 	const { stateLayoutDerived } = getContextLayout();
 
 	const activateList = $derived(
-		stateMetaDerived.betModeMetaList().filter((item) => item.type === 'activate'),
+		stateMetaDerived.publishedBetModeMetaList().filter((item) => item.type === 'activate'),
 	);
 
 	const buyList = $derived(
-		stateMetaDerived.betModeMetaList().filter((item) => item.type === 'buy' && item.mode !== 'SUPER'),
+		stateMetaDerived.publishedBetModeMetaList().filter(
+			(item) => item.type === 'buy' && item.mode !== 'SUPER',
+		),
 	);
 
 	const COMPONENT_MAP = {

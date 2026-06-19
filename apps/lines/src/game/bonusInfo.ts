@@ -44,40 +44,14 @@ const retriggerTable = RETRIGGER_FREE_SPINS.map(({ scatters, spins }) => ({
 // Verified against math-sdk-globalmult/games/0_0_lines and its published index/statistics.
 export const BONUS_INFO_ENTRIES: readonly BonusInfoEntry[] = [
 	{
-		id: 'free-spins',
-		title: 'FREE SPINS',
-		summary: 'Land 3 or more Scatter symbols anywhere on the reels.',
-		description: [
-			'Free Spins may be triggered naturally by landing 3 or more Scatter symbols anywhere on the reels.',
-			'During the feature, multiplier Wilds may appear and additional Scatter symbols can award more Free Spins.',
-		],
-		enabled: true,
-		published: true,
-		frontendImplemented: true,
-		mathImplemented: true,
-		rtpPercent: 97,
-		maxWinMultiplier: 5000,
-		triggerTable,
-		retriggerTable,
-		multiplierWild: {
-			values: WILD_MULTIPLIERS,
-			combinationMethod: 'additive',
-		},
-		rules: [
-			'Scatter symbols trigger the feature but have no normal line payout.',
-			'Only multiplier Wilds participating in a winning line affect that line.',
-			'Multiple line wins are calculated individually and then added together.',
-		],
-	},
-	{
 		id: 'bonus-buy',
 		backendModeName: 'bonus',
-		title: 'BONUS',
-		summary: 'Purchase direct entry into Free Spins for 100× your selected bet.',
+		title: 'TRIGGER FREE SPIN',
+		summary: 'Purchase guaranteed direct entry into Free Spins for 100× your selected bet.',
 		description: [
-			'The feature begins with 8, 12, or 15 Free Spins, depending on whether the triggering spin lands 3, 4, or 5 Scatter symbols.',
+			'Purchasing this option starts a bonus round that guarantees entry into Free Spins. The generated triggering spin lands 3, 4, or 5 Scatter symbols and awards 8, 12, or 15 Free Spins respectively.',
 			'During Free Spins, Wild symbols may carry 2×, 3×, 4×, 5×, 10×, 20×, or 50× multipliers. A multiplier applies only to a winning line containing that Wild. If several multiplier Wilds take part in the same winning line, their values are added together.',
-			'Additional Scatter symbols can award more Free Spins.',
+			'During Free Spins, landing 2, 3, 4, or 5 Scatter symbols awards 3, 5, 8, or 12 additional Free Spins. The additional spins are added to the remaining total.',
 		],
 		enabled: true,
 		published: true,
@@ -89,6 +63,7 @@ export const BONUS_INFO_ENTRIES: readonly BonusInfoEntry[] = [
 		rtpPercent: 97,
 		maxWinMultiplier: 5000,
 		triggerTable,
+		retriggerTable,
 		multiplierWild: {
 			values: WILD_MULTIPLIERS,
 			combinationMethod: 'additive',
@@ -98,6 +73,8 @@ export const BONUS_INFO_ENTRIES: readonly BonusInfoEntry[] = [
 		rules: [
 			'The purchase price scales with the selected base bet and starts the Free Spins feature directly.',
 			'The 100× purchase price does not become the selected base bet.',
+			'Scatter symbols trigger Free Spins but do not have a normal line payout.',
+			'Multiple winning lines are calculated individually and then added together.',
 			'Individual multiplier Wilds during Free Spins are the feature multiplier mechanic.',
 		],
 	},

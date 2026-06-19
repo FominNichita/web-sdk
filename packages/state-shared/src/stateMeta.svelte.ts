@@ -54,8 +54,16 @@ type GameRuleMeta = {
 export const stateMeta = $state({
 	betModeMeta: DEFAULT_BET_MODE_META as BetModeMeta,
 	gameRuleMeta: DEFAULT_GAME_RULE_META as GameRuleMeta,
+	publishedBetModeKeys: null as string[] | null,
 });
 
 export const stateMetaDerived = {
 	betModeMetaList: () => Object.values(stateMeta.betModeMeta),
+	publishedBetModeMetaList: () => {
+		const list = Object.values(stateMeta.betModeMeta);
+		if (!stateMeta.publishedBetModeKeys) return list;
+
+		const publishedKeys = new Set(stateMeta.publishedBetModeKeys.map((key) => key.toUpperCase()));
+		return list.filter((item) => publishedKeys.has(item.mode.toUpperCase()));
+	},
 };

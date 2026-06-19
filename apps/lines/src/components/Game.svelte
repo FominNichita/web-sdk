@@ -5,7 +5,7 @@
 	import { EnableHotkey } from 'components-shared';
 	import { MainContainer } from 'components-layout';
 	import { App, Sprite } from 'pixi-svelte';
-	import { stateModal } from 'state-shared';
+	import { stateMeta, stateModal } from 'state-shared';
 
 	import { UI } from 'components-ui-pixi';
 	import { GameVersion, Modals } from 'components-ui-html';
@@ -30,8 +30,38 @@
 	import GlobalMultiplierFrame from './GlobalMultiplierFrame.svelte';
 	import BoardClock from './BoardClock.svelte';
 	import PaytableContent from './PaytableContent.svelte';
+	import gameConfig from '../game/config';
 
 	const context = getContext();
+	stateMeta.publishedBetModeKeys = Object.keys(gameConfig.betModes);
+
+	$effect(() => {
+		const bonusKey = Object.keys(stateMeta.betModeMeta).find(
+			(key) => key.toUpperCase() === 'BONUS',
+		);
+		if (!bonusKey) return;
+
+		const bonusMode = stateMeta.betModeMeta[bonusKey];
+		const title = 'TRIGGER FREE SPIN';
+		const description = 'Purchase guaranteed direct entry into Free Spins for 100× your selected bet.';
+		const dialog =
+			'Starts the Free Spins feature directly. The triggering spin awards 8, 12, or 15 Free Spins from 3, 4, or 5 Scatters. During Free Spins, participating multiplier Wilds add their values on each winning line, and Scatter symbols can award additional spins.';
+
+		if (
+			bonusMode.text.title === title &&
+			bonusMode.text.description === description &&
+			bonusMode.text.dialog === dialog
+		) {
+			return;
+		}
+
+		bonusMode.text = {
+			...bonusMode.text,
+			title,
+			description,
+			dialog,
+		};
+	});
 
 	const VIDEO_BACKGROUND_URL = new URL(
 		'../../assets/video/background_LostTreasure/Animated BG.mp4',

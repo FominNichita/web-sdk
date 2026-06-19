@@ -1,6 +1,6 @@
 export default {
 	HOME: 'HOME',
-	BONUS_INFO_TAB: 'BONUSES',
+	BONUS_INFO_TAB: 'Bonuses',
 	BONUS_INFO_FREE_SPINS_TITLE: 'FREE SPINS',
 	BONUS_INFO_FREE_SPINS_SUBTITLE: 'Trigger the feature naturally or purchase direct entry.',
 	BONUS_INFO_HOW_TO_TRIGGER: 'How to trigger',
