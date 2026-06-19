@@ -21,6 +21,7 @@
 			{sizes}
 			{onpress}
 			{disabled}
+			dimDisabled={false}
 			icon="autoSpin"
 			label={['spin_default', 'spin_disabled'].includes(key)
 				? i18nDerived.bet()
