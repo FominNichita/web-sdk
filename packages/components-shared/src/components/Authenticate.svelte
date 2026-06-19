@@ -71,9 +71,18 @@
 				stateConfig.betAmountOptions = (authenticateData.config?.betLevels || []).map(
 					(level) => level / API_AMOUNT_MULTIPLIER,
 				);
-				stateConfig.betMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
+				const commonBetMenuOptions = stateConfig.betAmountOptions.filter((_, index) =>
 					MOST_USED_BET_INDEXES.includes(index),
 				);
+				const maximumBetOption =
+					stateConfig.betAmountOptions[stateConfig.betAmountOptions.length - 1];
+				stateConfig.betMenuOptions =
+					maximumBetOption === undefined
+						? commonBetMenuOptions
+						: [
+								...commonBetMenuOptions.filter((option) => option !== maximumBetOption),
+								maximumBetOption,
+							];
 
 				if (authenticateData.config.betModes) {
 					const supportedBetModeMeta = Object.entries(

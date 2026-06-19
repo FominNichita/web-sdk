@@ -132,7 +132,7 @@
 
 				<article>
 					<h2>Game Facts</h2>
-					<p>RTP: {GAME_FACTS.rtp}%</p>
+					<p>RTP: {GAME_FACTS.rtp.toFixed(2)}%</p>
 					<p>Maximum win: {GAME_FACTS.maxWin}× total bet</p>
 					<p>Base game cost: {GAME_FACTS.baseCost}× · Bonus Buy cost: {GAME_FACTS.bonusCost}×</p>
 				</article>

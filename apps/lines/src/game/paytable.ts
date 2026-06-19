@@ -91,7 +91,7 @@ export const GAME_FACTS = {
 	reels: 5,
 	rows: 3,
 	paylines: 20,
-	rtp: 97,
+	rtp: 96.5,
 	maxWin: 5000,
 	baseCost: 1,
 	bonusCost: 100,

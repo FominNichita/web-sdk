@@ -12,6 +12,7 @@
 		icon: ButtonIcon;
 		sizes: { width: number; height: number };
 		assetKey?: SpriteProps['key'];
+		pressedAssetKey?: SpriteProps['key'];
 		active?: boolean;
 		children?: Snippet;
 		hideText?: boolean;
@@ -25,6 +26,7 @@
 
 	const {
 		assetKey,
+		pressedAssetKey,
 		icon,
 		active,
 		hideText,
@@ -62,11 +64,11 @@
 </script>
 
 <Button {...buttonProps}>
-	{#snippet children({ center })}
+	{#snippet children({ center, pressed })}
 		<UiSprite
 			{...center}
 			anchor={0.5}
-			{assetKey}
+			assetKey={pressed && pressedAssetKey ? pressedAssetKey : assetKey}
 			width={buttonProps.sizes.width}
 			height={buttonProps.sizes.height}
 			tint={buttonProps.disabled && dimDisabled && assetKey ? 0x999999 : active ? activeTint : undefined}

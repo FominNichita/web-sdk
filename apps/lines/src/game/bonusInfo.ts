@@ -60,7 +60,7 @@ export const BONUS_INFO_ENTRIES: readonly BonusInfoEntry[] = [
 		purchase: {
 			costMultiplier: 100,
 		},
-		rtpPercent: 97,
+		rtpPercent: 96.5,
 		maxWinMultiplier: 5000,
 		triggerTable,
 		retriggerTable,

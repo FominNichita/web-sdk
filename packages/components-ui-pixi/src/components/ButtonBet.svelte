@@ -26,6 +26,7 @@
 				? i18nDerived.bet()
 				: i18nDerived.stop()}
 			assetKey="uiButtonFooterBg"
+			pressedAssetKey="uiWinBg"
 			{textStyle}
 		/>
 	{/snippet}
