@@ -4,6 +4,7 @@
 	import { MainContainer } from 'components-layout';
 
 	import { getContext } from '../game/context';
+	import { sound2 } from '../game/sound';
 	import TransitionAnimation from './TransitionAnimation.svelte';
 	import PressToContinue from './PressToContinue.svelte';
 
@@ -20,6 +21,11 @@
 	const PROGRESS_BAR_HEIGHT = PROGRESS_BAR_WIDTH * (86 / 600);
 	const PROGRESS_BAR_FILL_PADDING_X = PROGRESS_BAR_WIDTH * (12 / 600);
 	const PROGRESS_BAR_FILL_PADDING_Y = PROGRESS_BAR_HEIGHT * (12 / 86);
+
+	const continueToGame = () => {
+		sound2.players.once.play({ name: 'sfx_intro' });
+		loadingType = 'transition';
+	};
 </script>
 
 <!-- logo and loading progress -->
@@ -62,7 +68,7 @@
 
 <!-- press to continue -->
 <FadeContainer show={loadingType === 'start' && context.stateApp.loaded}>
-	<PressToContinue onpress={() => (loadingType = 'transition')} />
+	<PressToContinue onpress={continueToGame} />
 </FadeContainer>
 
 <!-- transition between the loading screen and the game -->

@@ -33,13 +33,14 @@
 	const context = getContext();
 	const label = $derived(stateBetDerived.activeBetMode()?.text.betAmountLabel || i18nDerived.bet());
 	const value = $derived(numberToCurrencyString(stateBetDerived.betCost()));
+	const sharedFontSize = $derived(props.valueFontSize ?? props.labelFontSize ?? 32);
 	const valueStyle = {
 		...(props.useBalanceValueStyle ? uiLabelTextStyles.balance : uiLabelTextStyles.bet),
-		fontSize: props.valueFontSize ?? 32,
+		fontSize: sharedFontSize,
 	} as const;
 	const labelStyle = {
 		...uiLabelTextStyles.bet,
-		fontSize: props.labelFontSize ?? 30,
+		fontSize: sharedFontSize,
 	} as const;
 	const disabled = $derived(!context.stateXstateDerived.isIdle());
 

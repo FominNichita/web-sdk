@@ -11,6 +11,8 @@ export type MusicName =
 
 export type SoundEffectName =
 	| 'jng_intro_fs'
+	| 'sfx_intro'
+	| 'sfx_spin_loop'
 	| 'sfx_anticipation'
 	| 'sfx_anticipation_start'
 	| 'sfx_bigwin_coinloop'
@@ -58,5 +60,9 @@ export type SoundEffectName =
 export type SoundName = MusicName | SoundEffectName;
 
 const sound = createSound<SoundName>();
+const sound2 = createSound<SoundEffectName>();
 
-export { sound };
+const SOUND_2_NAMES = new Set<SoundEffectName>(['sfx_intro', 'sfx_spin_loop']);
+const isSound2Name = (name: SoundName): name is SoundEffectName => SOUND_2_NAMES.has(name as SoundEffectName);
+
+export { sound, sound2, isSound2Name };

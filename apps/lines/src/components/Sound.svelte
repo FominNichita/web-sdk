@@ -1,5 +1,12 @@
 <script lang="ts" module>
-	import { sound, type MusicName, type SoundEffectName, type SoundName } from '../game/sound';
+	import {
+		isSound2Name,
+		sound,
+		sound2,
+		type MusicName,
+		type SoundEffectName,
+		type SoundName,
+	} from '../game/sound';
 
 	export type EmitterEventSound =
 		| { type: 'soundMusic'; name: MusicName }
@@ -21,6 +28,34 @@
 	import { getContext } from '../game/context';
 
 	const context = getContext();
+	const playOnce = (name: SoundEffectName, forcePlay?: boolean) => {
+		if (isSound2Name(name)) {
+			sound2.players.once.play({ name, forcePlay });
+			return;
+		}
+		sound.players.once.play({ name, forcePlay });
+	};
+	const playLoop = (name: SoundEffectName) => {
+		if (isSound2Name(name)) {
+			sound2.players.loop.play({ name });
+			return;
+		}
+		sound.players.loop.play({ name });
+	};
+	const stop = (name: SoundName) => {
+		if (isSound2Name(name)) {
+			sound2.stop({ name });
+			return;
+		}
+		sound.stop({ name });
+	};
+	const fade = async (name: SoundName, from: number, to: number, duration: number) => {
+		if (isSound2Name(name)) {
+			await sound2.fade({ name, from, to, duration });
+			return;
+		}
+		await sound.fade({ name, from, to, duration });
+	};
 
 	context.eventEmitter.subscribeOnMount({
 		// ui
@@ -41,10 +76,10 @@
 		soundScatterCounterClear: () => (context.stateGame.scatterCounter = 0),
 		// game
 		soundMusic: ({ name }) => sound.players.music.play({ name }),
-		soundLoop: ({ name }) => sound.players.loop.play({ name }),
-		soundOnce: ({ name, forcePlay }) => sound.players.once.play({ name, forcePlay }),
-		soundStop: ({ name }) => sound.stop({ name }),
-		soundFade: async ({ name, duration, from, to }) => await sound.fade({ name, duration, from, to }), // prettier-ignore
+		soundLoop: ({ name }) => playLoop(name),
+		soundOnce: ({ name, forcePlay }) => playOnce(name, forcePlay),
+		soundStop: ({ name }) => stop(name),
+		soundFade: async ({ name, duration, from, to }) => await fade(name, from, to, duration), // prettier-ignore
 	});
 
 	onMount(() => {

@@ -92,4 +92,28 @@
 		left: 50%;
 		transform: translate(-50%, -20%);
 	}
+
+	@media (orientation: portrait) and (max-width: 520px) {
+		.wrap {
+			top: max(72px, calc(env(safe-area-inset-top) + 58px));
+			bottom: 22px;
+			transform: translateX(-50%);
+			justify-content: center;
+			gap: 18px;
+			max-height: calc(100dvh - 110px);
+		}
+
+		.wrap.scaled {
+			transform: translateX(-50%);
+		}
+
+		.bonuses {
+			gap: 14px;
+		}
+
+		.badge-amount-wrap-scaled {
+			bottom: max(14px, env(safe-area-inset-bottom));
+			transform: translateX(-50%);
+		}
+	}
 </style>

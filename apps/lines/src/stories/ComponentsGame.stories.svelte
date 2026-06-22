@@ -15,6 +15,7 @@
 	} from 'components-storybook';
 
 	import { stateGame, stateGameDerived } from '../game/stateGame.svelte';
+	import { stateBet } from 'state-shared';
 	import Game from '../components/Game.svelte';
 	import { setContext } from '../game/context';
 	import { eventEmitter } from '../game/eventEmitter';
@@ -79,6 +80,22 @@
 				type: 'globalMultiplierFrameUpdate',
 				multiplier: data.multiplier,
 			});
+		},
+	})}
+	{template}
+/>
+
+<Story
+	name="desktop labels: maximum values"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: {},
+		action: async () => {
+			stateBet.balanceAmount = 10_000_000;
+			stateBet.betAmount = 1000;
+			stateBet.wageredBetAmount = 1000;
+			stateBet.activeBetModeKey = 'BONUS';
+			stateBet.winBookEventAmount = 500_000;
 		},
 	})}
 	{template}

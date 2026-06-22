@@ -103,12 +103,31 @@
 
 	@media (max-width: 520px) {
 		.settings-modal {
-			width: min(96vw, 760px);
+			width: min(96vw, 560px);
+			gap: 12px;
+
+			:global(.ui-modal-title-wrap) {
+				font-size: clamp(38px, 11vw, 52px);
+			}
 		}
 
 		.settings-panel {
-			aspect-ratio: 800 / 500;
-			padding-inline: 1.4rem;
+			aspect-ratio: 800 / 650;
+			padding: 44px 24px 38px;
+		}
+
+		.settings-rows {
+			gap: 24px;
+		}
+
+		:global(.pop-up-wrap:has(.settings-modal) .close-button-wrap) {
+			top: max(12px, env(safe-area-inset-top));
+			right: max(12px, env(safe-area-inset-right));
+		}
+
+		:global(.pop-up-wrap:has(.settings-modal) .close-button) {
+			width: 42px;
+			height: 42px;
 		}
 	}
 </style>

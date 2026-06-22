@@ -100,13 +100,22 @@
 
 	@media (max-width: 520px) {
 		.settings-row {
-			grid-template-columns: 1fr var(--value-width);
-			row-gap: 0.25rem;
+			--value-width: 48px;
+			grid-template-columns: minmax(0, 1fr) var(--value-width);
+			row-gap: 9px;
+			column-gap: 12px;
+		}
+
+		.label,
+		.value {
+			font-size: 20px;
+			line-height: 1.1;
 		}
 
 		.slider {
 			grid-column: 1 / -1;
 			grid-row: 2;
+			min-height: 12px;
 		}
 	}
 </style>

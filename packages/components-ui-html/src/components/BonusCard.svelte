@@ -47,4 +47,17 @@
 		gap: 0.55rem;
 		min-width: 0;
 	}
+
+	@media (orientation: portrait) and (max-width: 520px) {
+		.bonus-card-wrap {
+			width: min(340px, 86vw);
+			min-height: min(390px, 52dvh);
+			padding: 24px 22px 22px;
+			gap: 14px;
+		}
+
+		.info {
+			gap: 12px;
+		}
+	}
 </style>

@@ -268,7 +268,7 @@
 		<Container y={Math.min(drawerTween.current, 350)}>
 			<Container x={compactPortraitLayout.winPanel.x} y={compactPortraitLayout.winPanel.y}>
 				{@render props.amountWin({
-					stacked: true,
+					stacked: false,
 					width: compactPortraitLayout.winPanel.width,
 					height: compactPortraitLayout.winPanel.height,
 					labelFontSize: compactPortraitLayout.winPanelText.headingSourceFontSize,
@@ -277,10 +277,7 @@
 					labelOffsetY: compactPortraitLayout.winPanelText.headingOffsetY,
 					valueOffsetX: compactPortraitLayout.winPanelText.valueOffsetX,
 					valueOffsetY: compactPortraitLayout.winPanelText.valueOffsetY,
-					labelMaxWidth:
-						compactPortraitLayout.winPanel.width -
-						compactPortraitLayout.winPanelText.paddingLeft -
-						compactPortraitLayout.winPanelText.paddingRight,
+					labelMaxWidth: compactPortraitLayout.winPanelText.headingMaxWidth,
 					labelMaxHeight: getSafeTextHeight({
 						panelHeight: compactPortraitLayout.winPanel.height,
 						paddingTop: compactPortraitLayout.winPanelText.paddingTop,
@@ -288,10 +285,7 @@
 						offsetY: compactPortraitLayout.winPanelText.headingOffsetY,
 						maxHeight: compactPortraitLayout.winPanelText.headingMaxHeight,
 					}),
-					valueMaxWidth:
-						compactPortraitLayout.winPanel.width -
-						compactPortraitLayout.winPanelText.paddingLeft -
-						compactPortraitLayout.winPanelText.paddingRight,
+					valueMaxWidth: compactPortraitLayout.winPanelText.valueMaxWidth,
 					valueMaxHeight: getSafeTextHeight({
 						panelHeight: compactPortraitLayout.winPanel.height,
 						paddingTop: compactPortraitLayout.winPanelText.paddingTop,
@@ -348,7 +342,7 @@
 			y={compactPortrait ? compactPortraitLayout.selectedBetPanel.y : BET_ROW_Y}
 		>
 			{@render props.amountBet({
-				stacked: true,
+				stacked: !compactPortrait,
 				width: compactPortrait ? compactPortraitLayout.selectedBetPanel.width : undefined,
 				height: compactPortrait ? compactPortraitLayout.selectedBetPanel.height : undefined,
 				labelFontSize: compactPortrait
@@ -370,9 +364,7 @@
 					? compactPortraitLayout.selectedBetPanelText.valueOffsetY
 					: undefined,
 				labelMaxWidth: compactPortrait
-					? compactPortraitLayout.selectedBetPanel.width -
-						compactPortraitLayout.selectedBetPanelText.paddingLeft -
-						compactPortraitLayout.selectedBetPanelText.paddingRight
+					? compactPortraitLayout.selectedBetPanelText.headingMaxWidth
 					: undefined,
 				labelMaxHeight: compactPortrait
 					? getSafeTextHeight({
@@ -384,9 +376,7 @@
 						})
 					: undefined,
 				valueMaxWidth: compactPortrait
-					? compactPortraitLayout.selectedBetPanel.width -
-						compactPortraitLayout.selectedBetPanelText.paddingLeft -
-						compactPortraitLayout.selectedBetPanelText.paddingRight
+					? compactPortraitLayout.selectedBetPanelText.valueMaxWidth
 					: undefined,
 				valueMaxHeight: compactPortrait
 					? getSafeTextHeight({

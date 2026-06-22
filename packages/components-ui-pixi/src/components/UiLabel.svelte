@@ -161,10 +161,28 @@
 			borderRadius={20}
 		/>
 	{/if}
-	<Text anchor={{ x: 0, y: 0.5 }} text={props.label} style={labelStyle} x={-panelWidth * 0.43} />
-	<Container x={panelWidth * 0.18} scale={valueScale}>
+	<Container
+		x={Math.round(props.labelOffsetX ?? -panelWidth * 0.32)}
+		y={Math.round(props.labelOffsetY ?? 0)}
+		scale={labelScale}
+	>
 		<Text
-			anchor={{ x: 0, y: 0.5 }}
+			anchor={0.5}
+			text={props.label}
+			style={labelStyle}
+			onresize={({ width, height }) => {
+				labelTextWidth = width;
+				labelTextHeight = height;
+			}}
+		/>
+	</Container>
+	<Container
+		x={Math.round(props.valueOffsetX ?? panelWidth * 0.13)}
+		y={Math.round(props.valueOffsetY ?? 0)}
+		scale={valueScale}
+	>
+		<Text
+			anchor={0.5}
 			text={props.value}
 			style={valueStyle}
 			onresize={({ width, height }) => {

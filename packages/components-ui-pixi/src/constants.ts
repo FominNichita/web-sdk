@@ -15,15 +15,15 @@ export const UI_TEXT_STYLES = {
 	},
 };
 
-export const MENU_OPTION_BUTTON_SIZES = { width: 300, height: 88 };
+export const MENU_OPTION_BUTTON_SIZES = { width: 360, height: 106 };
 
-export const MENU_OPTION_BUTTON_GAP = 20;
+export const MENU_OPTION_BUTTON_GAP = 24;
 
 export const MENU_OPTION_TEXT_MAX_WIDTH = MENU_OPTION_BUTTON_SIZES.width * 0.8;
 
 export const MENU_OPTION_TEXT_STYLE = {
 	fontFamily: 'Sancreek',
-	fontSize: 34,
+	fontSize: 40,
 	fill: '#000000',
 	stroke: { color: '#E4C5AA', width: 2 },
 };

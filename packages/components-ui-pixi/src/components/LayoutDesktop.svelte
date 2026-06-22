@@ -23,16 +23,15 @@
 	const AMOUNT_PANEL_WIDTH = 320;
 	const AMOUNT_PANEL_HEIGHT = 88;
 	const AMOUNT_TEXT_LAYOUT = {
-		headingFontSize: 26,
-		valueFontSize: 34,
-		headingOffsetY: -17,
-		valueOffsetY: 16,
-		horizontalPadding: 30,
-		headingMaxHeight: 28,
-		valueMaxHeight: 36,
-		minimumValueFontSize: 24,
+		headingFontSize: 25,
+		valueFontSize: 31,
+		headingCenterX: -112,
+		valueCenterX: 38,
+		headingMaxWidth: 62,
+		valueMaxWidth: 210,
+		maxHeight: 48,
+		minimumValueFontSize: 18,
 	};
-	const AMOUNT_TEXT_MAX_WIDTH = AMOUNT_PANEL_WIDTH - AMOUNT_TEXT_LAYOUT.horizontalPadding * 2;
 	const WIN_BET_PANEL_CENTER_X = 900;
 	const WIN_BET_PANEL_Y = DESKTOP_BASE_SIZE * 0.5 - 120;
 	const WIN_BET_GAP = 24;
@@ -46,7 +45,8 @@
 	const FOOTER_CENTER_OFFSET = FOOTER_BUTTON_WIDTH + FOOTER_BUTTON_GAP;
 	const FOOTER_RIGHT_DECREASE_X = 1508;
 	const FOOTER_RIGHT_GAP = 88;
-	const FOOTER_BAR_WIDTH = DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0);
+	const FOOTER_CONTENT_WIDTH = DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0);
+	const FOOTER_BAR_WIDTH = 1920;
 	const FOOTER_BAR_HEIGHT = 140;
 	const FOOTER_BAR_Y = FOOTER_BUTTON_Y - 20;
 	const MENU_OPTION_COUNT = 3;
@@ -86,12 +86,12 @@
 			anchor: { x: 0.5, y: 0 },
 			sizes: {
 				height: DESKTOP_BASE_SIZE,
-				width: DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0),
+				width: FOOTER_CONTENT_WIDTH,
 			},
 		})}
 	>
 		{#if props.footerBar}
-			<Container x={FOOTER_BAR_WIDTH * 0.5} y={FOOTER_BAR_Y}>
+			<Container x={FOOTER_CONTENT_WIDTH * 0.5} y={FOOTER_BAR_Y}>
 				{@render props.footerBar({
 					width: FOOTER_BAR_WIDTH,
 					height: FOOTER_BAR_HEIGHT,
@@ -101,17 +101,17 @@
 
 		<Container y={WIN_BET_PANEL_Y} x={WIN_BET_PANEL_CENTER_X - WIN_BET_PANEL_OFFSET}>
 			{@render props.amountWin({
-				stacked: true,
+				stacked: false,
 				width: AMOUNT_PANEL_WIDTH,
 				height: AMOUNT_PANEL_HEIGHT,
 				labelFontSize: AMOUNT_TEXT_LAYOUT.headingFontSize,
 				valueFontSize: AMOUNT_TEXT_LAYOUT.valueFontSize,
-				labelOffsetY: AMOUNT_TEXT_LAYOUT.headingOffsetY,
-				valueOffsetY: AMOUNT_TEXT_LAYOUT.valueOffsetY,
-				labelMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
-				labelMaxHeight: AMOUNT_TEXT_LAYOUT.headingMaxHeight,
-				valueMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
-				valueMaxHeight: AMOUNT_TEXT_LAYOUT.valueMaxHeight,
+				labelOffsetX: AMOUNT_TEXT_LAYOUT.headingCenterX,
+				valueOffsetX: AMOUNT_TEXT_LAYOUT.valueCenterX,
+				labelMaxWidth: AMOUNT_TEXT_LAYOUT.headingMaxWidth,
+				labelMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
+				valueMaxWidth: AMOUNT_TEXT_LAYOUT.valueMaxWidth,
+				valueMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
 				valueMinimumTextScale:
 					AMOUNT_TEXT_LAYOUT.minimumValueFontSize / AMOUNT_TEXT_LAYOUT.valueFontSize,
 			})}
@@ -119,17 +119,17 @@
 
 		<Container y={WIN_BET_PANEL_Y} x={WIN_BET_PANEL_CENTER_X + WIN_BET_PANEL_OFFSET}>
 			{@render props.amountBet({
-				stacked: true,
+				stacked: false,
 				width: AMOUNT_PANEL_WIDTH,
 				height: AMOUNT_PANEL_HEIGHT,
 				labelFontSize: AMOUNT_TEXT_LAYOUT.headingFontSize,
 				valueFontSize: AMOUNT_TEXT_LAYOUT.valueFontSize,
-				labelOffsetY: AMOUNT_TEXT_LAYOUT.headingOffsetY,
-				valueOffsetY: AMOUNT_TEXT_LAYOUT.valueOffsetY,
-				labelMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
-				labelMaxHeight: AMOUNT_TEXT_LAYOUT.headingMaxHeight,
-				valueMaxWidth: AMOUNT_TEXT_MAX_WIDTH,
-				valueMaxHeight: AMOUNT_TEXT_LAYOUT.valueMaxHeight,
+				labelOffsetX: AMOUNT_TEXT_LAYOUT.headingCenterX,
+				valueOffsetX: AMOUNT_TEXT_LAYOUT.valueCenterX,
+				labelMaxWidth: AMOUNT_TEXT_LAYOUT.headingMaxWidth,
+				labelMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
+				valueMaxWidth: AMOUNT_TEXT_LAYOUT.valueMaxWidth,
+				valueMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
 				valueMinimumTextScale:
 					AMOUNT_TEXT_LAYOUT.minimumValueFontSize / AMOUNT_TEXT_LAYOUT.valueFontSize,
 			})}

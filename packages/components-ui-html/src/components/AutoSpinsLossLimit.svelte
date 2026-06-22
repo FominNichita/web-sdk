@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { stateUi, LOSS_LIMIT_TEXT_OPTIONS } from 'state-shared';
+	import { stateUi, LOSS_LIMIT_TEXT_OPTIONS, INFINITY_MARK } from 'state-shared';
 	import { OptionsGrid } from 'components-shared';
 
 	import BaseIcon from './BaseIcon.svelte';
@@ -26,8 +26,7 @@
 				<span class="auto-spin-option-selected" aria-hidden="true"></span>
 			{/if}
 			<span
-				style="font-size: 1rem;"
-				class:infinity={option === '∞'}
+				class:infinity={option === INFINITY_MARK}
 				class="option-wrap"
 				data-test="loss-limit-{option}"
 			>
@@ -46,10 +45,4 @@
 		white-space: nowrap;
 	}
 
-	.infinity {
-		font-size: 1.5rem;
-		line-height: 1rem;
-		margin-top: 0.3rem;
-		vertical-align: middle;
-	}
 </style>

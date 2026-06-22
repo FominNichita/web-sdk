@@ -33,13 +33,14 @@
 	const winBookEventAmountTween = new Tween(stateBet.winBookEventAmount);
 	const label = $derived(i18nDerived.win());
 	const value = $derived(bookEventAmountToCurrencyString(winBookEventAmountTween.current));
+	const sharedFontSize = $derived(props.valueFontSize ?? props.labelFontSize ?? 32);
 	const valueStyle = {
 		...(props.useBalanceValueStyle ? uiLabelTextStyles.balance : uiLabelTextStyles.win),
-		fontSize: props.valueFontSize ?? 32,
+		fontSize: sharedFontSize,
 	} as const;
 	const labelStyle = {
 		...uiLabelTextStyles.win,
-		fontSize: props.labelFontSize ?? 28,
+		fontSize: sharedFontSize,
 	} as const;
 
 	$effect(() => {

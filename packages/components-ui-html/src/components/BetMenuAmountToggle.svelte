@@ -120,4 +120,27 @@
 		max-width: 100%;
 		overflow: hidden;
 	}
+
+	@media (orientation: portrait) and (max-width: 520px) {
+		.toggle-wrap {
+			--bet-toggle-control-size: 64px;
+
+			gap: 6px;
+			width: min(100%, 370px);
+		}
+
+		.amount-bg {
+			width: min(230px, 58vw);
+			padding-inline: 12px;
+		}
+
+		.symbol-text {
+			width: 46px;
+			height: 46px;
+		}
+
+		.amount-text {
+			height: 46px;
+		}
+	}
 </style>

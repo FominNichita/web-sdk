@@ -17,9 +17,9 @@
 	);
 
 	const buyList = $derived(
-		stateMetaDerived.publishedBetModeMetaList().filter(
-			(item) => item.type === 'buy' && item.mode !== 'SUPER',
-		),
+		stateMetaDerived
+			.publishedBetModeMetaList()
+			.filter((item) => item.type === 'buy' && item.mode !== 'SUPER'),
 	);
 
 	const COMPONENT_MAP = {
@@ -72,5 +72,17 @@
 		font-size: 0;
 		line-height: 0;
 		filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.75));
+	}
+
+	@media (orientation: portrait) and (max-width: 520px) {
+		:global(.pop-up-wrap:has(.buy-bonus-modal-close-theme) .close-button-wrap) {
+			top: max(12px, env(safe-area-inset-top));
+			right: max(12px, env(safe-area-inset-right));
+		}
+
+		:global(.pop-up-wrap:has(.buy-bonus-modal-close-theme) .close-button) {
+			width: 42px;
+			height: 42px;
+		}
 	}
 </style>

@@ -40,6 +40,9 @@
 			border={option === stateBet.betAmount ? '2px white solid' : '2px black solid'}
 		/>
 		<BaseButtonContent>
+			{#if option === stateBet.betAmount}
+				<span class="bet-option-selected" aria-hidden="true"></span>
+			{/if}
 			<span style="font-size: 1rem;"
 				>{isMaxValue(option) ? i18nDerived.max() : formatValue(option)}</span
 			>

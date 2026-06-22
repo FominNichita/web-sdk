@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { stateUi, AUTO_SPINS_TEXT_OPTIONS } from 'state-shared';
+	import { stateUi, AUTO_SPINS_TEXT_OPTIONS, INFINITY_MARK } from 'state-shared';
 	import { OptionsGrid } from 'components-shared';
 
 	import BaseIcon from './BaseIcon.svelte';
@@ -23,17 +23,9 @@
 			{#if option === stateUi.autoSpinsText}
 				<span class="auto-spin-option-selected" aria-hidden="true"></span>
 			{/if}
-			<span style="font-size: 1rem;" class:infinity={option === '∞'} data-test="round-options">
+			<span class:infinity={option === INFINITY_MARK} data-test="round-options">
 				{option}
 			</span>
 		</BaseButtonContent>
 	{/snippet}
 </OptionsGrid>
-
-<style lang="scss">
-	.infinity {
-		font-size: 1.5rem;
-		line-height: 1rem;
-		margin-top: 0.3rem;
-	}
-</style>

@@ -42,13 +42,7 @@
 
 	:global(.fantasy-modal .ui-modal-title-wrap) {
 		color: #e7a926;
-		background: linear-gradient(
-			180deg,
-			#e18d28 0%,
-			#fee17e 31%,
-			#f1b63d 66%,
-			#7b4d16 100%
-		);
+		background: linear-gradient(180deg, #e18d28 0%, #fee17e 31%, #f1b63d 66%, #7b4d16 100%);
 		background-clip: text;
 		-webkit-background-clip: text;
 		font-family: 'LinesModalSancreek', Sancreek, serif;
@@ -58,7 +52,6 @@
 		-webkit-text-fill-color: transparent;
 		-webkit-text-stroke: 1px #050505;
 		paint-order: stroke fill;
-		
 	}
 
 	:global(.fantasy-modal .subtitle),
@@ -87,12 +80,27 @@
 		height: 2.5rem;
 		border: 0 !important;
 		border-radius: 0;
-		background: var(--lines-ui-activate-panel-url) center / 100% 100% no-repeat;
+		background: var(--lines-ui-activate-panel-url) center / 100% 100% no-repeat !important;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
 	}
 
 	:global(.fantasy-modal .grid .base-button-content span) {
 		font-size: 1.25rem !important;
+		color: #080808 !important;
+		-webkit-text-fill-color: #080808;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+	}
+
+	:global(.fantasy-modal .grid .base-button-content span.infinity) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+		font-family: Arial, 'Segoe UI Symbol', sans-serif;
+		font-size: 28px !important;
+		font-weight: 700;
+		line-height: 1 !important;
+		transform: translateY(-1px);
 	}
 
 	:global(.fantasy-modal .base-button-content) {
@@ -126,6 +134,14 @@
 
 	:global(.fantasy-modal .ui-modal-button-wrap .base-button-content) {
 		font-family: 'LinesModalSancreek', Sancreek, serif;
+		color: #080808 !important;
+		-webkit-text-fill-color: #080808;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+	}
+
+	:global(.fantasy-modal .ui-modal-button-wrap .base-button-content span) {
+		color: #080808 !important;
+		-webkit-text-fill-color: #080808;
 	}
 
 	:global(.fantasy-modal .toggle) {
@@ -190,13 +206,117 @@
 		height: 2.5rem !important;
 	}
 
-	:global(.fantasy-modal-auto-spin .grid .button:has(.auto-spin-option-selected) .rectangle) {
-		background: var(--lines-ui-activate-panel-hover-url) center / 100% 100% no-repeat;
+	:global(.fantasy-modal-auto-spin .grid .button:has(.auto-spin-option-selected) .rectangle),
+	:global(.fantasy-modal-bet .grid .button:has(.bet-option-selected) .rectangle) {
+		background: var(--lines-ui-activate-panel-hover-url) center / 100% 100% no-repeat !important;
 	}
 
 	:global(.fantasy-modal-auto-spin .advanced-panel) {
 		width: min(33.75rem, 100%);
 		flex: 0 0 auto;
 		box-sizing: border-box;
+	}
+
+	@media (orientation: portrait) and (max-width: 520px) {
+		:global(.pop-up-wrap:has(.fantasy-modal) .close-button-wrap) {
+			top: max(12px, env(safe-area-inset-top));
+			right: max(12px, env(safe-area-inset-right));
+		}
+
+		:global(.pop-up-wrap:has(.fantasy-modal) .close-button) {
+			width: 42px;
+			height: 42px;
+		}
+
+		:global(.fantasy-modal),
+		:global(.fantasy-modal-bet),
+		:global(.fantasy-modal-auto-spin) {
+			width: min(96vw, 480px);
+			max-height: calc(100dvh - max(32px, env(safe-area-inset-top)) - 20px);
+		}
+
+		:global(.fantasy-modal .ui-popup-standard-content-wrap) {
+			max-height: inherit;
+			gap: 10px;
+			padding: 18px 14px 16px;
+		}
+
+		:global(.fantasy-modal .ui-modal-title-wrap) {
+			font-size: clamp(32px, 10vw, 44px);
+		}
+
+		:global(.fantasy-modal .subtitle),
+		:global(.fantasy-modal .menu-subtitle) {
+			margin-top: -2px;
+			font-size: 15px;
+			line-height: 1.15;
+		}
+
+		:global(.fantasy-modal .content.column) {
+			gap: 12px;
+			width: 100%;
+			max-height: calc(100dvh - 190px);
+			overflow-y: auto;
+			overscroll-behavior: contain;
+		}
+
+		:global(.fantasy-modal .grid) {
+			gap: 9px 10px;
+			width: 100%;
+		}
+
+		:global(.fantasy-modal .grid .button),
+		:global(.fantasy-modal .grid .rectangle),
+		:global(.fantasy-modal-auto-spin .grid .button),
+		:global(.fantasy-modal-auto-spin .grid .rectangle) {
+			height: 50px !important;
+		}
+
+		:global(.fantasy-modal-auto-spin .grid) {
+			grid-auto-rows: 50px;
+		}
+
+		:global(.fantasy-modal .grid .base-button-content span) {
+			font-size: 22px !important;
+			line-height: 1;
+		}
+
+		:global(.fantasy-modal .grid .base-button-content span.infinity) {
+			font-size: 32px !important;
+			transform: translateY(-2px);
+		}
+
+		:global(.fantasy-modal .toggle) {
+			margin-top: 4px;
+			padding: 7px 14px 8px;
+			font-size: 14px;
+		}
+
+		:global(.fantasy-modal .advanced-panel) {
+			margin-top: 8px;
+			padding: 12px;
+		}
+
+		:global(.fantasy-modal .advanced-panel .title) {
+			font-size: 15px;
+			line-height: 1.3;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap) {
+			margin-top: 6px;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .full-width),
+		:global(.fantasy-modal .ui-modal-button-wrap .max-width) {
+			width: min(250px, 78vw);
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .rectangle) {
+			height: 58px;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .base-button-content span) {
+			font-size: 20px !important;
+		}
 	}
 </style>

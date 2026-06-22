@@ -418,4 +418,9 @@ export default {
 		src: new URL('../../assets/audio/sounds.json', import.meta.url).href,
 		preload: true,
 	},
+	sound2: {
+		type: 'audio',
+		src: new URL('../../assets/audio/sounds2.json', import.meta.url).href,
+		preload: true,
+	},
 } as const;

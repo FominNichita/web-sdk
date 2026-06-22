@@ -53,10 +53,15 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		}
 
 		stateGame.gameType = bookEvent.gameType;
-		await stateGameDerived.enhancedBoard.spin({
-			revealEvent: bookEvent,
-			paddingBoard: config.paddingReels[bookEvent.gameType],
-		});
+		eventEmitter.broadcast({ type: 'soundLoop', name: 'sfx_spin_loop' });
+		try {
+			await stateGameDerived.enhancedBoard.spin({
+				revealEvent: bookEvent,
+				paddingBoard: config.paddingReels[bookEvent.gameType],
+			});
+		} finally {
+			eventEmitter.broadcast({ type: 'soundStop', name: 'sfx_spin_loop' });
+		}
 		eventEmitter.broadcast({ type: 'soundScatterCounterClear' });
 	},
 	winInfo: async (bookEvent: BookEventOfType<'winInfo'>) => {

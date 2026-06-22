@@ -1,0 +1,16 @@
+{
+	"sprite": {
+		"sfx_spin_loop": [0, 1000, true],
+		"sfx_intro": [3000, 2000]
+	},
+	"src": [
+		"./assets/audio/sounds 2.ogg",
+		"./assets/audio/sounds 2.m4a",
+		"./assets/audio/sounds 2.mp3",
+		"./assets/audio/sounds 2.ac3"
+	],
+	"config": {
+		"sfx_spin_loop": { "volume": 1 },
+		"sfx_intro": { "volume": 1 }
+	}
+}

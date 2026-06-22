@@ -49,6 +49,10 @@
 		...buttonProps
 	}: Props = $props();
 	const { stateLayoutDerived } = getContextLayout();
+	const shortLandscape = $derived(
+		stateLayoutDerived.layoutType() === 'landscape' &&
+			stateLayoutDerived.canvasSizes().height <= 480,
+	);
 
 	const text = $derived(label ?? i18nDerived[icon]());
 	const maxTextWidth = $derived(textMaxWidth ?? buttonProps.sizes.width * 0.72);
@@ -72,7 +76,8 @@
 		fontWeight: '600',
 		fontSize: Math.min(
 			UI_BASE_FONT_SIZE * 0.75,
-			buttonProps.sizes.height * (stateLayoutDerived.layoutType() === 'portrait' ? 0.52 : 0.34),
+			buttonProps.sizes.height *
+				(stateLayoutDerived.layoutType() === 'portrait' || shortLandscape ? 0.52 : 0.34),
 		),
 		fill: variant === 'dark' ? 0xffffff : 0x000000,
 		...textStyle,

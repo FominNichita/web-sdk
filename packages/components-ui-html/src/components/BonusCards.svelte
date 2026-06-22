@@ -138,4 +138,31 @@
 		paint-order: stroke fill;
 		text-align: center;
 	}
+
+	@media (orientation: portrait) and (max-width: 520px) {
+		.title {
+			font-size: clamp(24px, 7vw, 32px);
+		}
+
+		.description {
+			min-height: 0;
+			max-height: min(180px, 23dvh);
+			font-size: clamp(15px, 4.3vw, 19px);
+			line-height: 1.3;
+			overflow-y: auto;
+		}
+
+		.price {
+			font-size: clamp(21px, 6vw, 28px);
+		}
+
+		.activate-button-bg {
+			width: min(260px, 72vw);
+			height: 58px;
+		}
+
+		.activate-button-text {
+			font-size: clamp(17px, 4.8vw, 21px);
+		}
+	}
 </style>
