@@ -4,36 +4,35 @@
 	import { stateModal } from 'state-shared';
 
 	import BaseContent from './BaseContent.svelte';
+	import BaseTitle from './BaseTitle.svelte';
+	import FantasyModalStyles from './FantasyModalStyles.svelte';
+	import ExceptionModalStyles from './ExceptionModalStyles.svelte';
 </script>
 
 {#if stateModal.modal?.name === 'error'}
 	<Popup zIndex={zIndex.modal} persistent onclose={() => (stateModal.modal = null)}>
-		<BaseContent maxWidth="100%">
-			{@const error = stateModal.modal?.error}
-			<span>Sorry, something went wrong.</span>
-			<div class="scrollY error-text">
-				{#if error}
-					{#if error?.error && error?.message}
-						<span>{JSON.stringify(error.error || 'unknown')}</span>
-						<p>{JSON.stringify(error.message || 'unknown')}</p>
-					{:else}
-						<p>{error}</p>
-					{/if}
-				{:else}
-					<span>unknown error</span>
-				{/if}
-			</div>
-		</BaseContent>
+		<FantasyModalStyles />
+		<ExceptionModalStyles />
+		<div class="fantasy-modal fantasy-modal-exception fantasy-modal-error">
+			<BaseContent maxWidth="100%">
+				<BaseTitle>ERROR</BaseTitle>
+				{@const error = stateModal.modal?.error}
+				<div class="exception-panel">
+					<span class="exception-subtitle">Sorry, something went wrong.</span>
+					<div class="scrollY exception-message">
+						{#if error}
+							{#if error?.error && error?.message}
+								<span class="exception-code">{error.error || 'unknown'}</span>
+								<p class="exception-detail">{error.message || 'unknown'}</p>
+							{:else}
+								<p class="exception-detail">{error}</p>
+							{/if}
+						{:else}
+							<span class="exception-code">unknown error</span>
+						{/if}
+					</div>
+				</div>
+			</BaseContent>
+		</div>
 	</Popup>
 {/if}
-
-<style lang="scss">
-	.error-text {
-		max-height: 100px;
-		max-width: 480px;
-		border-radius: 8px;
-		border: 1px solid red;
-		white-space: normal;
-		padding: 1rem;
-	}
-</style>
