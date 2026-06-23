@@ -144,6 +144,11 @@
 		-webkit-text-fill-color: #080808;
 	}
 
+	:global(.fantasy-modal .ui-modal-button-wrap .confirm-label) {
+		font-size: 16px !important;
+		line-height: 1;
+	}
+
 	:global(.fantasy-modal .toggle) {
 		margin-top: 0.3rem;
 		padding: 0.25rem 0.7rem 0.28rem;
@@ -406,6 +411,10 @@
 		:global(.fantasy-modal .ui-modal-button-wrap .rectangle) {
 			height: 40px;
 		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .confirm-label) {
+			font-size: 17px !important;
+		}
 	}
 
 	@media (orientation: landscape) and (max-height: 300px) {
@@ -418,6 +427,10 @@
 		:global(.fantasy-modal .ui-popup-standard-content-wrap),
 		:global(.fantasy-modal .content.column) {
 			max-height: 128dvh;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .confirm-label) {
+			font-size: 23px !important;
 		}
 	}
 </style>

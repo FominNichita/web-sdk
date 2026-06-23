@@ -34,7 +34,7 @@
 								fontSize={54}
 								viewBoxWidth={64}
 								viewBoxHeight={64}
-								centerYRatio={0.5}
+								centerYRatio={0.65}
 							/>
 						</span>
 					</span>
@@ -50,6 +50,7 @@
 						viewBoxHeight={64}
 						maxWidth={190}
 						strokeWidth={2.5}
+						centerYRatio={0.64}
 					/>
 				</span>
 			</span>
@@ -63,7 +64,7 @@
 								fontSize={54}
 								viewBoxWidth={64}
 								viewBoxHeight={64}
-								centerYRatio={0.5}
+								centerYRatio={0.65}
 							/>
 						</span>
 					</span>
@@ -147,22 +148,22 @@
 
 	@media (orientation: portrait) and (max-width: 520px) {
 		.toggle-wrap {
-			--bet-toggle-control-size: 64px;
+			--bet-toggle-control-size: 48px;
 			--bet-toggle-amount-height: 64px;
 
 			gap: 6px;
-			width: min(100%, 370px);
+			width: auto;
 		}
 
 		.amount-bg {
-			width: min(230px, 58vw);
+			width: min(192px, 54vw);
 			height: var(--bet-toggle-amount-height);
 			padding-inline: 12px;
 		}
 
 		.symbol-text {
-			width: 46px;
-			height: 46px;
+			width: 40px;
+			height: 40px;
 		}
 
 		.amount-text {
@@ -171,30 +172,35 @@
 
 		.toggle-wrap.compact-controls {
 			--bet-toggle-control-size: 48px;
+			width: auto;
 		}
 
 		.toggle-wrap.compact-controls .symbol-text {
 			width: 36px;
 			height: 36px;
+		}
+
+		.toggle-wrap.compact-controls .amount-bg {
+			width: 192px;
 		}
 	}
 
 	@media (orientation: landscape) and (max-height: 500px) {
 		.toggle-wrap {
-			--bet-toggle-control-size: 64px;
+			--bet-toggle-control-size: 48px;
 			gap: 6px;
-			width: 382px;
+			width: auto;
 		}
 
 		.amount-bg {
-			width: 240px;
+			width: 192px;
 			height: 64px;
 			padding-inline: 16px;
 		}
 
 		.symbol-text {
-			width: 44px;
-			height: 44px;
+			width: 40px;
+			height: 40px;
 		}
 
 		.amount-text {
@@ -203,11 +209,16 @@
 
 		.toggle-wrap.compact-controls {
 			--bet-toggle-control-size: 48px;
+			width: auto;
 		}
 
 		.toggle-wrap.compact-controls .symbol-text {
 			width: 36px;
 			height: 36px;
+		}
+
+		.toggle-wrap.compact-controls .amount-bg {
+			width: 192px;
 		}
 	}
 </style>
