@@ -10,7 +10,7 @@
 </script>
 
 {#if stateModal.modal?.name === 'settings'}
-	<Popup zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
+	<Popup closeOnEscape={false} zIndex={zIndex.modal} onclose={() => (stateModal.modal = null)}>
 		<div class="settings-modal">
 			<BaseContent maxWidth="100%">
 				<BaseTitle>SOUND</BaseTitle>

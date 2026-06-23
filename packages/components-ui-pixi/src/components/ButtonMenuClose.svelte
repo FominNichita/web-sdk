@@ -7,7 +7,13 @@
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const sizes = { width: 64, height: 64 };
+	const targetCssSize = $derived(
+		context.stateLayoutDerived.layoutType() === 'portrait' ? 42 : 34,
+	);
+	const logicalSize = $derived(
+		targetCssSize / context.stateLayoutDerived.mainLayoutStandard().scale,
+	);
+	const sizes = $derived({ width: logicalSize, height: logicalSize });
 
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });

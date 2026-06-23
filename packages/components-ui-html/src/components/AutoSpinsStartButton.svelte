@@ -32,6 +32,6 @@
 <Button disabled={!stateBetDerived.isBetCostAvailable()} onclick={startAutoBet}>
 	<BaseIcon width="100%" height="3rem" />
 	<BaseButtonContent>
-		<span style="font-size: 1rem;">{i18nDerived.startAutoplay()}</span>
+		<span class="start-autoplay-label">{i18nDerived.startAutoplay()}</span>
 	</BaseButtonContent>
 </Button>

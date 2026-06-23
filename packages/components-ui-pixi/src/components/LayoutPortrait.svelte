@@ -29,8 +29,9 @@
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
 	const MENU_OPTION_MOBILE_SCALE = 1.25;
-	const MENU_CLOSE_MOBILE_SCALE = 1.9;
-	const MENU_CLOSE_MARGIN = 96;
+	const MENU_CLOSE_MARGIN = $derived(
+		(12 + 42 * 0.5) / context.stateLayoutDerived.mainLayoutStandard().scale,
+	);
 	const compactPortrait = $derived(
 		context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
@@ -444,7 +445,6 @@
 		<Container
 			x={context.stateLayoutDerived.mainLayoutStandard().width - MENU_CLOSE_MARGIN}
 			y={MENU_CLOSE_MARGIN}
-			scale={MENU_CLOSE_MOBILE_SCALE}
 		>
 			{@render props.buttonMenuClose({ anchor: 0.5 })}
 		</Container>

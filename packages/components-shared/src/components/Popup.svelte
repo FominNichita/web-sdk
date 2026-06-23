@@ -13,6 +13,7 @@
 		children: Snippet;
 		zIndex: number;
 		persistent?: boolean;
+		closeOnEscape?: boolean;
 		onclose: () => void;
 	};
 
@@ -61,7 +62,7 @@
 	{@render props.children()}
 </div>
 
-<OnHotkey hotkey="Escape" onpress={closeModal} />
+<OnHotkey hotkey="Escape" disabled={props.closeOnEscape === false} onpress={closeModal} />
 
 <div class="pop-up-wrap" class:disabled style={`z-index: ${props.zIndex};`}>
 	<div class="blur-layer"></div>

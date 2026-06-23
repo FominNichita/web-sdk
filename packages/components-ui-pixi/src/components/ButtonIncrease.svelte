@@ -8,7 +8,9 @@
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
 	const sizes = { width: 65, height: 65 };
-	const textStyle = { fontFamily: 'Sancreek',fontSize: 50, fill: '#E4C5AA' };
+	const TEXT_OFFSET_X = 0;
+	const TEXT_OFFSET_Y = -2;
+	const textStyle = { fontFamily: 'Sancreek', fontSize: 50, fill: '#E4C5AA' };
 	const biggest = $derived(stateConfig.betAmountOptions[stateConfig.betAmountOptions.length - 1]);
 	const disabled = $derived(!context.stateXstateDerived.isIdle() || stateBet.betAmount === biggest);
 
@@ -30,5 +32,7 @@
 	{disabled}
 	icon="increase"
 	assetKey="uiButtonPlus"
+	textOffsetX={TEXT_OFFSET_X}
+	textOffsetY={TEXT_OFFSET_Y}
 	{textStyle}
 />

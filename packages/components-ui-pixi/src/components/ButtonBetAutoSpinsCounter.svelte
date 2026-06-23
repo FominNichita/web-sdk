@@ -4,8 +4,11 @@
 
 	import { UI_BASE_SIZE } from '../constants';
 
+	const INFINITY_OFFSET_X = 0;
+	const INFINITY_OFFSET_Y = -6;
+	const isInfinity = $derived(stateBet.autoSpinsCounter === Infinity);
 	const fontSizeMultiplier = $derived.by(() => {
-		if (stateBet.autoSpinsCounter === Infinity) return 1.8;
+		if (isInfinity) return 1.8;
 		if (stateBet.autoSpinsCounter > 99) return 1.45;
 		if (stateBet.autoSpinsCounter > 9) return 1.8;
 		return 2.05;
@@ -15,7 +18,9 @@
 {#if stateBet.autoSpinsCounter > 0}
 	<Text
 		anchor={0.5}
-		text={stateBet.autoSpinsCounter === Infinity ? '∞' : stateBet.autoSpinsCounter}
+		x={isInfinity ? INFINITY_OFFSET_X : 0}
+		y={isInfinity ? INFINITY_OFFSET_Y : 0}
+		text={isInfinity ? '∞' : stateBet.autoSpinsCounter}
 		style={{
 			fontFamily: 'Sancreek',
 			fill: '#111111',

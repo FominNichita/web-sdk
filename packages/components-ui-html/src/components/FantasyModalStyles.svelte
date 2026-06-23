@@ -144,7 +144,8 @@
 		-webkit-text-fill-color: #080808;
 	}
 
-	:global(.fantasy-modal .ui-modal-button-wrap .confirm-label) {
+	:global(.fantasy-modal .ui-modal-button-wrap .confirm-label),
+	:global(.fantasy-modal .ui-modal-button-wrap .start-autoplay-label) {
 		font-size: 16px !important;
 		line-height: 1;
 	}
@@ -412,7 +413,8 @@
 			height: 40px;
 		}
 
-		:global(.fantasy-modal .ui-modal-button-wrap .confirm-label) {
+		:global(.fantasy-modal .ui-modal-button-wrap .confirm-label),
+		:global(.fantasy-modal .ui-modal-button-wrap .start-autoplay-label) {
 			font-size: 17px !important;
 		}
 	}
@@ -431,6 +433,10 @@
 
 		:global(.fantasy-modal .ui-modal-button-wrap .confirm-label) {
 			font-size: 23px !important;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .start-autoplay-label) {
+			font-size: 19px !important;
 		}
 	}
 </style>

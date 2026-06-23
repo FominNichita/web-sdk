@@ -42,7 +42,9 @@
 	const MENU_OPTION_COUNT = 3;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
-	const MENU_CLOSE_MARGIN = 72;
+	const MENU_CLOSE_MARGIN = $derived(
+		(20 + 34 * 0.5) / context.stateLayoutDerived.mainLayoutStandard().scale,
+	);
 </script>
 
 <Container x={20}>

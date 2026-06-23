@@ -17,7 +17,7 @@
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
 		if (stateSound.volumeValueMaster === 0) {
-			stateSound.volumeValueMaster = 50;
+			stateSound.volumeValueMaster = 75;
 		} else {
 			stateSound.volumeValueMaster = 0;
 		}
