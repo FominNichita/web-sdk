@@ -16,6 +16,7 @@
 
 	type Props = {
 		children: Snippet<[{ sizes: Sizes }]>;
+		scale?: number;
 	};
 
 	const props: Props = $props();
@@ -42,6 +43,7 @@
 		x={context.stateGameDerived.boardLayout().x}
 		y={context.stateGameDerived.boardLayout().y}
 		pivot={anchorToPivot({ anchor: 0.5, sizes: BACKGROUND_SIZES })}
+		scale={props.scale ?? 1}
 	>
 		<SpineProvider
 			key="fsIntro"

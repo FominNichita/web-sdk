@@ -10,7 +10,11 @@
 	import { FadeContainer } from 'components-pixi';
 
 	import { getContext } from '../game/context';
-	import { SYMBOL_SIZE } from '../game/constants';
+	import {
+		PORTRAIT_BOARD_OFFSET_X,
+		PORTRAIT_BOARD_SCALE,
+		SYMBOL_SIZE,
+	} from '../game/constants';
 	import { anchorToPivot, BitmapText, Container, Sprite, type Sizes } from 'pixi-svelte';
 
 	const context = getContext();
@@ -22,15 +26,24 @@
 		width: panelWidth,
 		height: panelWidth / PANEL_RATIO_DESKTOP,
 	});
-	const scale = 1;
+	const scale = $derived(
+		context.stateLayoutDerived.layoutType() === 'portrait' ? 1.25 : 1,
+	);
 	const position = $derived.by(() => {
 		const boardLayout = context.stateGameDerived.boardLayout();
 		const portrait = context.stateLayoutDerived.layoutType() === 'portrait';
 
 		if (portrait) {
 			return {
-				x: boardLayout.x - panelSizes.width * 0.5,
-				y: boardLayout.y - boardLayout.height * 0.5 - panelSizes.height - SYMBOL_SIZE * 0.50,
+				x:
+					boardLayout.x +
+					PORTRAIT_BOARD_OFFSET_X -
+					panelSizes.width * scale * 0.5,
+				y:
+					boardLayout.y -
+					boardLayout.height * PORTRAIT_BOARD_SCALE * 0.5 -
+					panelSizes.height * scale -
+					SYMBOL_SIZE * 0.5,
 			};
 		}
 

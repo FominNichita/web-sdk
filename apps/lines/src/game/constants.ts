@@ -3,6 +3,8 @@ import _ from 'lodash';
 import type { RawSymbol, SymbolState } from './types';
 
 export const SYMBOL_SIZE = 120;
+export const PORTRAIT_BOARD_SCALE = 1.2;
+export const PORTRAIT_BOARD_OFFSET_X = -12;
 
 export const REEL_PADDING = 0.53;
 

@@ -23,6 +23,9 @@
 	type AnimationName = 'intro' | 'idle';
 
 	const context = getContext();
+	const panelScale = $derived(
+		context.stateLayoutDerived.layoutType() === 'portrait' ? 1.25 : 1,
+	);
 	const WHITE_TEXT_STYLE = {
 		fontFamily: 'KleeOne-SemiBold',
 		fill: '#ffffff',
@@ -57,7 +60,7 @@
 
 				<CanvasSizeRectangle backgroundColor={0x000000} backgroundAlpha={0.5} />
 
-				<FreeSpinAnimation>
+				<FreeSpinAnimation scale={panelScale}>
 					{#snippet children({ sizes })}
 						<Text
 							x={0}

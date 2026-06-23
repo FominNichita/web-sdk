@@ -12,7 +12,9 @@
 		context.stateLayoutDerived.layoutType() === 'portrait' &&
 			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
-	const sizes = { width: 92, height: 58 };
+	const sizes = $derived(
+		compactPortrait ? compactPortraitLayout.topButton : { width: 92, height: 58 },
+	);
 	const textStyle = $derived({
 		fontFamily: 'Sancreek',
 		...(compactPortrait ? { fontSize: compactPortraitLayout.text.menuSize } : {}),

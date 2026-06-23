@@ -14,10 +14,15 @@
 		context.stateLayoutDerived.layoutType() === 'portrait' &&
 			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
-	const sizes = { width: 152, height: 58 };
+	const sizes = $derived(
+		compactPortrait ? compactPortraitLayout.topButton : { width: 152, height: 58 },
+	);
 	const disabled = $derived(!stateXstateDerived.isIdle());
 	const active = $derived(stateBetDerived.activeBetMode()?.type === 'activate');
 	const label = $derived(active ? i18nDerived.disable() : i18nDerived.buyBonus());
+	const displayLabel = $derived(
+		compactPortrait && !active ? label.replace(/\s+/, '\n') : label,
+	);
 	const textStyle = $derived({
 		fontFamily: 'Sancreek',
 		fontSize: compactPortrait
@@ -28,6 +33,7 @@
 		fill: '#E4C5AA',
 		stroke: { color: '#000000', width: 3 },
 		wordWrap: false,
+		...(compactPortrait ? { align: 'center' as const, lineHeight: 32 } : {}),
 	});
 
 	const openModal = () => (stateModal.modal = { name: 'buyBonus' });
@@ -50,14 +56,15 @@
 	{active}
 	{onpress}
 	icon="menu"
-	{label}
+	label={displayLabel}
 	assetKey="uiButtonBuyBonusBg"
 	textMaxWidth={compactPortrait
-		? sizes.width * (1 - compactPortraitLayout.textPadding.buttonHorizontalRatio * 2)
+		? sizes.width * 0.88
 		: undefined}
 	textMaxHeight={compactPortrait
-		? sizes.height * (1 - compactPortraitLayout.textPadding.buttonVerticalRatio * 2)
+		? sizes.height * 0.96
 		: undefined}
+	textOffsetY={compactPortrait ? 1 : undefined}
 	minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}
 	{textStyle}
 />

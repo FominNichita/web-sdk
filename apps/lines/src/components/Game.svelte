@@ -307,14 +307,14 @@
 
 				<MainContainer>
 					<BoardFrame />
-					{#if gameFontsLoaded}
-						<BoardClock />
-					{/if}
 				</MainContainer>
 
 				<MainContainer>
 					<Board />
 					<Anticipations />
+					{#if gameFontsLoaded}
+						<BoardClock />
+					{/if}
 				</MainContainer>
 
 				{#if gameFontsLoaded}

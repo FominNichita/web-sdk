@@ -10,10 +10,14 @@ export const compactPortraitLayout = {
 	maxViewportWidth: 480,
 	minimumControlHitSize: 132,
 
+	topButton: {
+		width: 170,
+		height: 72,
+	},
 	menu: {
 		x: 160,
 		y: 110,
-		scale: 2.05,
+		scale: 1.75,
 	},
 	buyBonus: {
 		x: 900,
@@ -28,7 +32,7 @@ export const compactPortraitLayout = {
 	 */
 	greenControlRow: {
 		centerX: 540,
-		y: 1240,
+		y: 1690,
 		gap: 34,
 	},
 	autoSpin: {
@@ -49,38 +53,38 @@ export const compactPortraitLayout = {
 
 	winPanel: {
 		x: 290,
-		y: 1545,
+		y: 1330,
 		width: 470,
 		height: 126,
 	},
 	balancePanel: {
 		x: 790,
-		y: 1545,
+		y: 1330,
 		width: 470,
 		height: 126,
 	},
 
 	selectedBetPanel: {
 		x: 540,
-		y: 1730,
+		y: 1510,
 		width: 420,
 		height: 118,
 	},
 	minusButton: {
 		x: 150,
-		y: 1730,
+		y: 1510,
 		scale: 2.05,
 	},
 	plusButton: {
 		x: 930,
-		y: 1730,
+		y: 1510,
 		scale: 2.05,
 	},
 
 	text: {
 		balanceValueSize: 58,
-		menuSize: 26,
-		buyBonusSize: 26,
+		menuSize: 32,
+		buyBonusSize: 32,
 		minimumScale: 0.72,
 	},
 
