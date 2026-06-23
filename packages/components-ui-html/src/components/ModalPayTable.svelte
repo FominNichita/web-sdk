@@ -41,4 +41,16 @@
 		line-height: 0;
 		filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.8));
 	}
+
+	@media (max-width: 560px) {
+		:global(.pop-up-wrap:has(.paytable-modal) .close-button-wrap) {
+			top: max(12px, env(safe-area-inset-top));
+			right: max(12px, env(safe-area-inset-right));
+		}
+
+		:global(.pop-up-wrap:has(.paytable-modal) .close-button) {
+			width: 42px;
+			height: 42px;
+		}
+	}
 </style>

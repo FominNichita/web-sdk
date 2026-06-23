@@ -432,12 +432,16 @@
 
 	@media (max-width: 560px) {
 		.paytable-modal {
-			width: 96vw;
-			height: 91vh;
+			width: 97vw;
+			height: 94dvh;
 		}
 
 		.header {
-			padding-inline: 3rem;
+			padding: 14px 52px 12px;
+		}
+
+		.header h1 {
+			font-size: 38px;
 		}
 
 		.header p {
@@ -445,25 +449,80 @@
 		}
 
 		.tabs {
-			padding-inline: 0.4rem;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 8px;
+			padding: 10px;
+		}
+
+		.tabs button {
+			min-height: 54px;
+			padding: 6px 8px;
+			font-size: 17px;
+			line-height: 1.1;
+		}
+
+		.body {
+			padding: 14px;
 		}
 
 		.symbol-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			grid-template-columns: 1fr;
+			gap: 14px;
+		}
+
+		.symbol-card {
+			padding: 14px;
+		}
+
+		.symbol-card img {
+			width: min(100%, 176px);
+		}
+
+		.symbol-card h2,
+		.scatter-card h2,
+		.rules-grid h2,
+		.payline-card h2 {
+			font-size: 20px;
+		}
+
+		.payouts {
+			gap: 3px;
+			font-size: 17px;
 		}
 
 		.scatter-card {
 			align-items: flex-start;
+			gap: 14px;
+			padding: 14px;
 		}
 
 		.scatter-card img {
-			width: 4.5rem;
-			height: 4.5rem;
+			width: 104px;
+			height: 104px;
+		}
+
+		.scatter-card p,
+		.rules-grid p {
+			font-size: 16px;
+			line-height: 1.55;
 		}
 
 		.rules-grid,
 		.award-columns {
 			grid-template-columns: 1fr;
+			gap: 14px;
+		}
+
+		.rules-grid article {
+			padding: 16px;
+		}
+
+		.award-columns h3 {
+			font-size: 16px;
+		}
+
+		.award-columns span {
+			font-size: 15px;
 		}
 
 		.rules-grid article:last-child {
@@ -471,7 +530,17 @@
 		}
 
 		.payline-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			grid-template-columns: 1fr;
+			gap: 14px;
+		}
+
+		.payline-card {
+			padding: 12px;
+		}
+
+		.payline-intro,
+		.bet-note {
+			font-size: 16px;
 		}
 	}
 </style>

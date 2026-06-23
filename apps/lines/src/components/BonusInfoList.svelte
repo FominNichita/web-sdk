@@ -250,14 +250,69 @@
 	@media (max-width: 560px) {
 		.value-grid {
 			grid-template-columns: 1fr;
+			gap: 11px;
 		}
 
 		summary {
-			padding-inline: 0.75rem;
+			gap: 12px;
+			padding: 16px;
+		}
+
+		summary strong {
+			font-size: 22px;
+		}
+
+		summary small {
+			font-size: 16px;
+			line-height: 1.4;
+		}
+
+		.expand-icon::before {
+			font-size: 29px;
 		}
 
 		.bonus-details {
-			padding-inline: 0.75rem;
+			gap: 14px;
+			padding: 16px;
+		}
+
+		.bonus-details p,
+		.bonus-details li {
+			font-size: 16px;
+			line-height: 1.55;
+		}
+
+		.value-grid div {
+			padding: 14px;
+		}
+
+		.value-grid span {
+			font-size: 13px;
+		}
+
+		.value-grid strong {
+			font-size: 17px;
+		}
+
+		h3 {
+			font-size: 18px;
+		}
+
+		.award-table > * {
+			padding: 9px;
+		}
+
+		.award-table span {
+			font-size: 14px;
+		}
+
+		.award-table strong {
+			font-size: 16px;
+		}
+
+		ul {
+			font-size: 16px;
+			line-height: 1.5;
 		}
 	}
 </style>
