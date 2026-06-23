@@ -96,9 +96,9 @@
 		align-items: center;
 		justify-content: center;
 		margin: 0;
-		font-family: Arial, 'Segoe UI Symbol', sans-serif;
-		font-size: 28px !important;
-		font-weight: 700;
+		font-family: inherit;
+		font-size: 1.25rem !important;
+		font-weight: inherit;
 		line-height: 1 !important;
 		transform: translateY(-1px);
 	}
@@ -282,8 +282,8 @@
 		}
 
 		:global(.fantasy-modal .grid .base-button-content span.infinity) {
-			font-size: 32px !important;
-			transform: translateY(-2px);
+			font-size: 22px !important;
+			transform: translateY(-1px);
 		}
 
 		:global(.fantasy-modal .toggle) {

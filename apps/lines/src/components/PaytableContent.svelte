@@ -9,6 +9,7 @@
 		WILD_MULTIPLIERS,
 	} from '../game/paytable';
 	import { VISIBLE_BONUS_INFO_ENTRIES } from '../game/bonusInfo';
+	import { getContext } from '../game/context';
 	import BonusInfoList from './BonusInfoList.svelte';
 
 	type Tab = 'paytable' | 'features' | 'bonuses' | 'paylines';
@@ -17,6 +18,7 @@
 	};
 
 	const props: Props = $props();
+	const context = getContext();
 	let activeTab = $state<Tab>(props.initialTab);
 
 	const tabs: readonly { id: Tab; label: string }[] = [
@@ -27,6 +29,10 @@
 	];
 
 	const payout = (value: number) => `${value}`;
+	const selectTab = (tab: Tab) => {
+		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
+		activeTab = tab;
+	};
 	const paylinePoints = (line: (typeof PAYLINES)[number]) =>
 		line.map((row, reel) => `${10 + reel * 20},${10 + row * 20}`).join(' ');
 </script>
@@ -43,7 +49,7 @@
 				type="button"
 				class:active={activeTab === tab.id}
 				aria-pressed={activeTab === tab.id}
-				onclick={() => (activeTab = tab.id)}
+				onclick={() => selectTab(tab.id)}
 			>
 				{tab.label}
 			</button>

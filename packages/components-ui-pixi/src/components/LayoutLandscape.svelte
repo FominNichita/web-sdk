@@ -26,7 +26,7 @@
 	const AMOUNT_TEXT_LAYOUT = {
 		headingFontSize: 25,
 		valueFontSize: 31,
-		headingCenterX: -112,
+		headingCenterX: -38,
 		valueCenterX: 38,
 		headingMaxWidth: 62,
 		valueMaxWidth: 210,

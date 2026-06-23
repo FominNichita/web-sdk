@@ -56,6 +56,8 @@
 		valueMaxWidth?: number;
 		valueMaxHeight?: number;
 		valueMinimumTextScale?: number;
+		dynamicInlineSpacing?: boolean;
+		inlineTextGap?: number;
 	};
 
 	const props: Props = $props();
@@ -73,20 +75,13 @@
 	const valueMaxWidth = $derived(props.valueMaxWidth ?? innerWidth);
 	const valueMaxHeight = $derived(props.valueMaxHeight ?? textAreaHeight);
 	const valueMinimumTextScale = $derived(props.valueMinimumTextScale ?? minimumTextScale);
+	const inlineTextGap = $derived(props.inlineTextGap ?? 8);
 	let labelTextWidth = $state(0);
 	let labelTextHeight = $state(0);
 	let valueTextWidth = $state(0);
 	let valueTextHeight = $state(0);
 	const stackedLabelYOffset = $derived(props.stackedLabelYOffset ?? -panelHeight * 0.18);
 	const stackedValueYOffset = $derived(props.stackedValueYOffset ?? panelHeight * 0.18);
-	const labelScale = $derived.by(() => {
-		if (!labelTextWidth || !labelTextHeight) return 1;
-
-		return Math.max(
-			minimumTextScale,
-			Math.min(1, labelMaxWidth / labelTextWidth, labelMaxHeight / labelTextHeight),
-		);
-	});
 	const valueScale = $derived.by(() => {
 		if (!valueTextWidth || !valueTextHeight) return 1;
 
@@ -94,6 +89,41 @@
 
 		// The configured minimum is preferred, but border safety wins if a value is unusually long.
 		return fitScale < valueMinimumTextScale ? fitScale : Math.max(valueMinimumTextScale, fitScale);
+	});
+	const valueCenterX = $derived(props.valueOffsetX ?? panelWidth * 0.13);
+	const labelScale = $derived.by(() => {
+		if (!labelTextWidth || !labelTextHeight) return 1;
+
+		const valueLeft = valueCenterX - valueTextWidth * valueScale * 0.5;
+		const panelLeft = -panelWidth * 0.5 + horizontalPadding;
+		const availableInlineWidth = Math.max(0, valueLeft - inlineTextGap - panelLeft);
+		const effectiveLabelMaxWidth =
+			props.dynamicInlineSpacing && !props.stacked
+				? Math.min(labelMaxWidth, availableInlineWidth)
+				: labelMaxWidth;
+		const fitScale = Math.min(
+			1,
+			effectiveLabelMaxWidth / labelTextWidth,
+			labelMaxHeight / labelTextHeight,
+		);
+
+		return fitScale < minimumTextScale ? fitScale : Math.max(minimumTextScale, fitScale);
+	});
+	const inlineLabelX = $derived.by(() => {
+		if (
+			!props.dynamicInlineSpacing ||
+			!labelTextWidth ||
+			!valueTextWidth
+		) {
+			return props.labelOffsetX ?? -panelWidth * 0.32;
+		}
+
+		return (
+			valueCenterX -
+			valueTextWidth * valueScale * 0.5 -
+			inlineTextGap -
+			labelTextWidth * labelScale * 0.5
+		);
 	});
 
 	const labelStyle = {
@@ -162,7 +192,7 @@
 		/>
 	{/if}
 	<Container
-		x={Math.round(props.labelOffsetX ?? -panelWidth * 0.32)}
+		x={Math.round(inlineLabelX)}
 		y={Math.round(props.labelOffsetY ?? 0)}
 		scale={labelScale}
 	>
@@ -177,7 +207,7 @@
 		/>
 	</Container>
 	<Container
-		x={Math.round(props.valueOffsetX ?? panelWidth * 0.13)}
+		x={Math.round(valueCenterX)}
 		y={Math.round(props.valueOffsetY ?? 0)}
 		scale={valueScale}
 	>

@@ -9,7 +9,6 @@
 	import { Container, Rectangle } from 'pixi-svelte';
 	import { waitForResolve } from 'utils-shared/wait';
 
-	import LabelFreeSpinCounter from './LabelFreeSpinCounter.svelte';
 	import ButtonDrawer from './ButtonDrawer.svelte';
 	import type { LayoutUiProps } from '../types';
 	import { getContext } from '../context';
@@ -29,7 +28,9 @@
 	const MENU_OPTION_COUNT = 3;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
-	const MENU_CLOSE_MARGIN = 72;
+	const MENU_OPTION_MOBILE_SCALE = 1.25;
+	const MENU_CLOSE_MOBILE_SCALE = 1.9;
+	const MENU_CLOSE_MARGIN = 96;
 	const compactPortrait = $derived(
 		context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
@@ -327,101 +328,92 @@
 </MainContainer>
 
 <MainContainer standard alignVertical="bottom">
-	{#if stateUi.freeSpinCounterShow}
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 130}
-		>
-			<LabelFreeSpinCounter stacked />
-		</Container>
-	{:else}
-		<Container
-			x={compactPortrait
-				? compactPortraitLayout.selectedBetPanel.x
-				: context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-			y={compactPortrait ? compactPortraitLayout.selectedBetPanel.y : BET_ROW_Y}
-		>
-			{@render props.amountBet({
-				stacked: !compactPortrait,
-				width: compactPortrait ? compactPortraitLayout.selectedBetPanel.width : undefined,
-				height: compactPortrait ? compactPortraitLayout.selectedBetPanel.height : undefined,
-				labelFontSize: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.headingSourceFontSize
-					: undefined,
-				valueFontSize: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.valuePreferredSourceFontSize
-					: undefined,
-				labelOffsetX: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.headingOffsetX
-					: undefined,
-				labelOffsetY: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.headingOffsetY
-					: undefined,
-				valueOffsetX: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.valueOffsetX
-					: undefined,
-				valueOffsetY: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.valueOffsetY
-					: undefined,
-				labelMaxWidth: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.headingMaxWidth
-					: undefined,
-				labelMaxHeight: compactPortrait
-					? getSafeTextHeight({
-							panelHeight: compactPortraitLayout.selectedBetPanel.height,
-							paddingTop: compactPortraitLayout.selectedBetPanelText.paddingTop,
-							paddingBottom: compactPortraitLayout.selectedBetPanelText.paddingBottom,
-							offsetY: compactPortraitLayout.selectedBetPanelText.headingOffsetY,
-							maxHeight: compactPortraitLayout.selectedBetPanelText.headingMaxHeight,
-						})
-					: undefined,
-				valueMaxWidth: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.valueMaxWidth
-					: undefined,
-				valueMaxHeight: compactPortrait
-					? getSafeTextHeight({
-							panelHeight: compactPortraitLayout.selectedBetPanel.height,
-							paddingTop: compactPortraitLayout.selectedBetPanelText.paddingTop,
-							paddingBottom: compactPortraitLayout.selectedBetPanelText.paddingBottom,
-							offsetY: compactPortraitLayout.selectedBetPanelText.valueOffsetY,
-							maxHeight: compactPortraitLayout.selectedBetPanelText.valueMaxHeight,
-						})
-					: undefined,
-				valueMinimumTextScale: compactPortrait
-					? compactPortraitLayout.selectedBetPanelText.valueMinimumSourceFontSize /
-						compactPortraitLayout.selectedBetPanelText.valuePreferredSourceFontSize
-					: undefined,
-				horizontalPadding: compactPortrait ? 0 : undefined,
-				verticalPadding: compactPortrait ? 0 : undefined,
-				minimumTextScale: compactPortrait ? compactPortraitLayout.text.minimumScale : undefined,
-			})}
-		</Container>
+	<Container
+		x={compactPortrait
+			? compactPortraitLayout.selectedBetPanel.x
+			: context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
+		y={compactPortrait ? compactPortraitLayout.selectedBetPanel.y : BET_ROW_Y}
+	>
+		{@render props.amountBet({
+			stacked: !compactPortrait,
+			width: compactPortrait ? compactPortraitLayout.selectedBetPanel.width : undefined,
+			height: compactPortrait ? compactPortraitLayout.selectedBetPanel.height : undefined,
+			labelFontSize: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.headingSourceFontSize
+				: undefined,
+			valueFontSize: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.valuePreferredSourceFontSize
+				: undefined,
+			labelOffsetX: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.headingOffsetX
+				: undefined,
+			labelOffsetY: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.headingOffsetY
+				: undefined,
+			valueOffsetX: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.valueOffsetX
+				: undefined,
+			valueOffsetY: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.valueOffsetY
+				: undefined,
+			labelMaxWidth: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.headingMaxWidth
+				: undefined,
+			labelMaxHeight: compactPortrait
+				? getSafeTextHeight({
+						panelHeight: compactPortraitLayout.selectedBetPanel.height,
+						paddingTop: compactPortraitLayout.selectedBetPanelText.paddingTop,
+						paddingBottom: compactPortraitLayout.selectedBetPanelText.paddingBottom,
+						offsetY: compactPortraitLayout.selectedBetPanelText.headingOffsetY,
+						maxHeight: compactPortraitLayout.selectedBetPanelText.headingMaxHeight,
+					})
+				: undefined,
+			valueMaxWidth: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.valueMaxWidth
+				: undefined,
+			valueMaxHeight: compactPortrait
+				? getSafeTextHeight({
+						panelHeight: compactPortraitLayout.selectedBetPanel.height,
+						paddingTop: compactPortraitLayout.selectedBetPanelText.paddingTop,
+						paddingBottom: compactPortraitLayout.selectedBetPanelText.paddingBottom,
+						offsetY: compactPortraitLayout.selectedBetPanelText.valueOffsetY,
+						maxHeight: compactPortraitLayout.selectedBetPanelText.valueMaxHeight,
+					})
+				: undefined,
+			valueMinimumTextScale: compactPortrait
+				? compactPortraitLayout.selectedBetPanelText.valueMinimumSourceFontSize /
+					compactPortraitLayout.selectedBetPanelText.valuePreferredSourceFontSize
+				: undefined,
+			horizontalPadding: compactPortrait ? 0 : undefined,
+			verticalPadding: compactPortrait ? 0 : undefined,
+			minimumTextScale: compactPortrait ? compactPortraitLayout.text.minimumScale : undefined,
+		})}
+	</Container>
 
-		<Container
-			x={compactPortrait
-				? compactPortraitLayout.minusButton.x
-				: context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - BET_STEP_X_OFFSET}
-			y={compactPortrait ? compactPortraitLayout.minusButton.y : BET_ROW_Y}
-			scale={compactPortrait ? compactPortraitLayout.minusButton.scale : BET_STEP_SCALE}
-		>
-			{@render props.buttonDecrease({ anchor: 0.5 })}
-		</Container>
+	<Container
+		x={compactPortrait
+			? compactPortraitLayout.minusButton.x
+			: context.stateLayoutDerived.mainLayoutStandard().width * 0.5 - BET_STEP_X_OFFSET}
+		y={compactPortrait ? compactPortraitLayout.minusButton.y : BET_ROW_Y}
+		scale={compactPortrait ? compactPortraitLayout.minusButton.scale : BET_STEP_SCALE}
+	>
+		{@render props.buttonDecrease({ anchor: 0.5 })}
+	</Container>
 
-		<Container
-			x={compactPortrait
-				? compactPortraitLayout.plusButton.x
-				: context.stateLayoutDerived.mainLayoutStandard().width * 0.5 + BET_STEP_X_OFFSET}
-			y={compactPortrait ? compactPortraitLayout.plusButton.y : BET_ROW_Y}
-			scale={compactPortrait ? compactPortraitLayout.plusButton.scale : BET_STEP_SCALE}
-		>
-			{@render props.buttonIncrease({ anchor: 0.5 })}
-		</Container>
-	{/if}
+	<Container
+		x={compactPortrait
+			? compactPortraitLayout.plusButton.x
+			: context.stateLayoutDerived.mainLayoutStandard().width * 0.5 + BET_STEP_X_OFFSET}
+		y={compactPortrait ? compactPortraitLayout.plusButton.y : BET_ROW_Y}
+		scale={compactPortrait ? compactPortraitLayout.plusButton.scale : BET_STEP_SCALE}
+	>
+		{@render props.buttonIncrease({ anchor: 0.5 })}
+	</Container>
 
 	<!-- drawer button -->
 	<FadeContainer
 		persistent
-		show={stateUi.drawerButtonShow}
+		show={stateUi.drawerButtonShow && !stateUi.freeSpinCounterShow}
 		oncomplete={drawerButtonFadeComplete}
 		y={drawerButtonTween.current}
 	>
@@ -452,6 +444,7 @@
 		<Container
 			x={context.stateLayoutDerived.mainLayoutStandard().width - MENU_CLOSE_MARGIN}
 			y={MENU_CLOSE_MARGIN}
+			scale={MENU_CLOSE_MOBILE_SCALE}
 		>
 			{@render props.buttonMenuClose({ anchor: 0.5 })}
 		</Container>
@@ -459,6 +452,7 @@
 		<Container
 			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
 			y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
+			scale={MENU_OPTION_MOBILE_SCALE}
 		>
 			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
 				{@render props.buttonPayTable({ anchor: 0.5 })}

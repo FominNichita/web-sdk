@@ -26,6 +26,7 @@
 		valueMaxWidth?: number;
 		valueMaxHeight?: number;
 		valueMinimumTextScale?: number;
+		inlineTextGap?: number;
 		useBalanceValueStyle?: boolean;
 	};
 
@@ -71,6 +72,8 @@
 	valueMaxWidth={props.valueMaxWidth}
 	valueMaxHeight={props.valueMaxHeight}
 	valueMinimumTextScale={props.valueMinimumTextScale}
+	dynamicInlineSpacing
+	inlineTextGap={props.inlineTextGap}
 	stacked={props.stacked}
 	stackedLabelYOffset={props.height ? -props.height * 0.23 : -13}
 	stackedValueYOffset={props.height ? props.height * 0.23 : 15}

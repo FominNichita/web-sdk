@@ -330,7 +330,9 @@
 				<Win />
 				<FreeSpinIntro />
 
-				{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}
+				{#if ['desktop', 'landscape', 'portrait'].includes(
+					context.stateLayoutDerived.layoutType(),
+				)}
 					<FreeSpinCounter />
 				{/if}
 
@@ -358,6 +360,7 @@
 		position: relative;
 		width: 100vw;
 		height: 100vh;
+		height: 100dvh;
 		overflow: hidden;
 		background: #130d09;
 		isolation: isolate;
@@ -425,12 +428,17 @@
 	}
 
 	@media (orientation: portrait) {
+		.video-background {
+			object-fit: cover;
+			object-position: center center;
+		}
+
 		.background-extension {
-			opacity: 0.82;
+			opacity: 0;
 		}
 
 		.background-extension-shade {
-			opacity: 1;
+			opacity: 0.35;
 		}
 	}
 

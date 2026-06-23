@@ -3,8 +3,11 @@
 	import { onDestroy, onMount, type Snippet } from 'svelte';
 
 	import { waitForTimeout } from 'utils-shared/wait';
+	import { getContextEventEmitter } from 'utils-event-emitter';
 
 	import OnHotkey from './OnHotkey.svelte';
+
+	type PopupSoundEvent = { type: 'soundPressGeneral' };
 
 	type Props = {
 		children: Snippet;
@@ -14,6 +17,7 @@
 	};
 
 	const props: Props = $props();
+	const eventEmitterContext = getContextEventEmitter<PopupSoundEvent>();
 
 	const zIndexInternal = {
 		topLayer: 2,
@@ -23,6 +27,10 @@
 	};
 
 	const closeModal = () => (props.persistent ? undefined : props.onclose());
+	const closeModalFromButton = () => {
+		eventEmitterContext?.eventEmitter.broadcast({ type: 'soundPressGeneral' });
+		closeModal();
+	};
 	const closeModalFromBackdrop = (event: MouseEvent | KeyboardEvent) => {
 		if (event.target !== event.currentTarget) return;
 		closeModal();
@@ -73,7 +81,7 @@
 
 		{#if !props.persistent}
 			<div class="close-button-wrap" style="--zIndex: {zIndexInternal.closeButton}">
-				<button class="close-button" data-test="close-button" onclick={closeModal}>×</button>
+				<button class="close-button" data-test="close-button" onclick={closeModalFromButton}>×</button>
 			</div>
 		{/if}
 		<div class="content-layer" style="--zIndex: {zIndexInternal.contentLayer}">

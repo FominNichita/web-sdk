@@ -1,11 +1,14 @@
 <script lang="ts">
 	import type { BonusInfoEntry } from '../game/bonusInfo';
+	import { getContext } from '../game/context';
 
 	type Props = {
 		entries: readonly BonusInfoEntry[];
 	};
 
 	const props: Props = $props();
+	const context = getContext();
+	const playButtonSound = () => context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
 
 	const formatPercent = (value: number) => value.toFixed(2);
 	const formatNumber = (value: number) => value.toLocaleString('en-US');
@@ -16,7 +19,7 @@
 <div class="bonus-list">
 	{#each props.entries as entry, index}
 		<details class="bonus-entry" open={index === 0}>
-			<summary>
+			<summary onclick={playButtonSound}>
 				<span>
 					<strong>{entry.title}</strong>
 					<small>{entry.summary}</small>
