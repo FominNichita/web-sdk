@@ -100,3 +100,55 @@
 	})}
 	{template}
 />
+
+<Story
+	name="autospin counter: one digit"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: { counter: 8 },
+		action: async ({ counter }) => {
+			stateBet.balanceAmount = 10_000;
+			stateBet.autoSpinsCounter = counter;
+		},
+	})}
+	{template}
+/>
+
+<Story
+	name="autospin counter: two digits"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: { counter: 25 },
+		action: async ({ counter }) => {
+			stateBet.balanceAmount = 10_000;
+			stateBet.autoSpinsCounter = counter;
+		},
+	})}
+	{template}
+/>
+
+<Story
+	name="autospin counter: three digits"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: { counter: 100 },
+		action: async ({ counter }) => {
+			stateBet.balanceAmount = 10_000;
+			stateBet.autoSpinsCounter = counter;
+		},
+	})}
+	{template}
+/>
+
+<Story
+	name="autospin counter: infinity"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: { counter: Infinity },
+		action: async ({ counter }) => {
+			stateBet.balanceAmount = 10_000;
+			stateBet.autoSpinsCounter = counter;
+		},
+	})}
+	{template}
+/>

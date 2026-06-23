@@ -2,16 +2,20 @@
 	import { Text } from 'pixi-svelte';
 	import { stateBet } from 'state-shared';
 
-	import { UI_BASE_SIZE } from '../constants';
-
 	const INFINITY_OFFSET_X = 0;
 	const INFINITY_OFFSET_Y = -6;
+	const COUNTER_FONT_SIZE = {
+		singleDigit: 44,
+		doubleDigit: 40,
+		multipleDigits: 34,
+		infinity: 42,
+	} as const;
 	const isInfinity = $derived(stateBet.autoSpinsCounter === Infinity);
-	const fontSizeMultiplier = $derived.by(() => {
-		if (isInfinity) return 1.8;
-		if (stateBet.autoSpinsCounter > 99) return 1.45;
-		if (stateBet.autoSpinsCounter > 9) return 1.8;
-		return 2.05;
+	const fontSize = $derived.by(() => {
+		if (isInfinity) return COUNTER_FONT_SIZE.infinity;
+		if (stateBet.autoSpinsCounter > 99) return COUNTER_FONT_SIZE.multipleDigits;
+		if (stateBet.autoSpinsCounter > 9) return COUNTER_FONT_SIZE.doubleDigit;
+		return COUNTER_FONT_SIZE.singleDigit;
 	});
 </script>
 
@@ -25,7 +29,7 @@
 			fontFamily: 'Sancreek',
 			fill: '#111111',
 			fontWeight: 'bold',
-			fontSize: fontSizeMultiplier * UI_BASE_SIZE * 0.2,
+			fontSize,
 		}}
 	/>
 {/if}
