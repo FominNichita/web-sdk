@@ -85,4 +85,16 @@
 			height: 42px;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		:global(.pop-up-wrap:has(.buy-bonus-modal-close-theme) .close-button-wrap) {
+			top: 8px;
+			right: 8px;
+		}
+
+		:global(.pop-up-wrap:has(.buy-bonus-modal-close-theme) .close-button) {
+			width: 34px;
+			height: 34px;
+		}
+	}
 </style>

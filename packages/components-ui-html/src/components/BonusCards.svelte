@@ -167,4 +167,29 @@
 			font-size: 20px;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.title {
+			font-size: 20px;
+		}
+
+		.description {
+			min-height: 64px;
+			max-height: 92px;
+			font-size: 12px;
+		}
+
+		.price {
+			font-size: 18px;
+		}
+
+		.activate-button-bg {
+			width: 160px;
+			height: 42px;
+		}
+
+		.activate-button-text {
+			font-size: 14px;
+		}
+	}
 </style>

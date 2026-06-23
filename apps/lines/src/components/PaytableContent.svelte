@@ -543,4 +543,77 @@
 			font-size: 16px;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.paytable-modal {
+			width: 95vw;
+			height: 94dvh;
+		}
+
+		.header {
+			padding: 8px 46px 6px;
+		}
+
+		.header h1 {
+			font-size: 27px;
+		}
+
+		.header p {
+			display: none;
+		}
+
+		.tabs {
+			gap: 5px;
+			padding: 6px 9px;
+		}
+
+		.tabs button {
+			min-height: 34px;
+			font-size: 14px;
+		}
+
+		.body {
+			padding: 9px;
+		}
+
+		.symbol-grid {
+			grid-template-columns: repeat(4, minmax(7rem, 1fr));
+		}
+
+		.symbol-card img {
+			width: min(100%, 6rem);
+		}
+
+		.payline-grid {
+			grid-template-columns: repeat(4, minmax(8rem, 1fr));
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 300px) {
+		.paytable-modal {
+			width: 96vw;
+			height: 96dvh;
+		}
+
+		.header {
+			padding-block: 5px;
+		}
+
+		.header h1 {
+			font-size: 20px;
+		}
+
+		.tabs {
+			padding-block: 4px;
+		}
+
+		.tabs button {
+			min-height: 26px;
+			font-size: 11px;
+		}
+
+		.symbol-grid {
+			grid-template-columns: repeat(3, minmax(6rem, 1fr));
+		}
+	}
 </style>

@@ -6,6 +6,7 @@
 		viewBoxHeight: number;
 		maxWidth?: number;
 		strokeWidth?: number;
+		centerYRatio?: number;
 	};
 
 	const {
@@ -15,6 +16,7 @@
 		viewBoxHeight,
 		maxWidth,
 		strokeWidth = 3,
+		centerYRatio = 0.54,
 	}: Props = $props();
 
 	const gradientId = `silverTextGradient-${Math.random().toString(36).slice(2)}`;
@@ -55,10 +57,12 @@
 	<text
 		bind:this={textElement}
 		x="50%"
-		y="54%"
+		y={`${centerYRatio * 100}%`}
 		text-anchor="middle"
 		dominant-baseline="middle"
-		transform="translate({viewBoxWidth * 0.5} {viewBoxHeight * 0.54}) scale({textScale}) translate({-viewBoxWidth * 0.5} {-viewBoxHeight * 0.54})"
+		transform="translate({viewBoxWidth * 0.5} {viewBoxHeight *
+			centerYRatio}) scale({textScale}) translate({-viewBoxWidth * 0.5} {-viewBoxHeight *
+			centerYRatio})"
 		font-family="Sancreek"
 		font-size={fontSize}
 		fill="url(#{gradientId})"

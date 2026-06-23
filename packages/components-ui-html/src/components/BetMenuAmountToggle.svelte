@@ -29,7 +29,13 @@
 				<Button data-test="down-button" disabled={disabledDown} onclick={toggleDown}>
 					<span class="control-bg">
 						<span class="symbol-text">
-							<BuyBonusGradientText text="-" fontSize={44} viewBoxWidth={64} viewBoxHeight={64} />
+							<BuyBonusGradientText
+								text="-"
+								fontSize={54}
+								viewBoxWidth={64}
+								viewBoxHeight={64}
+								centerYRatio={0.5}
+							/>
 						</span>
 					</span>
 				</Button>
@@ -52,7 +58,13 @@
 				<Button data-test="up-button" disabled={disabledUp} onclick={toggleUp}>
 					<span class="control-bg">
 						<span class="symbol-text">
-							<BuyBonusGradientText text="+" fontSize={44} viewBoxWidth={64} viewBoxHeight={64} />
+							<BuyBonusGradientText
+								text="+"
+								fontSize={54}
+								viewBoxWidth={64}
+								viewBoxHeight={64}
+								centerYRatio={0.5}
+							/>
 						</span>
 					</span>
 				</Button>
@@ -113,9 +125,16 @@
 	}
 
 	.symbol-text {
-		display: block;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		width: 2.75rem;
 		height: 2.75rem;
+	}
+
+	.symbol-text :global(svg) {
+		width: 100%;
+		height: 100%;
 	}
 
 	.amount-text {
@@ -148,6 +167,38 @@
 
 		.amount-text {
 			height: 46px;
+		}
+
+		.toggle-wrap.compact-controls {
+			--bet-toggle-control-size: 48px;
+		}
+
+		.toggle-wrap.compact-controls .symbol-text {
+			width: 36px;
+			height: 36px;
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.toggle-wrap {
+			--bet-toggle-control-size: 64px;
+			gap: 6px;
+			width: 382px;
+		}
+
+		.amount-bg {
+			width: 240px;
+			height: 64px;
+			padding-inline: 16px;
+		}
+
+		.symbol-text {
+			width: 44px;
+			height: 44px;
+		}
+
+		.amount-text {
+			height: 44px;
 		}
 
 		.toggle-wrap.compact-controls {

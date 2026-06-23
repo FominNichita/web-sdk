@@ -319,4 +319,105 @@
 			font-size: 20px !important;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		:global(.pop-up-wrap:has(.fantasy-modal) .close-button-wrap) {
+			top: 8px;
+			right: 8px;
+		}
+
+		:global(.pop-up-wrap:has(.fantasy-modal) .close-button) {
+			width: 34px;
+			height: 34px;
+		}
+
+		:global(.fantasy-modal),
+		:global(.fantasy-modal-bet),
+		:global(.fantasy-modal-auto-spin) {
+			width: min(720px, 92vw);
+			max-height: 94dvh;
+		}
+
+		:global(.fantasy-modal .ui-popup-standard-content-wrap) {
+			max-height: 94dvh;
+			gap: 5px;
+			padding: 8px 12px;
+		}
+
+		:global(.fantasy-modal .ui-modal-title-wrap) {
+			font-size: 28px;
+		}
+
+		:global(.fantasy-modal .subtitle),
+		:global(.fantasy-modal .menu-subtitle) {
+			font-size: 11px;
+		}
+
+		:global(.fantasy-modal .content.column) {
+			gap: 7px;
+			max-height: calc(94dvh - 86px);
+			overflow-y: auto;
+			overscroll-behavior: contain;
+		}
+
+		:global(.fantasy-modal .grid) {
+			gap: 5px 8px;
+		}
+
+		:global(.fantasy-modal .grid .button),
+		:global(.fantasy-modal .grid .rectangle),
+		:global(.fantasy-modal-auto-spin .grid .button),
+		:global(.fantasy-modal-auto-spin .grid .rectangle) {
+			height: 34px !important;
+		}
+
+		:global(.fantasy-modal-auto-spin .grid) {
+			grid-auto-rows: 34px;
+		}
+
+		:global(.fantasy-modal .grid .base-button-content span) {
+			font-size: 15px !important;
+		}
+
+		:global(.fantasy-modal .grid .base-button-content span.infinity) {
+			font-size: 19px !important;
+		}
+
+		:global(.fantasy-modal .toggle) {
+			margin-top: 2px;
+			padding: 4px 10px;
+			font-size: 10px;
+		}
+
+		:global(.fantasy-modal .advanced-panel) {
+			margin-top: 4px;
+			padding: 7px;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap) {
+			margin-top: 2px;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .full-width),
+		:global(.fantasy-modal .ui-modal-button-wrap .max-width) {
+			width: 190px;
+		}
+
+		:global(.fantasy-modal .ui-modal-button-wrap .rectangle) {
+			height: 40px;
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 300px) {
+		:global(.fantasy-modal) {
+			zoom: 0.72;
+			width: min(760px, 128vw);
+			max-height: 128dvh;
+		}
+
+		:global(.fantasy-modal .ui-popup-standard-content-wrap),
+		:global(.fantasy-modal .content.column) {
+			max-height: 128dvh;
+		}
+	}
 </style>

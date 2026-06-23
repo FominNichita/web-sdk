@@ -60,4 +60,17 @@
 			gap: 12px;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.bonus-card-wrap {
+			width: 220px;
+			min-height: 300px;
+			padding: 16px 14px 14px;
+			gap: 10px;
+		}
+
+		.info {
+			gap: 8px;
+		}
+	}
 </style>

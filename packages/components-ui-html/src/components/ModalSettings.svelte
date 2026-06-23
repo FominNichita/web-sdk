@@ -130,4 +130,42 @@
 			height: 42px;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.settings-modal {
+			width: min(76vw, 680px);
+			gap: 5px;
+
+			:global(.ui-modal-title-wrap) {
+				font-size: 30px;
+			}
+		}
+
+		.settings-panel {
+			height: min(70dvh, 280px);
+			aspect-ratio: auto;
+			padding: 38px 42px;
+		}
+
+		.settings-rows {
+			gap: 12px;
+		}
+
+		:global(.pop-up-wrap:has(.settings-modal) .close-button-wrap) {
+			top: 8px;
+			right: 8px;
+		}
+
+		:global(.pop-up-wrap:has(.settings-modal) .close-button) {
+			width: 34px;
+			height: 34px;
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 300px) {
+		.settings-modal {
+			zoom: 0.72;
+			width: min(88vw, 680px);
+		}
+	}
 </style>

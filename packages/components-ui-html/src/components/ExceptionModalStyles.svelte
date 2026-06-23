@@ -129,4 +129,49 @@
 			padding: 0.85rem 1rem;
 		}
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		:global(.fantasy-modal-exception) {
+			width: min(760px, 94vw);
+			max-height: 92dvh;
+		}
+
+		:global(.fantasy-modal-exception .ui-modal-title-wrap) {
+			padding: 8px 46px 6px;
+			font-size: 27px;
+		}
+
+		:global(.fantasy-modal-exception .exception-panel) {
+			min-height: 0;
+			gap: 7px;
+			padding: 9px;
+		}
+
+		:global(.fantasy-modal-exception .exception-message) {
+			max-height: 48dvh;
+			padding: 8px 12px;
+			font-size: 14px;
+		}
+
+		:global(.pop-up-wrap:has(.fantasy-modal-exception) .close-button-wrap) {
+			top: 8px;
+			right: 8px;
+		}
+
+		:global(.pop-up-wrap:has(.fantasy-modal-exception) .close-button) {
+			width: 34px;
+			height: 34px;
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 300px) {
+		:global(.fantasy-modal-exception .ui-modal-title-wrap) {
+			font-size: 20px;
+		}
+
+		:global(.fantasy-modal-exception .exception-subtitle),
+		:global(.fantasy-modal-exception .exception-message) {
+			font-size: 11px;
+		}
+	}
 </style>

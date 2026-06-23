@@ -119,4 +119,38 @@
 		paint-order: stroke fill;
 		text-align: center;
 	}
+
+	@media (orientation: landscape) and (max-height: 500px) {
+		.confirm-title {
+			max-width: 70vw;
+			font-size: 25px;
+		}
+
+		.confirm-dialog {
+			max-width: 72vw;
+			max-height: 28dvh;
+			font-size: 14px;
+			overflow-y: auto;
+		}
+
+		.confirm-button-bg {
+			width: 190px;
+			min-height: 40px;
+		}
+	}
+
+	@media (orientation: landscape) and (max-height: 300px) {
+		.confirm-title {
+			font-size: 19px;
+		}
+
+		.confirm-dialog {
+			max-height: 24dvh;
+			font-size: 11px;
+		}
+
+		.confirm-button-bg {
+			min-height: 32px;
+		}
+	}
 </style>
