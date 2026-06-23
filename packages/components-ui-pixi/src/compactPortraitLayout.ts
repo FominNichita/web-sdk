@@ -7,7 +7,8 @@
  * Scale values are multipliers applied to the button's native sprite size.
  */
 export const compactPortraitLayout = {
-	maxViewportWidth: 480,
+	// Use the tuned portrait HUD for phones and portrait tablets such as Pixel and iPad.
+	maxViewportWidth: 1024,
 	minimumControlHitSize: 132,
 
 	topButton: {
