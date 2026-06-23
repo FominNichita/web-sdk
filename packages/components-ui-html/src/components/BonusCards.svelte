@@ -157,12 +157,14 @@
 		}
 
 		.activate-button-bg {
-			width: min(260px, 72vw);
+			width: min(250px, 78vw);
 			height: 58px;
+			background-image: var(--lines-ui-menu-button-url);
 		}
 
 		.activate-button-text {
-			font-size: clamp(17px, 4.8vw, 21px);
+			font-family: 'LinesModalSancreek', Sancreek, serif;
+			font-size: 20px;
 		}
 	}
 </style>

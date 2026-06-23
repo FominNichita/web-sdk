@@ -97,10 +97,10 @@
 		justify-content: center;
 		margin: 0;
 		font-family: inherit;
-		font-size: 1.25rem !important;
+		font-size: 1.45rem !important;
 		font-weight: inherit;
 		line-height: 1 !important;
-		transform: translateY(-1px);
+		transform: translateY(-2px);
 	}
 
 	:global(.fantasy-modal .base-button-content) {
@@ -282,8 +282,8 @@
 		}
 
 		:global(.fantasy-modal .grid .base-button-content span.infinity) {
-			font-size: 22px !important;
-			transform: translateY(-1px);
+			font-size: 26px !important;
+			transform: translateY(-3px);
 		}
 
 		:global(.fantasy-modal .toggle) {

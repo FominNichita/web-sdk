@@ -37,7 +37,7 @@
 		<div class="buy-bonus-modal-close-theme">
 			<BonusContentWrap maxListLength={Math.max(activateList.length, buyList.length)}>
 				{#snippet betAmount()}
-					<BetMenuAmountToggle />
+					<BetMenuAmountToggle compactControls />
 				{/snippet}
 
 				{#snippet bonusCardsActivate()}

@@ -7,6 +7,11 @@
 	import BuyBonusGradientText from './BuyBonusGradientText.svelte';
 	import type { EmitterEventModal } from '../types';
 
+	type Props = {
+		compactControls?: boolean;
+	};
+
+	const props: Props = $props();
 	const { eventEmitter } = getContextEventEmitter<EmitterEventModal>();
 </script>
 
@@ -19,7 +24,7 @@
 	}}
 >
 	{#snippet children({ disabledDown, disabledUp, toggleDown, toggleUp })}
-		<div class="toggle-wrap">
+		<div class="toggle-wrap" class:compact-controls={props.compactControls}>
 			<div class="step-button">
 				<Button data-test="down-button" disabled={disabledDown} onclick={toggleDown}>
 					<span class="control-bg">
@@ -124,6 +129,7 @@
 	@media (orientation: portrait) and (max-width: 520px) {
 		.toggle-wrap {
 			--bet-toggle-control-size: 64px;
+			--bet-toggle-amount-height: 64px;
 
 			gap: 6px;
 			width: min(100%, 370px);
@@ -131,6 +137,7 @@
 
 		.amount-bg {
 			width: min(230px, 58vw);
+			height: var(--bet-toggle-amount-height);
 			padding-inline: 12px;
 		}
 
@@ -141,6 +148,15 @@
 
 		.amount-text {
 			height: 46px;
+		}
+
+		.toggle-wrap.compact-controls {
+			--bet-toggle-control-size: 48px;
+		}
+
+		.toggle-wrap.compact-controls .symbol-text {
+			width: 36px;
+			height: 36px;
 		}
 	}
 </style>
