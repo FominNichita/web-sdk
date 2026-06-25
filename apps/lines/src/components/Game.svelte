@@ -29,6 +29,7 @@
 	import BoardClock from './BoardClock.svelte';
 	import PaytableContent from './PaytableContent.svelte';
 	import ReelAreaShake from './ReelAreaShake.svelte';
+	import FreeSpinEmbers from './FreeSpinEmbers.svelte';
 	import gameConfig from '../game/config';
 
 	const context = getContext();
@@ -317,6 +318,7 @@
 						{#if gameFontsLoaded}
 							<BoardClock />
 						{/if}
+						<FreeSpinEmbers />
 					</MainContainer>
 				</ReelAreaShake>
 

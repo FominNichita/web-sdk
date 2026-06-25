@@ -21,6 +21,7 @@
 	import BoardMask from './BoardMask.svelte';
 	import BoardBase from './BoardBase.svelte';
 	import WinningLine from './WinningLine.svelte';
+	import ReelLandingEffects from './ReelLandingEffects.svelte';
 
 	const context = getContext();
 
@@ -70,6 +71,7 @@
 	</BoardContext>
 
 	<BoardContainer>
+		<ReelLandingEffects />
 		<WinningLine positions={winningLinePositions} />
 	</BoardContainer>
 {/if}

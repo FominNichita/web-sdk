@@ -11,6 +11,7 @@ import type { EmitterEventGlobalMultiplierFrame } from '../components/GlobalMult
 
 export type EmitterEventGame =
 	| { type: 'screenShake' }
+	| { type: 'reelLandImpact'; reelIndex: number }
 	| EmitterEventBoard
 	| EmitterEventBoardFrame
 	| EmitterEventWin

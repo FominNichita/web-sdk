@@ -4,6 +4,7 @@
 
 	import { getContext } from '../game/context';
 	import Anticipation from './Anticipation.svelte';
+	import AnticipationLighting from './AnticipationLighting.svelte';
 
 	const context = getContext();
 	const hasAnticipation = $derived(
@@ -12,6 +13,7 @@
 </script>
 
 {#if hasAnticipation}
+	<AnticipationLighting />
 	<OnMount
 		onmount={() => {
 			context.eventEmitter.broadcast({ type: 'soundLoop', name: 'sfx_anticipation' });

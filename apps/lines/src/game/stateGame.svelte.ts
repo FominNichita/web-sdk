@@ -39,6 +39,7 @@ const onSymbolLand = ({ rawSymbol }: { rawSymbol: RawSymbol }) => {
 };
 
 const board = _.range(BOARD_DIMENSIONS.x).map((reelIndex) => {
+	let landingImpactScheduled = false;
 	const reel = createReelForSpinning({
 		reelIndex,
 		symbolHeight: SYMBOL_SIZE,
@@ -51,7 +52,14 @@ const board = _.range(BOARD_DIMENSIONS.x).map((reelIndex) => {
 				forcePlay: !stateBet.isTurbo,
 			});
 		},
-		onSymbolLand,
+		onSymbolLand: ({ rawSymbol }) => {
+			if (!landingImpactScheduled) {
+				landingImpactScheduled = true;
+				eventEmitter.broadcast({ type: 'reelLandImpact', reelIndex });
+				queueMicrotask(() => (landingImpactScheduled = false));
+			}
+			onSymbolLand({ rawSymbol });
+		},
 	});
 
 	reel.reelState.spinOptions = () =>

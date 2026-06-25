@@ -24,6 +24,7 @@
 {#if isSprite}
 	<SymbolSprite
 		{symbolInfo}
+		rawSymbol={props.rawSymbol}
 		state={props.state}
 		x={props.x}
 		y={props.y}
