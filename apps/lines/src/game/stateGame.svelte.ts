@@ -40,6 +40,7 @@ const onSymbolLand = ({ rawSymbol }: { rawSymbol: RawSymbol }) => {
 
 const board = _.range(BOARD_DIMENSIONS.x).map((reelIndex) => {
 	let landingImpactScheduled = false;
+	let landedSymbols: RawSymbol[] = [];
 	const reel = createReelForSpinning({
 		reelIndex,
 		symbolHeight: SYMBOL_SIZE,
@@ -53,10 +54,18 @@ const board = _.range(BOARD_DIMENSIONS.x).map((reelIndex) => {
 			});
 		},
 		onSymbolLand: ({ rawSymbol }) => {
+			landedSymbols.push(rawSymbol);
 			if (!landingImpactScheduled) {
 				landingImpactScheduled = true;
-				eventEmitter.broadcast({ type: 'reelLandImpact', reelIndex });
-				queueMicrotask(() => (landingImpactScheduled = false));
+				queueMicrotask(() => {
+					eventEmitter.broadcast({
+						type: 'reelLandImpact',
+						reelIndex,
+						symbols: landedSymbols,
+					});
+					landedSymbols = [];
+					landingImpactScheduled = false;
+				});
 			}
 			onSymbolLand({ rawSymbol });
 		},

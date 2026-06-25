@@ -15,9 +15,7 @@
 	);
 	const animating = $derived(
 		props.reelSymbol.symbolState === 'win' ||
-			(props.reelSymbol.rawSymbol.name === 'W' &&
-				Boolean(props.reelSymbol.rawSymbol.multiplier) &&
-				props.reelSymbol.symbolState === 'land') ||
+			(symbolInfo.type === 'sprite' && props.reelSymbol.symbolState === 'land') ||
 			(symbolInfo.type === 'spine' && props.reelSymbol.symbolState === 'land'),
 	);
 </script>

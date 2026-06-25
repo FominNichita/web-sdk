@@ -34,6 +34,9 @@
 
 	const context = getContext();
 	stateMeta.publishedBetModeKeys = Object.keys(gameConfig.betModes);
+	const reelsSpinning = $derived(
+		context.stateGame.board.some((reel) => reel.reelState.motion !== 'stopped'),
+	);
 
 	$effect(() => {
 		const bonusKey = Object.keys(stateMeta.betModeMeta).find(
@@ -285,6 +288,7 @@
 	></video>
 
 	<BackgroundGears />
+	<div class:active={reelsSpinning} class="spin-background-dim" aria-hidden="true"></div>
 
 	<div class="pixi-layer">
 		<App>
@@ -432,6 +436,20 @@
 		opacity: 1;
 	}
 
+	.spin-background-dim {
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		pointer-events: none;
+		background: rgba(5, 3, 2, 0.28);
+		opacity: 0;
+		transition: opacity 180ms ease-out;
+	}
+
+	.spin-background-dim.active {
+		opacity: 1;
+	}
+
 	@media (orientation: portrait) {
 		.video-background {
 			object-fit: cover;
@@ -448,6 +466,10 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		.spin-background-dim {
+			transition: none;
+		}
+
 		.video-background {
 			display: none;
 		}

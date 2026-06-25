@@ -8,10 +8,12 @@ import type { EmitterEventSound } from '../components/Sound.svelte';
 import type { EmitterEventTransition } from '../components/Transition.svelte';
 import type { EmitterEventGlobalMultiplier } from '../components/GlobalMultiplier.svelte';
 import type { EmitterEventGlobalMultiplierFrame } from '../components/GlobalMultiplierFrame.svelte';
+import type { RawSymbol } from './types';
 
 export type EmitterEventGame =
 	| { type: 'screenShake' }
-	| { type: 'reelLandImpact'; reelIndex: number }
+	| { type: 'reelLandImpact'; reelIndex: number; symbols: RawSymbol[] }
+	| { type: 'freeSpinWinVisualPulse' }
 	| EmitterEventBoard
 	| EmitterEventBoardFrame
 	| EmitterEventWin

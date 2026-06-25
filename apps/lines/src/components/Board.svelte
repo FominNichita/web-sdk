@@ -9,6 +9,7 @@
 				type: 'boardWithAnimateSymbols';
 				symbolPositions: Position[];
 				winningLinePositions?: Position[];
+				winningLineIndex?: number;
 		  };
 </script>
 
@@ -22,19 +23,26 @@
 	import BoardBase from './BoardBase.svelte';
 	import WinningLine from './WinningLine.svelte';
 	import ReelLandingEffects from './ReelLandingEffects.svelte';
+	import ReelSpinShadow from './ReelSpinShadow.svelte';
 
 	const context = getContext();
 
 	let show = $state(true);
 	let winningLinePositions = $state<Position[]>([]);
+	let winningLineIndex = $state<number | undefined>(undefined);
 
 	context.eventEmitter.subscribeOnMount({
 		stopButtonClick: () => context.stateGameDerived.enhancedBoard.stop(),
 		boardSettle: ({ board }) => context.stateGameDerived.enhancedBoard.settle(board),
 		boardShow: () => (show = true),
 		boardHide: () => (show = false),
-		boardWithAnimateSymbols: async ({ symbolPositions, winningLinePositions: linePositions }) => {
+		boardWithAnimateSymbols: async ({
+			symbolPositions,
+			winningLinePositions: linePositions,
+			winningLineIndex: lineIndex,
+		}) => {
 			winningLinePositions = linePositions ?? [];
+			winningLineIndex = lineIndex;
 
 			try {
 				const getPromises = () =>
@@ -49,6 +57,7 @@
 				await Promise.all(getPromises());
 			} finally {
 				winningLinePositions = [];
+				winningLineIndex = undefined;
 			}
 		},
 	});
@@ -71,7 +80,8 @@
 	</BoardContext>
 
 	<BoardContainer>
+		<ReelSpinShadow />
 		<ReelLandingEffects />
-		<WinningLine positions={winningLinePositions} />
+		<WinningLine positions={winningLinePositions} lineIndex={winningLineIndex} />
 	</BoardContainer>
 {/if}

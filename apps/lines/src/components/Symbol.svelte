@@ -4,7 +4,8 @@
 	import { getSymbolInfo } from '../game/utils';
 	import type { SymbolState, RawSymbol } from '../game/types';
 	import { getContext } from '../game/context';
-	import { BitmapText } from 'pixi-svelte';
+	import { Tween } from 'svelte/motion';
+	import { BitmapText, Container } from 'pixi-svelte';
 
 	type Props = {
 		x?: number;
@@ -19,6 +20,42 @@
 	const context = getContext();
 	const symbolInfo = $derived(getSymbolInfo({ rawSymbol: props.rawSymbol, state: props.state }));
 	const isSprite = $derived(symbolInfo.type === 'sprite');
+	const multiplierReveal = new Tween(1);
+	const multiplierAlpha = new Tween(1);
+	const multiplierRotation = new Tween(0);
+	let multiplierRunId = 0;
+
+	$effect(() => {
+		props.state;
+		props.rawSymbol.multiplier;
+		multiplierRunId += 1;
+		const runId = multiplierRunId;
+
+		if (!props.rawSymbol.multiplier || props.state !== 'land') {
+			void multiplierReveal.set(1, { duration: 0 });
+			void multiplierAlpha.set(1, { duration: 0 });
+			void multiplierRotation.set(0, { duration: 0 });
+			return;
+		}
+
+		void (async () => {
+			await Promise.all([
+				multiplierReveal.set(0.3, { duration: 0 }),
+				multiplierAlpha.set(0, { duration: 0 }),
+				multiplierRotation.set(-0.12, { duration: 0 }),
+			]);
+			await Promise.all([
+				multiplierReveal.set(1.18, { duration: 190 }),
+				multiplierAlpha.set(1, { duration: 130 }),
+				multiplierRotation.set(0.05, { duration: 190 }),
+			]);
+			if (runId !== multiplierRunId) return;
+			await Promise.all([
+				multiplierReveal.set(1, { duration: 140 }),
+				multiplierRotation.set(0, { duration: 140 }),
+			]);
+		})();
+	});
 </script>
 
 {#if isSprite}
@@ -49,14 +86,20 @@
 {/if}
 
 {#if props.rawSymbol.multiplier}
-	<BitmapText
-		anchor={0.5}
+	<Container
 		x={props.x}
 		y={props.y}
-		text={`${props.rawSymbol.multiplier}X`}
-		style={{
-			fontFamily: 'gold',
-			fontSize: 50,
-		}}
-	/>
+		scale={multiplierReveal.current}
+		alpha={multiplierAlpha.current}
+		rotation={multiplierRotation.current}
+	>
+		<BitmapText
+			anchor={0.5}
+			text={`${props.rawSymbol.multiplier}X`}
+			style={{
+				fontFamily: 'gold',
+				fontSize: 50,
+			}}
+		/>
+	</Container>
 {/if}

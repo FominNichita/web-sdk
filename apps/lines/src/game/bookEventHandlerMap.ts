@@ -39,15 +39,24 @@ const winLevelSoundsStop = () => {
 const animateSymbols = async ({
 	positions,
 	traceWinningLine = false,
+	lineIndex,
 }: {
 	positions: Position[];
 	traceWinningLine?: boolean;
+	lineIndex?: number;
 }) => {
 	eventEmitter.broadcast({ type: 'boardShow' });
+	if (traceWinningLine) {
+		eventEmitter.broadcast({ type: 'boardFrameWinShine' });
+		if (stateGame.gameType === 'freegame') {
+			eventEmitter.broadcast({ type: 'freeSpinWinVisualPulse' });
+		}
+	}
 	await eventEmitter.broadcastAsync({
 		type: 'boardWithAnimateSymbols',
 		symbolPositions: positions,
 		winningLinePositions: traceWinningLine ? positions : undefined,
+		winningLineIndex: traceWinningLine ? lineIndex : undefined,
 	});
 };
 
@@ -74,7 +83,11 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 	winInfo: async (bookEvent: BookEventOfType<'winInfo'>) => {
 		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_winlevel_small' });
 		await sequence(bookEvent.wins, async (win) => {
-			await animateSymbols({ positions: win.positions, traceWinningLine: true });
+			await animateSymbols({
+				positions: win.positions,
+				traceWinningLine: true,
+				lineIndex: win.meta.lineIndex,
+			});
 		});
 	},
 	setTotalWin: async (bookEvent: BookEventOfType<'setTotalWin'>) => {

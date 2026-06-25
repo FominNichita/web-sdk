@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
+	import { Tween } from 'svelte/motion';
 	import { Graphics } from 'pixi-svelte';
 
 	import { getContext } from '../game/context';
@@ -21,12 +22,27 @@
 
 	let animationFrame = 0;
 	let elapsed = $state(0);
+	const winBoost = new Tween(0);
+	let boostRunId = 0;
 	const boardScale = $derived(
 		context.stateLayoutDerived.layoutType() === 'portrait' ? PORTRAIT_BOARD_SCALE : 1,
 	);
 	const boardOffsetX = $derived(
 		context.stateLayoutDerived.layoutType() === 'portrait' ? PORTRAIT_BOARD_OFFSET_X : 0,
 	);
+
+	context.eventEmitter.subscribeOnMount({
+		freeSpinWinVisualPulse: () => {
+			boostRunId += 1;
+			const runId = boostRunId;
+
+			void (async () => {
+				await winBoost.set(1, { duration: 130 });
+				if (runId !== boostRunId) return;
+				await winBoost.set(0, { duration: 520 });
+			})();
+		},
+	});
 
 	onMount(() => {
 		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -53,7 +69,8 @@
 			const bottom = board.y + height / 2;
 
 			for (const [index, ember] of seeds.entries()) {
-				const cycle = (ember.y + elapsed * ember.speed * 0.16) % 1;
+				const speedBoost = 1 + winBoost.current * 1.25;
+				const cycle = (ember.y + elapsed * ember.speed * 0.16 * speedBoost) % 1;
 				const x =
 					left +
 					ember.x * width +
@@ -61,14 +78,14 @@
 				const y = bottom - cycle * height;
 				const edgeFade = Math.sin(cycle * Math.PI);
 				const flicker = 0.68 + Math.sin(elapsed * 5 + index * 1.7) * 0.22;
-				const alpha = Math.max(0, edgeFade * flicker);
+				const alpha = Math.max(0, edgeFade * flicker) * (1 + winBoost.current * 0.85);
 
 				graphics.circle(x, y, ember.size * 2.6);
-				graphics.fill({ color: 0xff8a16, alpha: alpha * 0.12 });
+				graphics.fill({ color: 0xff8a16, alpha: Math.min(0.26, alpha * 0.12) });
 				graphics.circle(x, y, ember.size);
 				graphics.fill({
 					color: index % 3 === 0 ? 0xfff0a3 : 0xffbd3c,
-					alpha: alpha * 0.72,
+					alpha: Math.min(1, alpha * 0.72),
 				});
 			}
 		}}

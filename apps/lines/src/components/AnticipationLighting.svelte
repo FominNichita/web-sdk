@@ -19,7 +19,11 @@
 	);
 	const anticipatingReels = $derived(
 		context.stateGame.board
-			.filter((reel) => reel.reelState.anticipating)
+			.filter(
+				(reel) =>
+					reel.reelState.anticipating &&
+					reel.reelState.motion !== 'stopped',
+			)
 			.map((reel) => reel.reelIndex),
 	);
 	const boardLeft = $derived(
@@ -37,12 +41,14 @@
 
 <Graphics
 	draw={(graphics) => {
+		if (anticipatingReels.length === 0) return;
+
 		for (const reel of context.stateGame.board) {
 			const x = boardLeft + reel.reelIndex * reelWidth;
 
 			if (!anticipatingReels.includes(reel.reelIndex)) {
 				graphics.rect(x, boardTop, reelWidth, boardHeight);
-				graphics.fill({ color: 0x080502, alpha: 0.3 });
+				graphics.fill({ color: 0x080502, alpha: 0.22 });
 			}
 		}
 	}}

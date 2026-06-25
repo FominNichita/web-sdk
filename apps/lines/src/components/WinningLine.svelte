@@ -9,9 +9,19 @@
 
 	type Props = {
 		positions: Position[];
+		lineIndex?: number;
 	};
 
 	const props: Props = $props();
+	const LINE_PALETTE = [
+		{ shadow: 0x5a2600, body: 0xff9f1c, core: 0xfff0a3 },
+		{ shadow: 0x542000, body: 0xffb52d, core: 0xffe38a },
+		{ shadow: 0x4b2600, body: 0xe99622, core: 0xffd76a },
+		{ shadow: 0x632b00, body: 0xffc04a, core: 0xfff3bd },
+	] as const;
+	const lineColors = $derived(
+		LINE_PALETTE[Math.abs((props.lineIndex ?? 1) - 1) % LINE_PALETTE.length],
+	);
 	const traceStartProgress = new Tween(0);
 	const traceEndProgress = new Tween(0);
 	let traceRunId = 0;
@@ -153,22 +163,22 @@
 	<Graphics
 		alpha={0.72}
 		draw={(graphics) => {
-			drawPath(graphics, 18, 0x5a2600, 0.45);
-			drawPath(graphics, 10, 0xff9f1c, 0.68);
-			drawPath(graphics, 3, 0xfff0a3, 1);
+			drawPath(graphics, 18, lineColors.shadow, 0.45);
+			drawPath(graphics, 10, lineColors.body, 0.68);
+			drawPath(graphics, 3, lineColors.core, 1);
 
 			for (const point of visiblePoints) {
 				graphics.circle(point.x, point.y, 10);
-				graphics.fill({ color: 0xffd45c, alpha: 0.78 });
+				graphics.fill({ color: lineColors.body, alpha: 0.78 });
 				graphics.circle(point.x, point.y, 4);
 				graphics.fill({ color: 0xffffff, alpha: 0.95 });
 			}
 
 			if (travelingSpark) {
 				graphics.circle(travelingSpark.x, travelingSpark.y, 18);
-				graphics.fill({ color: 0xff9f1c, alpha: 0.18 });
+				graphics.fill({ color: lineColors.body, alpha: 0.18 });
 				graphics.circle(travelingSpark.x, travelingSpark.y, 10);
-				graphics.fill({ color: 0xffd45c, alpha: 0.48 });
+				graphics.fill({ color: lineColors.body, alpha: 0.48 });
 				graphics.circle(travelingSpark.x, travelingSpark.y, 4);
 				graphics.fill({ color: 0xffffff, alpha: 1 });
 			}
