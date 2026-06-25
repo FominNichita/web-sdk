@@ -11,9 +11,10 @@ import type { EmitterEventGlobalMultiplierFrame } from '../components/GlobalMult
 import type { RawSymbol } from './types';
 
 export type EmitterEventGame =
-	| { type: 'screenShake' }
+	| { type: 'screenShake'; intensity?: number }
 	| { type: 'reelLandImpact'; reelIndex: number; symbols: RawSymbol[] }
 	| { type: 'freeSpinWinVisualPulse' }
+	| { type: 'backgroundWinWarmth'; intensity: number }
 	| EmitterEventBoard
 	| EmitterEventBoardFrame
 	| EmitterEventWin

@@ -14,7 +14,7 @@
 </script>
 
 <script lang="ts">
-	import { waitForResolve } from 'utils-shared/wait';
+	import { waitForResolve, waitForTimeout } from 'utils-shared/wait';
 	import { BoardContext } from 'components-shared';
 
 	import { getContext } from '../game/context';
@@ -45,8 +45,23 @@
 			winningLineIndex = lineIndex;
 
 			try {
+				const uniquePositions = symbolPositions.filter(
+					(position, index, positions) =>
+						positions.findIndex(
+							(candidate) =>
+								candidate.reel === position.reel && candidate.row === position.row,
+						) === index,
+				);
+				const orderedPositions = [...uniquePositions].sort(
+					(left, right) => left.reel - right.reel,
+				);
 				const getPromises = () =>
-					symbolPositions.map(async (position) => {
+					orderedPositions.map(async (position, positionIndex) => {
+						if (linePositions && orderedPositions.length > 1) {
+							await waitForTimeout(
+								(420 * positionIndex) / (orderedPositions.length - 1),
+							);
+						}
 						const reelSymbol =
 							context.stateGame.board[position.reel].reelState.symbols[position.row];
 						reelSymbol.symbolState = 'win';

@@ -161,6 +161,12 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 	setWin: async (bookEvent: BookEventOfType<'setWin'>) => {
 		const winLevelData = winLevelMap[bookEvent.winLevel as WinLevel];
 
+		if (winLevelData.type === 'medium' || winLevelData.type === 'big') {
+			eventEmitter.broadcast({
+				type: 'backgroundWinWarmth',
+				intensity: winLevelData.type === 'big' ? 1 : 0.58,
+			});
+		}
 		eventEmitter.broadcast({ type: 'winShow' });
 		winLevelSoundsPlay({ winLevelData });
 		await eventEmitter.broadcastAsync({

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
+	import { Tween } from 'svelte/motion';
 
 	import { EnablePixiExtension } from 'components-pixi';
 	import { EnableHotkey } from 'components-shared';
@@ -37,6 +38,8 @@
 	const reelsSpinning = $derived(
 		context.stateGame.board.some((reel) => reel.reelState.motion !== 'stopped'),
 	);
+	const backgroundWinWarmth = new Tween(0);
+	let backgroundWarmthRunId = 0;
 
 	$effect(() => {
 		const bonusKey = Object.keys(stateMeta.betModeMeta).find(
@@ -249,6 +252,16 @@
 		buyBonusConfirm: () => {
 			stateModal.modal = { name: 'buyBonusConfirm' };
 		},
+		backgroundWinWarmth: ({ intensity }) => {
+			backgroundWarmthRunId += 1;
+			const runId = backgroundWarmthRunId;
+
+			void (async () => {
+				await backgroundWinWarmth.set(intensity, { duration: 150 });
+				if (runId !== backgroundWarmthRunId) return;
+				await backgroundWinWarmth.set(0, { duration: 700 });
+			})();
+		},
 	});
 
 	onDestroy(() => {
@@ -289,6 +302,11 @@
 
 	<BackgroundGears />
 	<div class:active={reelsSpinning} class="spin-background-dim" aria-hidden="true"></div>
+	<div
+		class="background-win-warmth"
+		aria-hidden="true"
+		style:opacity={backgroundWinWarmth.current}
+	></div>
 
 	<div class="pixi-layer">
 		<App>
@@ -448,6 +466,20 @@
 
 	.spin-background-dim.active {
 		opacity: 1;
+	}
+
+	.background-win-warmth {
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		pointer-events: none;
+		background: radial-gradient(
+			circle at 50% 48%,
+			rgba(255, 197, 74, 0.24) 0%,
+			rgba(255, 137, 28, 0.1) 35%,
+			rgba(255, 110, 20, 0) 72%
+		);
+		mix-blend-mode: screen;
 	}
 
 	@media (orientation: portrait) {

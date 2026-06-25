@@ -31,7 +31,10 @@
 		multiplierRunId += 1;
 		const runId = multiplierRunId;
 
-		if (!props.rawSymbol.multiplier || props.state !== 'land') {
+		if (
+			!props.rawSymbol.multiplier ||
+			(props.state !== 'land' && props.state !== 'win')
+		) {
 			void multiplierReveal.set(1, { duration: 0 });
 			void multiplierAlpha.set(1, { duration: 0 });
 			void multiplierRotation.set(0, { duration: 0 });
@@ -39,15 +42,16 @@
 		}
 
 		void (async () => {
+			const winningMultiplier = props.state === 'win';
 			await Promise.all([
-				multiplierReveal.set(0.3, { duration: 0 }),
-				multiplierAlpha.set(0, { duration: 0 }),
-				multiplierRotation.set(-0.12, { duration: 0 }),
+				multiplierReveal.set(winningMultiplier ? 1 : 0.3, { duration: 0 }),
+				multiplierAlpha.set(winningMultiplier ? 1 : 0, { duration: 0 }),
+				multiplierRotation.set(winningMultiplier ? 0 : -0.12, { duration: 0 }),
 			]);
 			await Promise.all([
-				multiplierReveal.set(1.18, { duration: 190 }),
+				multiplierReveal.set(winningMultiplier ? 1.28 : 1.18, { duration: 190 }),
 				multiplierAlpha.set(1, { duration: 130 }),
-				multiplierRotation.set(0.05, { duration: 190 }),
+				multiplierRotation.set(winningMultiplier ? -0.04 : 0.05, { duration: 190 }),
 			]);
 			if (runId !== multiplierRunId) return;
 			await Promise.all([

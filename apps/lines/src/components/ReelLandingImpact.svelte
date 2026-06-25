@@ -3,10 +3,12 @@
 	import { cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
 	import { Graphics } from 'pixi-svelte';
+	import { stateBet } from 'state-shared';
 
 	import { BOARD_DIMENSIONS, SYMBOL_SIZE } from '../game/constants';
 	import { getSymbolX, getSymbolY } from '../game/utils';
 	import type { RawSymbol } from '../game/types';
+	import { getContext } from '../game/context';
 
 	type Props = {
 		reelIndex: number;
@@ -15,8 +17,14 @@
 	};
 
 	const props: Props = $props();
+	const context = getContext();
 	const progress = new Tween(0);
 	const dustOffsets = [-42, -25, -8, 11, 29, 44] as const;
+	const reducedEffects = $derived(
+		stateBet.isTurbo ||
+			context.stateGame.board.some((reel) => reel.reelState.anticipating),
+	);
+	const duration = $derived(stateBet.isTurbo ? 170 : reducedEffects ? 220 : 340);
 	const symbolWeight = (symbol?: RawSymbol) => {
 		if (!symbol) return 1;
 		if (symbol.name === 'W') return 1.65;
@@ -26,7 +34,7 @@
 	};
 
 	onMount(async () => {
-		await progress.set(1, { duration: 340, easing: cubicOut });
+		await progress.set(1, { duration, easing: cubicOut });
 		props.oncomplete();
 	});
 </script>
@@ -48,6 +56,8 @@
 			graphics.stroke({ width: 2.5, color: 0xffd86a, alpha: fade * 0.5 });
 
 			for (const [index, offset] of dustOffsets.entries()) {
+				if (reducedEffects && !stateBet.isTurbo) continue;
+				if (stateBet.isTurbo && index % 2 === 1) continue;
 				const drift =
 					(index % 2 === 0 ? -1 : 1) * progress.current * (5 + index) * weight;
 				const radius = Math.max(1, (4 - index * 0.35) * fade * weight);
@@ -63,19 +73,21 @@
 			}
 		}
 
-		const sweepX = x - SYMBOL_SIZE * 0.5 + progress.current * SYMBOL_SIZE;
-		for (let band = 0; band < 4; band += 1) {
-			const bandOffset = (band - 1.5) * 5;
-			graphics.rect(
-				sweepX + bandOffset,
-				0,
-				4,
-				SYMBOL_SIZE * BOARD_DIMENSIONS.y,
-			);
-			graphics.fill({
-				color: 0xffe29a,
-				alpha: fade * (0.12 - Math.abs(band - 1.5) * 0.025),
-			});
+		if (!reducedEffects || stateBet.isTurbo) {
+			const sweepX = x - SYMBOL_SIZE * 0.5 + progress.current * SYMBOL_SIZE;
+			for (let band = 0; band < 4; band += 1) {
+				const bandOffset = (band - 1.5) * 5;
+				graphics.rect(
+					sweepX + bandOffset,
+					0,
+					4,
+					SYMBOL_SIZE * BOARD_DIMENSIONS.y,
+				);
+				graphics.fill({
+					color: 0xffe29a,
+					alpha: fade * (0.12 - Math.abs(band - 1.5) * 0.025),
+				});
+			}
 		}
 	}}
 />

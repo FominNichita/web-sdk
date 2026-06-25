@@ -22,6 +22,7 @@
 
 	let animationFrame = 0;
 	let elapsed = $state(0);
+	const featureAlpha = new Tween(0);
 	const winBoost = new Tween(0);
 	let boostRunId = 0;
 	const boardScale = $derived(
@@ -30,6 +31,12 @@
 	const boardOffsetX = $derived(
 		context.stateLayoutDerived.layoutType() === 'portrait' ? PORTRAIT_BOARD_OFFSET_X : 0,
 	);
+
+	$effect(() => {
+		void featureAlpha.set(context.stateGame.gameType === 'freegame' ? 1 : 0, {
+			duration: context.stateGame.gameType === 'freegame' ? 520 : 380,
+		});
+	});
 
 	context.eventEmitter.subscribeOnMount({
 		freeSpinWinVisualPulse: () => {
@@ -59,8 +66,9 @@
 	onDestroy(() => cancelAnimationFrame(animationFrame));
 </script>
 
-{#if context.stateGame.gameType === 'freegame'}
+{#if featureAlpha.current > 0}
 	<Graphics
+		alpha={featureAlpha.current}
 		draw={(graphics) => {
 			const board = context.stateGameDerived.boardLayout();
 			const width = board.width * boardScale + SYMBOL_SIZE * 0.7;

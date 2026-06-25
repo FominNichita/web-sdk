@@ -13,6 +13,7 @@
 	};
 
 	const props: Props = $props();
+	const TRACE_START_DELAY = 160;
 	const LINE_PALETTE = [
 		{ shadow: 0x5a2600, body: 0xff9f1c, core: 0xfff0a3 },
 		{ shadow: 0x542000, body: 0xffb52d, core: 0xffe38a },
@@ -67,6 +68,8 @@
 				traceStartProgress.set(0, { duration: 0 }),
 				traceEndProgress.set(0, { duration: 0 }),
 			]);
+			await new Promise((resolve) => setTimeout(resolve, TRACE_START_DELAY));
+			if (runId !== traceRunId) return;
 			await traceEndProgress.set(1, { duration: 420, easing: cubicOut });
 			if (runId !== traceRunId) return;
 			await new Promise((resolve) => setTimeout(resolve, 90));

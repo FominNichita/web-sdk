@@ -22,8 +22,12 @@ import {
 
 const onSymbolLand = ({ rawSymbol }: { rawSymbol: RawSymbol }) => {
 	if (rawSymbol.name === 'S') {
-		eventEmitter.broadcast({ type: 'screenShake' });
 		eventEmitter.broadcast({ type: 'soundScatterCounterIncrease' });
+		const scatterLevel = Math.min(3, stateGame.scatterCounter);
+		eventEmitter.broadcast({
+			type: 'screenShake',
+			intensity: scatterLevel === 1 ? 1 : scatterLevel === 2 ? 1.22 : 1.36,
+		});
 		eventEmitter.broadcast({
 			type: 'soundOnce',
 			name: SCATTER_LAND_SOUND_MAP[scatterLandIndex()],

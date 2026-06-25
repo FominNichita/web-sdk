@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { Tween } from 'svelte/motion';
 	import { Sprite, Container, Graphics } from 'pixi-svelte';
+	import { stateBet } from 'state-shared';
 
 	import { getSymbolInfo } from '../game/utils';
 	import { SYMBOL_SIZE } from '../game/constants';
 	import { onMount } from 'svelte';
 	import type { RawSymbol, SymbolState } from '../game/types';
+	import { getContext } from '../game/context';
 
 	type Props = {
 		x?: number;
@@ -38,6 +40,7 @@
 	} as const;
 
 	const props: Props = $props();
+	const context = getContext();
 	const isWinning = $derived(props.state === 'win');
 	const isLanding = $derived(props.state === 'land');
 	const isWildLanding = $derived(
@@ -45,6 +48,8 @@
 			props.rawSymbol.name === 'W' &&
 			Boolean(props.rawSymbol.multiplier),
 	);
+	const scatterImpactLevel = $derived(Math.min(3, Math.max(1, context.stateGame.scatterCounter)));
+	const landingDurationScale = $derived(stateBet.isTurbo ? 0.48 : 1);
 	const scaleX = new Tween(1);
 	const scaleY = new Tween(1);
 	const offsetY = new Tween(0);
@@ -83,39 +88,41 @@
 
 			if (isLanding) {
 				if (props.rawSymbol.name === 'S') {
-					void scatterShockProgress.set(1, { duration: 300 });
+					void scatterShockProgress.set(1, {
+						duration: stateBet.isTurbo ? 150 : 300,
+					});
 				}
 				await Promise.all([
 					scaleX.set(LANDING_MOTION.impact.scaleX, {
-						duration: LANDING_MOTION.impact.duration,
+						duration: LANDING_MOTION.impact.duration * landingDurationScale,
 					}),
 					scaleY.set(LANDING_MOTION.impact.scaleY, {
-						duration: LANDING_MOTION.impact.duration,
+						duration: LANDING_MOTION.impact.duration * landingDurationScale,
 					}),
 					offsetY.set(LANDING_MOTION.impact.offsetY, {
-						duration: LANDING_MOTION.impact.duration,
+						duration: LANDING_MOTION.impact.duration * landingDurationScale,
 					}),
 				]);
 				await Promise.all([
 					scaleX.set(LANDING_MOTION.rebound.scaleX, {
-						duration: LANDING_MOTION.rebound.duration,
+						duration: LANDING_MOTION.rebound.duration * landingDurationScale,
 					}),
 					scaleY.set(LANDING_MOTION.rebound.scaleY, {
-						duration: LANDING_MOTION.rebound.duration,
+						duration: LANDING_MOTION.rebound.duration * landingDurationScale,
 					}),
 					offsetY.set(LANDING_MOTION.rebound.offsetY, {
-						duration: LANDING_MOTION.rebound.duration,
+						duration: LANDING_MOTION.rebound.duration * landingDurationScale,
 					}),
 				]);
 				await Promise.all([
 					scaleX.set(LANDING_MOTION.settle.scaleX, {
-						duration: LANDING_MOTION.settle.duration,
+						duration: LANDING_MOTION.settle.duration * landingDurationScale,
 					}),
 					scaleY.set(LANDING_MOTION.settle.scaleY, {
-						duration: LANDING_MOTION.settle.duration,
+						duration: LANDING_MOTION.settle.duration * landingDurationScale,
 					}),
 					offsetY.set(LANDING_MOTION.settle.offsetY, {
-						duration: LANDING_MOTION.settle.duration,
+						duration: LANDING_MOTION.settle.duration * landingDurationScale,
 					}),
 				]);
 			}
@@ -183,17 +190,6 @@
 		/>
 	{/if}
 
-	{#if isWinning}
-		<Sprite
-			anchor={0.5}
-			key={props.symbolInfo.assetKey}
-			width={width * 1.18}
-			height={height * 1.18}
-			alpha={0.42}
-			tint={0xfff1a6}
-		/>
-	{/if}
-
 	{#if isWildLanding}
 		<Sprite
 			anchor={0.5}
@@ -226,9 +222,15 @@
 		<Graphics
 			draw={(graphics) => {
 				const alpha = 1 - scatterShockProgress.current;
-				const radius = SYMBOL_SIZE * (0.24 + scatterShockProgress.current * 0.34);
+				const intensity = 1 + (scatterImpactLevel - 1) * 0.14;
+				const radius =
+					SYMBOL_SIZE * (0.24 + scatterShockProgress.current * 0.34) * intensity;
 				graphics.circle(0, 0, radius);
-				graphics.stroke({ width: 7, color: 0xff9f1c, alpha: alpha * 0.22 });
+				graphics.stroke({
+					width: 7 * intensity,
+					color: 0xff9f1c,
+					alpha: alpha * (0.2 + scatterImpactLevel * 0.035),
+				});
 				graphics.circle(0, 0, radius * 0.88);
 				graphics.stroke({ width: 2.5, color: 0xfff0a3, alpha: alpha * 0.85 });
 			}}
