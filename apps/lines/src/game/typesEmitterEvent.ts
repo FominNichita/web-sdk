@@ -10,6 +10,7 @@ import type { EmitterEventGlobalMultiplier } from '../components/GlobalMultiplie
 import type { EmitterEventGlobalMultiplierFrame } from '../components/GlobalMultiplierFrame.svelte';
 
 export type EmitterEventGame =
+	| { type: 'screenShake' }
 	| EmitterEventBoard
 	| EmitterEventBoardFrame
 	| EmitterEventWin

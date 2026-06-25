@@ -8,6 +8,7 @@
 		| {
 				type: 'boardWithAnimateSymbols';
 				symbolPositions: Position[];
+				winningLinePositions?: Position[];
 		  };
 </script>
 
@@ -19,26 +20,35 @@
 	import BoardContainer from './BoardContainer.svelte';
 	import BoardMask from './BoardMask.svelte';
 	import BoardBase from './BoardBase.svelte';
+	import WinningLine from './WinningLine.svelte';
 
 	const context = getContext();
 
 	let show = $state(true);
+	let winningLinePositions = $state<Position[]>([]);
 
 	context.eventEmitter.subscribeOnMount({
 		stopButtonClick: () => context.stateGameDerived.enhancedBoard.stop(),
 		boardSettle: ({ board }) => context.stateGameDerived.enhancedBoard.settle(board),
 		boardShow: () => (show = true),
 		boardHide: () => (show = false),
-		boardWithAnimateSymbols: async ({ symbolPositions }) => {
-			const getPromises = () =>
-				symbolPositions.map(async (position) => {
-					const reelSymbol = context.stateGame.board[position.reel].reelState.symbols[position.row];
-					reelSymbol.symbolState = 'win';
-					await waitForResolve((resolve) => (reelSymbol.oncomplete = resolve));
-					reelSymbol.symbolState = 'postWinStatic';
-				});
+		boardWithAnimateSymbols: async ({ symbolPositions, winningLinePositions: linePositions }) => {
+			winningLinePositions = linePositions ?? [];
 
-			await Promise.all(getPromises());
+			try {
+				const getPromises = () =>
+					symbolPositions.map(async (position) => {
+						const reelSymbol =
+							context.stateGame.board[position.reel].reelState.symbols[position.row];
+						reelSymbol.symbolState = 'win';
+						await waitForResolve((resolve) => (reelSymbol.oncomplete = resolve));
+						reelSymbol.symbolState = 'postWinStatic';
+					});
+
+				await Promise.all(getPromises());
+			} finally {
+				winningLinePositions = [];
+			}
 		},
 	});
 
@@ -58,4 +68,8 @@
 			<BoardBase />
 		</BoardContainer>
 	</BoardContext>
+
+	<BoardContainer>
+		<WinningLine positions={winningLinePositions} />
+	</BoardContainer>
 {/if}

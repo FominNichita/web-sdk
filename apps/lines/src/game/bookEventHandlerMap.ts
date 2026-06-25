@@ -36,11 +36,18 @@ const winLevelSoundsStop = () => {
 	eventEmitter.broadcastAsync({ type: 'uiShow' });
 };
 
-const animateSymbols = async ({ positions }: { positions: Position[] }) => {
+const animateSymbols = async ({
+	positions,
+	traceWinningLine = false,
+}: {
+	positions: Position[];
+	traceWinningLine?: boolean;
+}) => {
 	eventEmitter.broadcast({ type: 'boardShow' });
 	await eventEmitter.broadcastAsync({
 		type: 'boardWithAnimateSymbols',
 		symbolPositions: positions,
+		winningLinePositions: traceWinningLine ? positions : undefined,
 	});
 };
 
@@ -67,7 +74,7 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 	winInfo: async (bookEvent: BookEventOfType<'winInfo'>) => {
 		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_winlevel_small' });
 		await sequence(bookEvent.wins, async (win) => {
-			await animateSymbols({ positions: win.positions });
+			await animateSymbols({ positions: win.positions, traceWinningLine: true });
 		});
 	},
 	setTotalWin: async (bookEvent: BookEventOfType<'setTotalWin'>) => {

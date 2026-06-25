@@ -28,6 +28,7 @@
 	import Transition from './Transition.svelte';
 	import BoardClock from './BoardClock.svelte';
 	import PaytableContent from './PaytableContent.svelte';
+	import ReelAreaShake from './ReelAreaShake.svelte';
 	import gameConfig from '../game/config';
 
 	const context = getContext();
@@ -305,17 +306,19 @@
 				-->
 				<Sound />
 
-				<MainContainer>
-					<BoardFrame />
-				</MainContainer>
+				<ReelAreaShake>
+					<MainContainer>
+						<BoardFrame />
+					</MainContainer>
 
-				<MainContainer>
-					<Board />
-					<Anticipations />
-					{#if gameFontsLoaded}
-						<BoardClock />
-					{/if}
-				</MainContainer>
+					<MainContainer>
+						<Board />
+						<Anticipations />
+						{#if gameFontsLoaded}
+							<BoardClock />
+						{/if}
+					</MainContainer>
+				</ReelAreaShake>
 
 				{#if gameFontsLoaded}
 					<UI>
