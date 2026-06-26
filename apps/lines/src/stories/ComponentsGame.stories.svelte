@@ -113,6 +113,34 @@
 />
 
 <Story
+	name="desktop labels: win hidden"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: {},
+		action: async () => {
+			stateBet.balanceAmount = 10_000_000;
+			stateBet.winBookEventAmount = 0;
+		},
+	})}
+	{template}
+/>
+
+<Story
+	name="desktop labels: trigger win"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: { winAmount: 5_000_000 },
+		action: async ({ winAmount }) => {
+			stateBet.balanceAmount = 10_000_000;
+			stateBet.winBookEventAmount = 0;
+			await new Promise((resolve) => setTimeout(resolve, 250));
+			stateBet.winBookEventAmount = winAmount;
+		},
+	})}
+	{template}
+/>
+
+<Story
 	name="autospin counter: one digit"
 	args={templateArgs({
 		skipLoadingScreen: true,

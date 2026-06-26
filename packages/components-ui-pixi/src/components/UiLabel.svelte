@@ -58,6 +58,8 @@
 		valueMinimumTextScale?: number;
 		dynamicInlineSpacing?: boolean;
 		inlineTextGap?: number;
+		labelAnchorX?: number;
+		valueAnchorX?: number;
 	};
 
 	const props: Props = $props();
@@ -76,6 +78,8 @@
 	const valueMaxHeight = $derived(props.valueMaxHeight ?? textAreaHeight);
 	const valueMinimumTextScale = $derived(props.valueMinimumTextScale ?? minimumTextScale);
 	const inlineTextGap = $derived(props.inlineTextGap ?? 8);
+	const labelAnchorX = $derived(props.labelAnchorX ?? 0.5);
+	const valueAnchorX = $derived(props.valueAnchorX ?? 0.5);
 	let labelTextWidth = $state(0);
 	let labelTextHeight = $state(0);
 	let valueTextWidth = $state(0);
@@ -157,7 +161,7 @@
 		scale={labelScale}
 	>
 		<Text
-			anchor={0.5}
+			anchor={{ x: labelAnchorX, y: 0.5 }}
 			text={props.label}
 			style={labelStyle}
 			onresize={({ width, height }) => {
@@ -172,7 +176,7 @@
 		scale={valueScale}
 	>
 		<Text
-			anchor={0.5}
+			anchor={{ x: valueAnchorX, y: 0.5 }}
 			text={props.value}
 			style={valueStyle}
 			onresize={({ width, height }) => {
@@ -197,7 +201,7 @@
 		scale={labelScale}
 	>
 		<Text
-			anchor={0.5}
+			anchor={{ x: labelAnchorX, y: 0.5 }}
 			text={props.label}
 			style={labelStyle}
 			onresize={({ width, height }) => {
@@ -212,7 +216,7 @@
 		scale={valueScale}
 	>
 		<Text
-			anchor={0.5}
+			anchor={{ x: valueAnchorX, y: 0.5 }}
 			text={props.value}
 			style={valueStyle}
 			onresize={({ width, height }) => {

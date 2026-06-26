@@ -36,37 +36,57 @@
 
 <MainContainer standard>
 	<Container>
-		<Container y={desktopHudLayout.winPanel.y} x={desktopHudLayout.winPanel.x}>
-			{@render props.amountWin({
-				stacked: false,
-				width: desktopHudLayout.winPanel.width,
-				height: desktopHudLayout.winPanel.height,
-				labelFontSize: desktopHudLayout.winPanel.labelFontSize,
-				valueFontSize: desktopHudLayout.winPanel.valueFontSize,
-				labelOffsetX: desktopHudLayout.winPanel.labelOffsetX,
-				valueOffsetX: desktopHudLayout.winPanel.valueOffsetX,
-				labelMaxWidth: desktopHudLayout.winPanel.labelMaxWidth,
-				valueMaxWidth: desktopHudLayout.winPanel.valueMaxWidth,
-				valueMinimumTextScale: 0.58,
-				inlineTextGap: 7,
-			})}
-		</Container>
+		<Container y={desktopHudLayout.balanceWinPanel.y} x={desktopHudLayout.balanceWinPanel.x}>
+			<Sprite
+				key="uiRemadeBalanceWinBg"
+				anchor={0.5}
+				width={desktopHudLayout.balanceWinPanel.width}
+				height={desktopHudLayout.balanceWinPanel.height}
+			/>
 
-		<Container y={desktopHudLayout.balancePanel.y} x={desktopHudLayout.balancePanel.x}>
-			{@render props.amountBalance({
-				stacked: true,
-				width: desktopHudLayout.balancePanel.width,
-				height: desktopHudLayout.balancePanel.height,
-				labelFontSize: desktopHudLayout.balancePanel.labelFontSize,
-				valueFontSize: desktopHudLayout.balancePanel.valueFontSize,
-				labelOffsetX: desktopHudLayout.balancePanel.labelOffsetX,
-				labelOffsetY: desktopHudLayout.balancePanel.labelOffsetY,
-				valueOffsetX: desktopHudLayout.balancePanel.valueOffsetX,
-				valueOffsetY: desktopHudLayout.balancePanel.valueOffsetY,
-				valueMaxWidth: desktopHudLayout.balancePanel.valueMaxWidth,
-				valueMinimumTextScale: 0.5,
-				useBalanceValueStyle: true,
-			})}
+			<Container x={desktopHudLayout.winPanel.offsetX} y={desktopHudLayout.winPanel.offsetY}>
+				{@render props.amountWin({
+					stacked: true,
+					width: desktopHudLayout.winPanel.width,
+					height: desktopHudLayout.winPanel.height,
+					labelFontSize: desktopHudLayout.winPanel.labelFontSize,
+					valueFontSize: desktopHudLayout.winPanel.valueFontSize,
+					labelOffsetX: desktopHudLayout.winPanel.labelOffsetX,
+					valueOffsetX: desktopHudLayout.winPanel.valueOffsetX,
+					labelMaxWidth: desktopHudLayout.winPanel.labelMaxWidth,
+					valueMaxWidth: desktopHudLayout.winPanel.valueMaxWidth,
+					valueMinimumTextScale: 0.58,
+					labelOffsetY: desktopHudLayout.winPanel.labelOffsetY,
+					valueOffsetY: desktopHudLayout.winPanel.valueOffsetY,
+					labelAnchorX: desktopHudLayout.winPanel.labelAnchorX,
+					valueAnchorX: desktopHudLayout.winPanel.valueAnchorX,
+					inlineTextGap: 7,
+					showBackground: false,
+				})}
+			</Container>
+
+			<Container
+				x={desktopHudLayout.balancePanel.offsetX}
+				y={desktopHudLayout.balancePanel.offsetY}
+			>
+				{@render props.amountBalance({
+					stacked: true,
+					width: desktopHudLayout.balancePanel.width,
+					height: desktopHudLayout.balancePanel.height,
+					labelFontSize: desktopHudLayout.balancePanel.labelFontSize,
+					valueFontSize: desktopHudLayout.balancePanel.valueFontSize,
+					labelOffsetX: desktopHudLayout.balancePanel.labelOffsetX,
+					labelOffsetY: desktopHudLayout.balancePanel.labelOffsetY,
+					valueOffsetX: desktopHudLayout.balancePanel.valueOffsetX,
+					valueOffsetY: desktopHudLayout.balancePanel.valueOffsetY,
+					valueMaxWidth: desktopHudLayout.balancePanel.valueMaxWidth,
+					valueMinimumTextScale: 0.5,
+					labelAnchorX: desktopHudLayout.balancePanel.labelAnchorX,
+					valueAnchorX: desktopHudLayout.balancePanel.valueAnchorX,
+					useBalanceValueStyle: true,
+					showBackground: false,
+				})}
+			</Container>
 		</Container>
 
 		<Container y={desktopHudLayout.betPanel.y} x={desktopHudLayout.betPanel.x}>
@@ -82,8 +102,24 @@
 				valueOffsetY: desktopHudLayout.betPanel.valueOffsetY,
 				valueMaxWidth: desktopHudLayout.betPanel.valueMaxWidth,
 				valueMinimumTextScale: 0.54,
+				labelAnchorX: desktopHudLayout.betPanel.labelAnchorX,
+				valueAnchorX: desktopHudLayout.betPanel.valueAnchorX,
 				useBalanceValueStyle: true,
 			})}
+
+			<Container
+				x={desktopHudLayout.betArrowDown.offsetX}
+				y={desktopHudLayout.betArrowDown.offsetY}
+			>
+				{@render props.buttonDecrease({ anchor: 0.5 })}
+			</Container>
+
+			<Container
+				x={desktopHudLayout.betArrowUp.offsetX}
+				y={desktopHudLayout.betArrowUp.offsetY}
+			>
+				{@render props.buttonIncrease({ anchor: 0.5 })}
+			</Container>
 		</Container>
 
 		<Container y={desktopHudLayout.menuButton.y} x={desktopHudLayout.menuButton.x}>
@@ -94,33 +130,31 @@
 			{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
 
-		<Sprite
-			key="uiRemadeSpinClusterBg"
-			anchor={0.5}
-			x={desktopHudLayout.spinCluster.x}
-			y={desktopHudLayout.spinCluster.y}
-			width={desktopHudLayout.spinCluster.width}
-			height={desktopHudLayout.spinCluster.height}
-		/>
+		<Container y={desktopHudLayout.spinCluster.y} x={desktopHudLayout.spinCluster.x}>
+			<Sprite
+				key="uiRemadeSpinClusterBg"
+				anchor={0.5}
+				width={desktopHudLayout.spinCluster.width}
+				height={desktopHudLayout.spinCluster.height}
+			/>
 
-		<Container y={desktopHudLayout.autoSpinButton.y} x={desktopHudLayout.autoSpinButton.x}>
-			{@render props.buttonAutoSpin({ anchor: 0.5 })}
-		</Container>
+			<Container
+				x={desktopHudLayout.autoSpinButton.offsetX}
+				y={desktopHudLayout.autoSpinButton.offsetY}
+			>
+				{@render props.buttonAutoSpin({ anchor: 0.5 })}
+			</Container>
 
-		<Container y={desktopHudLayout.spinButton.y} x={desktopHudLayout.spinButton.x}>
-			{@render props.buttonBet({ anchor: 0.5 })}
-		</Container>
+			<Container x={desktopHudLayout.spinButton.offsetX} y={desktopHudLayout.spinButton.offsetY}>
+				{@render props.buttonBet({ anchor: 0.5 })}
+			</Container>
 
-		<Container y={desktopHudLayout.turboButton.y} x={desktopHudLayout.turboButton.x}>
-			{@render props.buttonTurbo({ anchor: 0.5 })}
-		</Container>
-
-		<Container y={desktopHudLayout.betArrowDown.y} x={desktopHudLayout.betArrowDown.x}>
-			{@render props.buttonDecrease({ anchor: 0.5 })}
-		</Container>
-
-		<Container y={desktopHudLayout.betArrowUp.y} x={desktopHudLayout.betArrowUp.x}>
-			{@render props.buttonIncrease({ anchor: 0.5 })}
+			<Container
+				x={desktopHudLayout.turboButton.offsetX}
+				y={desktopHudLayout.turboButton.offsetY}
+			>
+				{@render props.buttonTurbo({ anchor: 0.5 })}
+			</Container>
 		</Container>
 	</Container>
 </MainContainer>

@@ -172,6 +172,10 @@ export default {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/BallanceBG.png', import.meta.url).href,
 	},
+	uiRemadeBalanceWinBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/BallanceBG_2.png', import.meta.url).href,
+	},
 	uiRemadeBetAmountBg: {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/BetAmmountBG.png', import.meta.url).href,

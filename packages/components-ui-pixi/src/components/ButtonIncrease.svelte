@@ -37,6 +37,7 @@
 	{onpress}
 	{disabled}
 	icon="increase"
+	hideText={desktop}
 	assetKey={desktop ? 'uiRemadeArrowUp' : 'uiButtonPlus'}
 	textOffsetX={TEXT_OFFSET_X}
 	textOffsetY={TEXT_OFFSET_Y}

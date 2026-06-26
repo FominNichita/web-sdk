@@ -54,7 +54,10 @@ export type AmountLabelLayoutProps = {
 	valueMaxHeight?: number;
 	valueMinimumTextScale?: number;
 	inlineTextGap?: number;
+	labelAnchorX?: number;
+	valueAnchorX?: number;
 	useBalanceValueStyle?: boolean;
+	showBackground?: boolean;
 };
 
 export type FooterBarLayoutProps = {

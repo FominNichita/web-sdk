@@ -39,6 +39,7 @@
 	{onpress}
 	{disabled}
 	icon="decrease"
+	hideText={desktop}
 	assetKey={desktop ? 'uiRemadeArrowDown' : 'uiButtonMinus'}
 	textOffsetX={TEXT_OFFSET_X}
 	textOffsetY={TEXT_OFFSET_Y}

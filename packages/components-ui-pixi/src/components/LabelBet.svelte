@@ -29,6 +29,8 @@
 		valueMinimumTextScale?: number;
 		inlineTextGap?: number;
 		useBalanceValueStyle?: boolean;
+		labelAnchorX?: number;
+		valueAnchorX?: number;
 	};
 
 	const props: Props = $props();
@@ -93,6 +95,8 @@
 		valueMinimumTextScale={props.valueMinimumTextScale}
 		dynamicInlineSpacing
 		inlineTextGap={props.inlineTextGap}
+		labelAnchorX={props.labelAnchorX}
+		valueAnchorX={props.valueAnchorX}
 		stacked={props.stacked}
 		stackedLabelYOffset={props.height ? -props.height * 0.23 : -13}
 		stackedValueYOffset={props.height ? props.height * 0.23 : 15}

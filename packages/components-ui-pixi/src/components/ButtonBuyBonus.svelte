@@ -44,7 +44,22 @@
 		fill: '#E4C5AA',
 		stroke: { color: '#000000', width: 3 },
 		wordWrap: false,
-		...(desktop ? { align: 'center' as const, lineHeight: 24 } : {}),
+		...(desktop
+			? {
+					fill: '#F8D36A',
+					stroke: { color: '#090401', width: 5 },
+					align: 'center' as const,
+					lineHeight: 35,
+					fontWeight: '700',
+					dropShadow: {
+						color: '#000000',
+						blur: 2,
+						angle: Math.PI / 2,
+						distance: 6,
+						alpha: 0.85,
+					},
+				}
+			: {}),
 		...(compactPortrait ? { align: 'center' as const, lineHeight: 32 } : {}),
 	});
 
@@ -78,7 +93,7 @@
 	textMaxHeight={compactPortrait
 		? sizes.height * 0.96
 		: desktop
-			? sizes.height * 0.46
+			? sizes.height * 0.74
 			: undefined}
 	textOffsetY={compactPortrait ? 1 : undefined}
 	minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}

@@ -27,6 +27,9 @@
 		valueMaxHeight?: number;
 		valueMinimumTextScale?: number;
 		useBalanceValueStyle?: boolean;
+		labelAnchorX?: number;
+		valueAnchorX?: number;
+		showBackground?: boolean;
 	};
 
 	const props: Props = $props();
@@ -56,7 +59,7 @@
 </script>
 
 <UiLabel
-	tiled
+	tiled={props.showBackground ?? true}
 	{label}
 	{value}
 	{assetKey}
@@ -78,6 +81,8 @@
 	valueMaxWidth={props.valueMaxWidth}
 	valueMaxHeight={props.valueMaxHeight}
 	valueMinimumTextScale={props.valueMinimumTextScale}
+	labelAnchorX={props.labelAnchorX}
+	valueAnchorX={props.valueAnchorX}
 	stacked={props.stacked}
 	stackedValueYOffset={0}
 />
