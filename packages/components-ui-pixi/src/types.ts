@@ -53,6 +53,7 @@ export type AmountLabelLayoutProps = {
 	valueMaxWidth?: number;
 	valueMaxHeight?: number;
 	valueMinimumTextScale?: number;
+	inlineTextGap?: number;
 	useBalanceValueStyle?: boolean;
 };
 

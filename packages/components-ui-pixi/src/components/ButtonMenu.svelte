@@ -5,6 +5,7 @@
 	import UiButton from './UiButton.svelte';
 	import { getContext } from '../context';
 	import { compactPortraitLayout } from '../compactPortraitLayout';
+	import { desktopHudLayout } from '../desktopHudLayout';
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
@@ -12,11 +13,17 @@
 		context.stateLayoutDerived.layoutType() === 'portrait' &&
 			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
+	const desktop = $derived(context.stateLayoutDerived.layoutType() === 'desktop');
 	const sizes = $derived(
-		compactPortrait ? compactPortraitLayout.topButton : { width: 92, height: 58 },
+		desktop
+			? { width: desktopHudLayout.menuButton.width, height: desktopHudLayout.menuButton.height }
+			: compactPortrait
+				? compactPortraitLayout.topButton
+				: { width: 92, height: 58 },
 	);
 	const textStyle = $derived({
 		fontFamily: 'Sancreek',
+		...(desktop ? { fontSize: desktopHudLayout.menuButton.fontSize } : {}),
 		...(compactPortrait ? { fontSize: compactPortraitLayout.text.menuSize } : {}),
 		fill: '#E4C5AA',
 		stroke: { color: '#000000', width: 3 },
@@ -33,13 +40,18 @@
 	{sizes}
 	{onpress}
 	icon="menu"
-	assetKey="uiButtonMenuBg"
+	hideText={desktop}
+	assetKey={desktop ? 'uiRemadeMenuBg' : 'uiButtonMenuBg'}
 	textMaxWidth={compactPortrait
 		? sizes.width * (1 - compactPortraitLayout.textPadding.buttonHorizontalRatio * 2)
-		: undefined}
+		: desktop
+			? sizes.width * 0.78
+			: undefined}
 	textMaxHeight={compactPortrait
 		? sizes.height * (1 - compactPortraitLayout.textPadding.buttonVerticalRatio * 2)
-		: undefined}
+		: desktop
+			? sizes.height * 0.32
+			: undefined}
 	minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}
 	{textStyle}
 />

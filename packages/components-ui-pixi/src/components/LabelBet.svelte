@@ -2,6 +2,7 @@
 	import { Container } from 'pixi-svelte';
 	import { stateBetDerived, stateModal } from 'state-shared';
 	import { numberToCurrencyString } from 'utils-shared/amount';
+	import { getContextLayout } from 'utils-layout';
 
 	import UiLabel from './UiLabel.svelte';
 	import { uiLabelTextStyles } from './UiLabel.svelte';
@@ -32,15 +33,29 @@
 
 	const props: Props = $props();
 	const context = getContext();
+	const { stateLayoutDerived } = getContextLayout();
+	const desktop = $derived(stateLayoutDerived.layoutType() === 'desktop');
+	const assetKey = $derived(
+		desktop ? 'uiRemadeBetAmountBg' : 'uiBetBg',
+	);
 	const label = $derived(stateBetDerived.activeBetMode()?.text.betAmountLabel || i18nDerived.bet());
+	const displayLabel = $derived(desktop ? 'Bet' : label);
 	const value = $derived(numberToCurrencyString(stateBetDerived.betCost()));
 	const sharedFontSize = $derived(props.valueFontSize ?? props.labelFontSize ?? 32);
 	const valueStyle = {
 		...(props.useBalanceValueStyle ? uiLabelTextStyles.balance : uiLabelTextStyles.bet),
+		...(desktop
+			? {
+					fill: '#F6E6C8',
+					stroke: { color: '#000000', width: 3 },
+				}
+			: {}),
 		fontSize: sharedFontSize,
 	} as const;
 	const labelStyle = {
 		...uiLabelTextStyles.bet,
+		fill: desktop ? '#C8C0B6' : uiLabelTextStyles.bet.fill,
+		stroke: desktop ? { color: '#000000', width: 3 } : uiLabelTextStyles.bet.stroke,
 		fontSize: sharedFontSize,
 	} as const;
 	const disabled = $derived(!context.stateXstateDerived.isIdle());
@@ -55,9 +70,9 @@
 <Container eventMode="static" cursor={disabled ? 'not-allowed' : 'pointer'} onpointerup={onpress}>
 	<UiLabel
 		tiled
-		{label}
+		label={displayLabel}
 		{value}
-		assetKey="uiBetBg"
+		{assetKey}
 		{labelStyle}
 		{valueStyle}
 		width={props.width}

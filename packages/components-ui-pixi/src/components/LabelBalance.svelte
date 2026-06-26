@@ -3,6 +3,7 @@
 
 	import { stateBet } from 'state-shared';
 	import { numberToCurrencyString } from 'utils-shared/amount';
+	import { getContextLayout } from 'utils-layout';
 
 	import UiLabel from './UiLabel.svelte';
 	import { uiLabelTextStyles } from './UiLabel.svelte';
@@ -29,12 +30,25 @@
 	};
 
 	const props: Props = $props();
+	const { stateLayoutDerived } = getContextLayout();
+	const desktop = $derived(stateLayoutDerived.layoutType() === 'desktop');
+	const assetKey = $derived(
+		desktop ? 'uiRemadeBalanceBg' : 'uiBalanceBg',
+	);
 	const balanceTween = new Tween(stateBet.balanceAmount);
+	const label = $derived(desktop ? 'Balance' : '');
 	const value = $derived(numberToCurrencyString(balanceTween.current));
-	const balanceValueStyle = {
+	const labelStyle = $derived({
 		...uiLabelTextStyles.balance,
+		fill: desktop ? '#C8C0B6' : uiLabelTextStyles.balance.fill,
+		stroke: desktop ? { color: '#000000', width: 3 } : uiLabelTextStyles.balance.stroke,
+		fontSize: props.labelFontSize ?? 26,
+	});
+	const balanceValueStyle = $derived({
+		...uiLabelTextStyles.balance,
+		fill: desktop ? '#F6E6C8' : uiLabelTextStyles.balance.fill,
 		fontSize: props.valueFontSize ?? 38,
-	} as const;
+	});
 
 	$effect(() => {
 		balanceTween.set(stateBet.balanceAmount);
@@ -43,10 +57,10 @@
 
 <UiLabel
 	tiled
-	label=""
+	{label}
 	{value}
-	assetKey="uiBalanceBg"
-	labelStyle={uiLabelTextStyles.balance}
+	{assetKey}
+	{labelStyle}
 	valueStyle={balanceValueStyle}
 	width={props.width}
 	height={props.height}

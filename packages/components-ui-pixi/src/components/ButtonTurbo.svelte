@@ -5,6 +5,7 @@
 	import UiButton from './UiButton.svelte';
 	import { getContext } from '../context';
 	import { compactPortraitLayout } from '../compactPortraitLayout';
+	import { desktopHudLayout } from '../desktopHudLayout';
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
@@ -12,15 +13,21 @@
 		context.stateLayoutDerived.layoutType() === 'portrait' &&
 			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
-	const sizes = { width: 136, height: 60 };
+	const desktop = $derived(context.stateLayoutDerived.layoutType() === 'desktop');
+	const sizes = $derived(
+		desktop
+			? { width: desktopHudLayout.turboButton.width, height: desktopHudLayout.turboButton.height }
+			: { width: 136, height: 60 },
+	);
 	const textStyle = $derived({
 		fontFamily: 'Sancreek',
+		...(desktop ? { fontSize: desktopHudLayout.turboButton.fontSize } : {}),
 		...(compactPortrait ? { fontSize: compactPortraitLayout.turboText.fontSize } : {}),
 		fill: '#111111',
 	});
 	let selected = $state(stateBet.isTurbo);
 	const active = $derived(selected);
-	const assetKey = $derived(active ? 'uiWinBg' : 'uiButtonFooterBg');
+	const assetKey = $derived(desktop ? 'uiRemadeTurboBg' : active ? 'uiWinBg' : 'uiButtonFooterBg');
 	const disabled = $derived(stateBet.isSpaceHold);
 
 	const onpress = () => {
@@ -42,13 +49,18 @@
 	{onpress}
 	{disabled}
 	icon="turbo"
+	hideText={desktop}
 	{assetKey}
 	textMaxWidth={compactPortrait
 		? sizes.width - compactPortraitLayout.turboText.horizontalPadding * 2
-		: undefined}
+		: desktop
+			? sizes.width * 0.62
+			: undefined}
 	textMaxHeight={compactPortrait
 		? sizes.height - compactPortraitLayout.turboText.verticalPadding * 2
-		: undefined}
+		: desktop
+			? sizes.height * 0.42
+			: undefined}
 	minimumTextScale={compactPortrait ? compactPortraitLayout.text.minimumScale : undefined}
 	textOffsetX={compactPortrait ? compactPortraitLayout.turboText.offsetX : undefined}
 	textOffsetY={compactPortrait ? compactPortraitLayout.turboText.offsetY : undefined}

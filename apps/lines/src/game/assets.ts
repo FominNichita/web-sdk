@@ -164,6 +164,50 @@ export default {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/buttons/footerBG_Bar.png', import.meta.url).href,
 	},
+	uiRemadeLogo: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/Logo.png', import.meta.url).href,
+	},
+	uiRemadeBalanceBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/BallanceBG.png', import.meta.url).href,
+	},
+	uiRemadeBetAmountBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/BetAmmountBG.png', import.meta.url).href,
+	},
+	uiRemadeSpinClusterBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/BetBG.png', import.meta.url).href,
+	},
+	uiRemadeSpinButtonBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/BetBTN.png', import.meta.url).href,
+	},
+	uiRemadeBuyBonusBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/BonusBG.png', import.meta.url).href,
+	},
+	uiRemadeAutoSpinBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/AutospinBTN.png', import.meta.url).href,
+	},
+	uiRemadeTurboBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/TurboBTN.png', import.meta.url).href,
+	},
+	uiRemadeArrowDown: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/ArrowDown.png', import.meta.url).href,
+	},
+	uiRemadeArrowUp: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/ArrowUp.png', import.meta.url).href,
+	},
+	uiRemadeMenuBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/Menu.png', import.meta.url).href,
+	},
 	uiButtonMinus: {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/buttons/Minus.png', import.meta.url).href,

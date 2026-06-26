@@ -1,0 +1,108 @@
+/**
+ * Desktop HUD coordinates are Pixi logical coordinates inside the standard
+ * 1920x1080 layout. x increases to the right, y increases downward.
+ * x/y are center-anchor positions. Increasing width/height enlarges the
+ * rendered Pixi sprite or label area when that component supports sizing.
+ */
+export const desktopHudLayout = {
+	logo: {
+		x: 148,
+		y: 120,
+		width: 210,
+		height: 192,
+	},
+	balancePanel: {
+		x: 715,
+		y: 952,
+		width: 420,
+		height: 142,
+		labelFontSize: 32,
+		valueFontSize: 34,
+		labelOffsetX: -146,
+		labelOffsetY: -19,
+		valueOffsetX: -112,
+		valueOffsetY: 16,
+		valueMaxWidth: 292,
+	},
+	winPanel: {
+		x: 356,
+		y: 1044,
+		width: 320,
+		height: 88,
+		labelFontSize: 30,
+		valueFontSize: 30,
+		labelOffsetX: -78,
+		valueOffsetX: 44,
+		labelMaxWidth: 92,
+		valueMaxWidth: 194,
+	},
+	betPanel: {
+		x: 1110,
+		y: 952,
+		width: 300,
+		height: 142,
+		labelFontSize: 22,
+		valueFontSize: 33,
+		labelOffsetX: -98,
+		labelOffsetY: -19,
+		valueOffsetX: -68,
+		valueOffsetY: 16,
+		valueMaxWidth: 164,
+	},
+	betArrowDown: {
+		x: 1162,
+		y: 983,
+		width: 54,
+		height: 36,
+		textOffsetY: -2,
+	},
+	betArrowUp: {
+		x: 1162,
+		y: 921,
+		width: 54,
+		height: 36,
+		textOffsetY: -2,
+	},
+	spinButton: {
+		x: 1378,
+		y: 952,
+		width: 132,
+		height: 132,
+		fontSize: 34,
+		textOffsetY: 46,
+	},
+	spinCluster: {
+		x: 1420,
+		y: 952,
+		width: 248,
+		height: 186,
+	},
+	menuButton: {
+		x: 114,
+		y: 952,
+		width: 78,
+		height: 69,
+		fontSize: 20,
+	},
+	buyBonusButton: {
+		x: 374,
+		y: 952,
+		width: 166,
+		height: 111,
+		fontSize: 21,
+	},
+	autoSpinButton: {
+		x: 1488,
+		y: 912,
+		width: 47,
+		height: 47,
+		fontSize: 12,
+	},
+	turboButton: {
+		x: 1488,
+		y: 992,
+		width: 47,
+		height: 47,
+		fontSize: 12,
+	},
+} as const;

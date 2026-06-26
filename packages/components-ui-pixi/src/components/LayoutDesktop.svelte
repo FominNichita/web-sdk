@@ -2,53 +2,19 @@
 	import { stateUi } from 'state-shared';
 	import { BLACK } from 'constants-shared/colors';
 	import { MainContainer } from 'components-layout';
-	import { Container, Rectangle, anchorToPivot } from 'pixi-svelte';
+	import { Container, Rectangle, Sprite } from 'pixi-svelte';
 
 	import {
-		DESKTOP_BASE_SIZE,
-		DESKTOP_BACKGROUND_WIDTH_LIST,
 		MENU_OPTION_BUTTON_GAP,
 		MENU_OPTION_BUTTON_SIZES,
 		MENU_BACKDROP_ALPHA,
 	} from '../constants';
 	import { getContext } from '../context';
 	import type { LayoutUiProps } from '../types';
+	import { desktopHudLayout } from '../desktopHudLayout';
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
-	const BALANCE_PANEL_WIDTH = 320;
-	const BALANCE_PANEL_HEIGHT = 88;
-	const BALANCE_TOP_MARGIN = 28;
-	const BALANCE_RIGHT_MARGIN = 28;
-	const AMOUNT_PANEL_WIDTH = 320;
-	const AMOUNT_PANEL_HEIGHT = 88;
-	const AMOUNT_TEXT_LAYOUT = {
-		headingFontSize: 25,
-		valueFontSize: 31,
-		headingCenterX: -38,
-		valueCenterX: 38,
-		headingMaxWidth: 62,
-		valueMaxWidth: 210,
-		maxHeight: 48,
-		minimumValueFontSize: 18,
-	};
-	const WIN_BET_PANEL_CENTER_X = 900;
-	const WIN_BET_PANEL_Y = DESKTOP_BASE_SIZE * 0.5 - 120;
-	const WIN_BET_GAP = 24;
-	const WIN_BET_PANEL_OFFSET = AMOUNT_PANEL_WIDTH * 0.5 + WIN_BET_GAP * 0.5;
-	const FOOTER_BUTTON_Y = DESKTOP_BASE_SIZE * 0.5 + 16;
-	const FOOTER_LEFT_MENU_X = 70;
-	const FOOTER_LEFT_BUY_BONUS_X = 208;
-	const FOOTER_CENTER_X = 880;
-	const FOOTER_BUTTON_WIDTH = 136;
-	const FOOTER_BUTTON_GAP = 44;
-	const FOOTER_CENTER_OFFSET = FOOTER_BUTTON_WIDTH + FOOTER_BUTTON_GAP;
-	const FOOTER_RIGHT_DECREASE_X = 1508;
-	const FOOTER_RIGHT_GAP = 88;
-	const FOOTER_CONTENT_WIDTH = DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0);
-	const FOOTER_BAR_WIDTH = 1920;
-	const FOOTER_BAR_HEIGHT = 140;
-	const FOOTER_BAR_Y = FOOTER_BUTTON_Y - 20;
 	const MENU_OPTION_COUNT = 3;
 	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
 	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
@@ -57,111 +23,103 @@
 	);
 </script>
 
-<Container x={20}>
-	{@render props.gameName()}
-</Container>
-
-<Container x={context.stateLayoutDerived.canvasSizes().width - 20}>
-	{@render props.logo()}
-</Container>
-
-<MainContainer standard alignHorizontal="right">
-	<Container
-		x={context.stateLayoutDerived.mainLayoutStandard().width -
-			BALANCE_PANEL_WIDTH * 0.5 -
-			BALANCE_RIGHT_MARGIN}
-		y={BALANCE_TOP_MARGIN + BALANCE_PANEL_HEIGHT * 0.5}
-	>
-		{@render props.amountBalance({
-			stacked: true,
-			width: BALANCE_PANEL_WIDTH,
-			height: BALANCE_PANEL_HEIGHT,
-		})}
-	</Container>
+<MainContainer standard>
+	<Sprite
+		key="uiRemadeLogo"
+		anchor={0.5}
+		x={desktopHudLayout.logo.x}
+		y={desktopHudLayout.logo.y}
+		width={desktopHudLayout.logo.width}
+		height={desktopHudLayout.logo.height}
+	/>
 </MainContainer>
 
-<MainContainer standard alignVertical="bottom">
-	<Container
-		x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-		y={context.stateLayoutDerived.mainLayoutStandard().height - DESKTOP_BASE_SIZE - 10}
-		pivot={anchorToPivot({
-			anchor: { x: 0.5, y: 0 },
-			sizes: {
-				height: DESKTOP_BASE_SIZE,
-				width: FOOTER_CONTENT_WIDTH,
-			},
-		})}
-	>
-		{#if props.footerBar}
-			<Container x={FOOTER_CONTENT_WIDTH * 0.5} y={FOOTER_BAR_Y}>
-				{@render props.footerBar({
-					width: FOOTER_BAR_WIDTH,
-					height: FOOTER_BAR_HEIGHT,
-				})}
-			</Container>
-		{/if}
-
-		<Container y={WIN_BET_PANEL_Y} x={WIN_BET_PANEL_CENTER_X - WIN_BET_PANEL_OFFSET}>
+<MainContainer standard>
+	<Container>
+		<Container y={desktopHudLayout.winPanel.y} x={desktopHudLayout.winPanel.x}>
 			{@render props.amountWin({
 				stacked: false,
-				width: AMOUNT_PANEL_WIDTH,
-				height: AMOUNT_PANEL_HEIGHT,
-				labelFontSize: AMOUNT_TEXT_LAYOUT.headingFontSize,
-				valueFontSize: AMOUNT_TEXT_LAYOUT.valueFontSize,
-				labelOffsetX: AMOUNT_TEXT_LAYOUT.headingCenterX,
-				valueOffsetX: AMOUNT_TEXT_LAYOUT.valueCenterX,
-				labelMaxWidth: AMOUNT_TEXT_LAYOUT.headingMaxWidth,
-				labelMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
-				valueMaxWidth: AMOUNT_TEXT_LAYOUT.valueMaxWidth,
-				valueMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
-				valueMinimumTextScale:
-					AMOUNT_TEXT_LAYOUT.minimumValueFontSize / AMOUNT_TEXT_LAYOUT.valueFontSize,
+				width: desktopHudLayout.winPanel.width,
+				height: desktopHudLayout.winPanel.height,
+				labelFontSize: desktopHudLayout.winPanel.labelFontSize,
+				valueFontSize: desktopHudLayout.winPanel.valueFontSize,
+				labelOffsetX: desktopHudLayout.winPanel.labelOffsetX,
+				valueOffsetX: desktopHudLayout.winPanel.valueOffsetX,
+				labelMaxWidth: desktopHudLayout.winPanel.labelMaxWidth,
+				valueMaxWidth: desktopHudLayout.winPanel.valueMaxWidth,
+				valueMinimumTextScale: 0.58,
+				inlineTextGap: 7,
 			})}
 		</Container>
 
-		<Container y={WIN_BET_PANEL_Y} x={WIN_BET_PANEL_CENTER_X + WIN_BET_PANEL_OFFSET}>
+		<Container y={desktopHudLayout.balancePanel.y} x={desktopHudLayout.balancePanel.x}>
+			{@render props.amountBalance({
+				stacked: true,
+				width: desktopHudLayout.balancePanel.width,
+				height: desktopHudLayout.balancePanel.height,
+				labelFontSize: desktopHudLayout.balancePanel.labelFontSize,
+				valueFontSize: desktopHudLayout.balancePanel.valueFontSize,
+				labelOffsetX: desktopHudLayout.balancePanel.labelOffsetX,
+				labelOffsetY: desktopHudLayout.balancePanel.labelOffsetY,
+				valueOffsetX: desktopHudLayout.balancePanel.valueOffsetX,
+				valueOffsetY: desktopHudLayout.balancePanel.valueOffsetY,
+				valueMaxWidth: desktopHudLayout.balancePanel.valueMaxWidth,
+				valueMinimumTextScale: 0.5,
+				useBalanceValueStyle: true,
+			})}
+		</Container>
+
+		<Container y={desktopHudLayout.betPanel.y} x={desktopHudLayout.betPanel.x}>
 			{@render props.amountBet({
-				stacked: false,
-				width: AMOUNT_PANEL_WIDTH,
-				height: AMOUNT_PANEL_HEIGHT,
-				labelFontSize: AMOUNT_TEXT_LAYOUT.headingFontSize,
-				valueFontSize: AMOUNT_TEXT_LAYOUT.valueFontSize,
-				labelOffsetX: AMOUNT_TEXT_LAYOUT.headingCenterX,
-				valueOffsetX: AMOUNT_TEXT_LAYOUT.valueCenterX,
-				labelMaxWidth: AMOUNT_TEXT_LAYOUT.headingMaxWidth,
-				labelMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
-				valueMaxWidth: AMOUNT_TEXT_LAYOUT.valueMaxWidth,
-				valueMaxHeight: AMOUNT_TEXT_LAYOUT.maxHeight,
-				valueMinimumTextScale:
-					AMOUNT_TEXT_LAYOUT.minimumValueFontSize / AMOUNT_TEXT_LAYOUT.valueFontSize,
+				stacked: true,
+				width: desktopHudLayout.betPanel.width,
+				height: desktopHudLayout.betPanel.height,
+				labelFontSize: desktopHudLayout.betPanel.labelFontSize,
+				valueFontSize: desktopHudLayout.betPanel.valueFontSize,
+				labelOffsetX: desktopHudLayout.betPanel.labelOffsetX,
+				labelOffsetY: desktopHudLayout.betPanel.labelOffsetY,
+				valueOffsetX: desktopHudLayout.betPanel.valueOffsetX,
+				valueOffsetY: desktopHudLayout.betPanel.valueOffsetY,
+				valueMaxWidth: desktopHudLayout.betPanel.valueMaxWidth,
+				valueMinimumTextScale: 0.54,
+				useBalanceValueStyle: true,
 			})}
 		</Container>
 
-		<Container y={FOOTER_BUTTON_Y} x={FOOTER_LEFT_MENU_X}>
+		<Container y={desktopHudLayout.menuButton.y} x={desktopHudLayout.menuButton.x}>
 			{@render props.buttonMenu({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={FOOTER_BUTTON_Y} x={FOOTER_LEFT_BUY_BONUS_X}>
+		<Container y={desktopHudLayout.buyBonusButton.y} x={desktopHudLayout.buyBonusButton.x}>
 			{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X - FOOTER_CENTER_OFFSET}>
+		<Sprite
+			key="uiRemadeSpinClusterBg"
+			anchor={0.5}
+			x={desktopHudLayout.spinCluster.x}
+			y={desktopHudLayout.spinCluster.y}
+			width={desktopHudLayout.spinCluster.width}
+			height={desktopHudLayout.spinCluster.height}
+		/>
+
+		<Container y={desktopHudLayout.autoSpinButton.y} x={desktopHudLayout.autoSpinButton.x}>
 			{@render props.buttonAutoSpin({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X}>
+		<Container y={desktopHudLayout.spinButton.y} x={desktopHudLayout.spinButton.x}>
 			{@render props.buttonBet({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={FOOTER_BUTTON_Y} x={FOOTER_CENTER_X + FOOTER_CENTER_OFFSET}>
+		<Container y={desktopHudLayout.turboButton.y} x={desktopHudLayout.turboButton.x}>
 			{@render props.buttonTurbo({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={FOOTER_BUTTON_Y} x={FOOTER_RIGHT_DECREASE_X}>
+		<Container y={desktopHudLayout.betArrowDown.y} x={desktopHudLayout.betArrowDown.x}>
 			{@render props.buttonDecrease({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={FOOTER_BUTTON_Y} x={FOOTER_RIGHT_DECREASE_X + FOOTER_RIGHT_GAP}>
+		<Container y={desktopHudLayout.betArrowUp.y} x={desktopHudLayout.betArrowUp.x}>
 			{@render props.buttonIncrease({ anchor: 0.5 })}
 		</Container>
 	</Container>
