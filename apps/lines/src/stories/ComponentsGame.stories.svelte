@@ -193,6 +193,25 @@
 />
 
 <Story
+	name="visual effects/spin button arrow"
+	args={templateArgs({
+		skipLoadingScreen: true,
+		data: {},
+		action: async () => {
+			stateBet.balanceAmount = 10_000;
+			stateBet.betAmount = 1;
+			stateBet.wageredBetAmount = 1;
+			stateBet.activeBetModeKey = 'BASE';
+			stateBet.autoSpinsCounter = 0;
+			eventEmitter.broadcast({ type: 'hotKey', key: 'Space', action: 'keyDown' } as never);
+			await new Promise((resolve) => setTimeout(resolve, 520));
+			eventEmitter.broadcast({ type: 'hotKey', key: 'Space', action: 'keyUp' } as never);
+		},
+	})}
+	{template}
+/>
+
+<Story
 	name="visual effects/scatter landing"
 	args={templateArgs({
 		skipLoadingScreen: true,

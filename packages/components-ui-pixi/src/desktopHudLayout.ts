@@ -7,7 +7,7 @@
 export const desktopHudLayout = {
 	logo: {
 		x: 188,
-		y: 140,
+		y: 160,
 		width: 345,
 		height: 325,
 	},
@@ -86,6 +86,8 @@ export const desktopHudLayout = {
 		height: 176,
 		fontSize: 34,
 		textOffsetY: 46,
+		arrowWidth: 118,
+		arrowHeight: 116,
 	},
 	autoSpinCounter: {
 		offsetX: -82,
@@ -108,6 +110,8 @@ export const desktopHudLayout = {
 		width: 78,
 		height: 69,
 		fontSize: 20,
+		symbolWidth: 46,
+		symbolHeight: 42,
 	},
 	menuExpansion: {
 		offsetX: 0,
@@ -132,6 +136,8 @@ export const desktopHudLayout = {
 		width: 64,
 		height: 64,
 		fontSize: 12,
+		arrowWidth: 38,
+		arrowHeight: 38,
 	},
 	turboButton: {
 		offsetX: 86,
@@ -139,5 +145,7 @@ export const desktopHudLayout = {
 		width: 64,
 		height: 64,
 		fontSize: 12,
+		lightningWidth: 24,
+		lightningHeight: 39,
 	},
 } as const;

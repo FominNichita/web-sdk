@@ -27,6 +27,8 @@
 		variant?: 'dark' | 'light';
 		dimDisabled?: boolean;
 		activeTint?: SpriteProps['tint'];
+		hoverTint?: SpriteProps['tint'];
+		pressedTint?: SpriteProps['tint'];
 	};
 
 	const {
@@ -45,6 +47,8 @@
 		variant = 'dark',
 		dimDisabled = true,
 		activeTint,
+		hoverTint,
+		pressedTint,
 		children: childrenFromParent,
 		...buttonProps
 	}: Props = $props();
@@ -85,7 +89,7 @@
 </script>
 
 <Button {...buttonProps}>
-	{#snippet children({ center, pressed })}
+	{#snippet children({ center, hovered, pressed })}
 		<UiSprite
 			{...center}
 			anchor={0.5}
@@ -96,6 +100,10 @@
 				? 0x999999
 				: active && activeTint !== undefined
 					? activeTint
+					: pressed && pressedTint !== undefined
+						? pressedTint
+						: hovered && hoverTint !== undefined
+							? hoverTint
 					: 0xffffff}
 			backgroundColor={variant === 'dark' ? 0x000000 : 0xffffff}
 			{...buttonProps.disabled

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Tween } from 'svelte/motion';
+	import { Sprite } from 'pixi-svelte';
 	import type { ButtonProps } from 'components-pixi';
 	import { OnHotkey } from 'components-shared';
 	import { stateBetDerived } from 'state-shared';
@@ -32,15 +34,50 @@
 	});
 	const assetKey = $derived(desktop ? 'uiRemadeSpinButtonBg' : 'uiButtonFooterBg');
 	const pressedAssetKey = $derived(desktop ? 'uiRemadeSpinButtonBg' : 'uiWinBg');
+	const arrowRotation = new Tween(0);
+	let arrowTurns = 0;
+	let arrowAnimationId = 0;
+
+	const animateArrow = async () => {
+		if (!desktop) return;
+
+		const animationId = ++arrowAnimationId;
+		arrowTurns += 1;
+		const targetRotation = Math.PI * 2 * arrowTurns;
+		const overshootRotation = targetRotation + 0.34;
+
+		await arrowRotation.set(overshootRotation, {
+			duration: 360,
+			easing: (t: number) => 1 - Math.pow(1 - t, 3),
+		});
+
+		if (animationId !== arrowAnimationId) return;
+
+		await arrowRotation.set(targetRotation, {
+			duration: 170,
+			easing: (t: number) => 1 - Math.pow(1 - t, 2),
+		});
+	};
+
+	const pressWithArrowAnimation = (onpress: () => void) => {
+		void animateArrow();
+		onpress();
+	};
+
+	context.eventEmitter.subscribeOnMount({
+		spinButtonArrowSpin: () => {
+			void animateArrow();
+		},
+	});
 </script>
 
 <ButtonBetProvider>
 	{#snippet children({ key, onpress })}
-		<OnHotkey hotkey="Space" {disabled} {onpress} />
+		<OnHotkey hotkey="Space" {disabled} onpress={() => pressWithArrowAnimation(onpress)} />
 		<UiButton
 			{...props}
 			{sizes}
-			{onpress}
+			onpress={() => pressWithArrowAnimation(onpress)}
 			{disabled}
 			dimDisabled={false}
 			icon="autoSpin"
@@ -68,6 +105,18 @@
 					? compactPortraitLayout.betActionText.offsetY
 					: undefined}
 			{textStyle}
-		/>
+		>
+			{#if desktop}
+				<Sprite
+					key="uiRemadeSpinButtonArrow"
+					anchor={0.5}
+					x={sizes.width * 0.5}
+					y={sizes.height * 0.5}
+					width={desktopHudLayout.spinButton.arrowWidth}
+					height={desktopHudLayout.spinButton.arrowHeight}
+					rotation={arrowRotation.current}
+				/>
+			{/if}
+		</UiButton>
 	{/snippet}
 </ButtonBetProvider>

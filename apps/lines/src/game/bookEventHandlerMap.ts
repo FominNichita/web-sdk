@@ -69,6 +69,7 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		}
 
 		stateGame.gameType = bookEvent.gameType;
+		eventEmitter.broadcast({ type: 'spinButtonArrowSpin' });
 		eventEmitter.broadcast({ type: 'soundLoop', name: 'sfx_spin_loop' });
 		try {
 			await stateGameDerived.enhancedBoard.spin({

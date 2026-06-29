@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Container } from 'pixi-svelte';
+	import { Tween } from 'svelte/motion';
+	import { Container, Sprite } from 'pixi-svelte';
 	import type { ButtonProps } from 'components-pixi';
 	import { stateBet, stateBetDerived, stateModal } from 'state-shared';
 
@@ -55,9 +56,60 @@
 
 	const stopAutoSpin = () => (stateBet.autoSpinsCounter = 0);
 	const openModal = () => (stateModal.modal = { name: 'autoSpin' });
+	const arrowRotation = new Tween(0);
+	let arrowTurns = 0;
+	let arrowAnimationId = 0;
+	let openingAutoSpinModal = false;
+
+	const animateArrow = async () => {
+		if (!desktop) return;
+
+		const animationId = ++arrowAnimationId;
+		arrowTurns += 1;
+		const targetRotation = Math.PI * 2 * arrowTurns;
+		const overshootRotation = targetRotation + 0.34;
+
+		await arrowRotation.set(overshootRotation, {
+			duration: 360,
+			easing: (t: number) => 1 - Math.pow(1 - t, 3),
+		});
+
+		if (animationId !== arrowAnimationId) return;
+
+		await arrowRotation.set(targetRotation, {
+			duration: 170,
+			easing: (t: number) => 1 - Math.pow(1 - t, 2),
+		});
+	};
+
+	const openModalWithAnimation = async () => {
+		if (!desktop) {
+			openModal();
+			return;
+		}
+
+		const animationId = arrowAnimationId + 1;
+		void animateArrow();
+		openingAutoSpinModal = true;
+		await new Promise((resolve) => setTimeout(resolve, 220));
+		if (animationId !== arrowAnimationId) {
+			openingAutoSpinModal = false;
+			return;
+		}
+		openingAutoSpinModal = false;
+		openModal();
+	};
+
 	const onpress = () => {
+		if (openingAutoSpinModal) return;
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
-		stateBetDerived.hasAutoBetCounter() ? stopAutoSpin() : openModal();
+		if (stateBetDerived.hasAutoBetCounter()) {
+			void animateArrow();
+			stopAutoSpin();
+			return;
+		}
+
+		void openModalWithAnimation();
 	};
 </script>
 
@@ -87,6 +139,18 @@
 	textOffsetY={compactPortrait ? compactPortraitLayout.autoSpinText.offsetY : undefined}
 	{textStyle}
 >
+	{#if desktop}
+		<Sprite
+			key="uiRemadeAutoSpinArrow"
+			anchor={0.5}
+			x={sizes.width * 0.5}
+			y={sizes.height * 0.5}
+			width={desktopHudLayout.autoSpinButton.arrowWidth}
+			height={desktopHudLayout.autoSpinButton.arrowHeight}
+			rotation={arrowRotation.current}
+		/>
+	{/if}
+
 	{#if !desktop}
 		<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>
 			<ButtonBetAutoSpinsCounter />

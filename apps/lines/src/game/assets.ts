@@ -188,6 +188,10 @@ export default {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/BetBTN.png', import.meta.url).href,
 	},
+	uiRemadeSpinButtonArrow: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/BetBTN_Arrow.png', import.meta.url).href,
+	},
 	uiRemadeBuyBonusBg: {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/BonusBG.png', import.meta.url).href,
@@ -196,9 +200,17 @@ export default {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/AutospinBTN.png', import.meta.url).href,
 	},
+	uiRemadeAutoSpinArrow: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/AutospinBTN_Arrow.png', import.meta.url).href,
+	},
 	uiRemadeTurboBg: {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/TurboBTN.png', import.meta.url).href,
+	},
+	uiRemadeTurboLightning: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/TurboBTN_Lightning.png', import.meta.url).href,
 	},
 	uiRemadeFreeSpinCounterBg: {
 		type: 'sprite',
@@ -215,6 +227,14 @@ export default {
 	uiRemadeMenuBg: {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/Menu.png', import.meta.url).href,
+	},
+	uiRemadeMenuSymbol: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/MenuSymbol.png', import.meta.url).href,
+	},
+	uiRemadeCloseBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/Close.png', import.meta.url).href,
 	},
 	uiRemadeSettingsBg: {
 		type: 'sprite',

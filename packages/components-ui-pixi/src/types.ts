@@ -13,6 +13,7 @@ export type EmitterEventUi =
 	| { type: 'drawerFold' }
 	| { type: 'drawerButtonShow' }
 	| { type: 'drawerButtonHide' }
+	| { type: 'spinButtonArrowSpin' }
 	// sound
 	| { type: 'soundBetMode'; betModeKey: string }
 	| { type: 'soundPressGeneral' }

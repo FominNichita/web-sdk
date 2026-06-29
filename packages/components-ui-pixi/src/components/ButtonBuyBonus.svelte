@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Tween } from 'svelte/motion';
 	import type { ButtonProps } from 'components-pixi';
 	import { stateModal, stateBet, stateBetDerived } from 'state-shared';
 
@@ -62,11 +63,58 @@
 			: {}),
 		...(compactPortrait ? { align: 'center' as const, lineHeight: 32 } : {}),
 	});
+	const jiggleScale = new Tween(1);
+	const jiggleRotation = new Tween(0);
+	let jiggleAnimationId = 0;
+
+	const animateStoneJiggle = async () => {
+		if (!desktop) return;
+
+		const animationId = ++jiggleAnimationId;
+
+		await Promise.all([
+			jiggleScale.set(0.94, {
+				duration: 70,
+				easing: (t: number) => 1 - Math.pow(1 - t, 2),
+			}),
+			jiggleRotation.set(-0.035, {
+				duration: 70,
+				easing: (t: number) => 1 - Math.pow(1 - t, 2),
+			}),
+		]);
+
+		if (animationId !== jiggleAnimationId) return;
+
+		await Promise.all([
+			jiggleScale.set(1.04, {
+				duration: 95,
+				easing: (t: number) => 1 - Math.pow(1 - t, 2),
+			}),
+			jiggleRotation.set(0.025, {
+				duration: 95,
+				easing: (t: number) => 1 - Math.pow(1 - t, 2),
+			}),
+		]);
+
+		if (animationId !== jiggleAnimationId) return;
+
+		await Promise.all([
+			jiggleScale.set(1, {
+				duration: 135,
+				easing: (t: number) => 1 - Math.pow(1 - t, 3),
+			}),
+			jiggleRotation.set(0, {
+				duration: 135,
+				easing: (t: number) => 1 - Math.pow(1 - t, 3),
+			}),
+		]);
+	};
 
 	const openModal = () => (stateModal.modal = { name: 'buyBonus' });
 	const disableActiveBetMode = () => (stateBet.activeBetModeKey = 'BASE');
 	const onpress = () => {
 		eventEmitter.broadcast({ type: 'soundPressGeneral' });
+		void animateStoneJiggle();
 
 		if (active) {
 			disableActiveBetMode();
@@ -82,9 +130,13 @@
 	{disabled}
 	{active}
 	{onpress}
+	scale={jiggleScale.current}
+	rotation={jiggleRotation.current}
 	icon="menu"
 	label={displayLabel}
 	assetKey={desktop ? 'uiRemadeBuyBonusBg' : 'uiButtonBuyBonusBg'}
+	hoverTint={desktop ? 0xffe6a8 : undefined}
+	pressedTint={desktop ? 0xffc25b : undefined}
 	textMaxWidth={compactPortrait
 		? sizes.width * 0.88
 		: desktop
