@@ -13,7 +13,7 @@
 		context.stateLayoutDerived.layoutType() === 'portrait' &&
 			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
-	const desktop = $derived(context.stateLayoutDerived.layoutType() === 'desktop');
+	const desktop = $derived(['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType()));
 	const sizes = $derived(
 		desktop
 			? { width: desktopHudLayout.turboButton.width, height: desktopHudLayout.turboButton.height }

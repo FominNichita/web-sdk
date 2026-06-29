@@ -13,7 +13,7 @@
 		context.stateLayoutDerived.layoutType() === 'portrait' &&
 			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
-	const desktop = $derived(context.stateLayoutDerived.layoutType() === 'desktop');
+	const desktop = $derived(['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType()));
 	const sizes = $derived(
 		desktop
 			? { width: desktopHudLayout.menuButton.width, height: desktopHudLayout.menuButton.height }
@@ -31,7 +31,7 @@
 
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
-		stateUi.menuOpen = true;
+		stateUi.menuOpen = !stateUi.menuOpen;
 	};
 </script>
 

@@ -34,7 +34,7 @@
 
 	const props: Props = $props();
 	const { stateLayoutDerived } = getContextLayout();
-	const desktop = $derived(stateLayoutDerived.layoutType() === 'desktop');
+	const desktop = $derived(['desktop', 'landscape'].includes(stateLayoutDerived.layoutType()));
 	const assetKey = $derived(
 		desktop ? 'uiRemadeBalanceBg' : 'uiBalanceBg',
 	);

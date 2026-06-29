@@ -15,17 +15,19 @@
 		PORTRAIT_BOARD_SCALE,
 		SYMBOL_SIZE,
 	} from '../game/constants';
-	import { anchorToPivot, BitmapText, Container, Sprite, type Sizes } from 'pixi-svelte';
+	import { Container, Sprite, Text } from 'pixi-svelte';
 
 	const context = getContext();
-	const PANEL_KEY_DESKTOP = 'Frame_FSCounter.png';
-	const PANEL_RATIO_DESKTOP = 824 / 622;
-	const panelKey = PANEL_KEY_DESKTOP;
-	const panelWidth = $derived(SYMBOL_SIZE * 2);
+	const panelWidth = $derived(SYMBOL_SIZE * 2.55);
+	const panelHeight = $derived(SYMBOL_SIZE * 2.45);
 	const panelSizes = $derived({
 		width: panelWidth,
-		height: panelWidth / PANEL_RATIO_DESKTOP,
+		height: panelHeight,
 	});
+	const textLayoutHeight = $derived(panelWidth / (1524 / 996));
+	const titleY = $derived(-textLayoutHeight * 0.09);
+	const numberY = $derived(textLayoutHeight * 0.145);
+	const ofY = $derived(textLayoutHeight * 0.16);
 	const scale = $derived(
 		context.stateLayoutDerived.layoutType() === 'portrait' ? 1.25 : 1,
 	);
@@ -48,24 +50,34 @@
 		}
 
 		return {
-			x: boardLayout.x - boardLayout.width * 0.5 - panelSizes.width - SYMBOL_SIZE * 0.7,
+			x: boardLayout.x - boardLayout.width * 0.5 - panelSizes.width - SYMBOL_SIZE * 0.7 +70,
 			y: boardLayout.y - boardLayout.height * 0.5,
 		};
 	});
 
-	const fontSize = SYMBOL_SIZE * 0.275;
+	const titleStyle = $derived({
+		fontFamily: 'Sancreek',
+		fontSize: panelSizes.width * 0.118,
+		fontWeight: '700',
+		fill: '#050301',
+		letterSpacing: 1,
+	});
+	const numberStyle = $derived({
+		fontFamily: 'Sancreek',
+		fontSize: panelSizes.width * 0.155,
+		fontWeight: '700',
+		fill: '#050301',
+	});
+	const ofStyle = $derived({
+		fontFamily: 'Sancreek',
+		fontSize: panelSizes.width * 0.068,
+		fontWeight: '700',
+		fill: '#050301',
+	});
 
 	let show = $state(false);
 	let current = $state(0);
 	let total = $state(0);
-	let titleSizes: Sizes = $state({ width: 0, height: 0 });
-	let counterSizes: Sizes = $state({ width: 0, height: 0 });
-
-	const textContainerSizes = $derived({
-		width: titleSizes.width,
-		height: titleSizes.height + counterSizes.height,
-	});
-	const counterPosition = $derived({ x: titleSizes.width / 2, y: titleSizes.height });
 
 	context.eventEmitter.subscribeOnMount({
 		freeSpinCounterShow: () => (show = true),
@@ -79,33 +91,38 @@
 
 <MainContainer>
 	<FadeContainer {show} {...position} {scale}>
-		<Sprite key={panelKey} {...panelSizes} />
-		<Container
-			x={panelSizes.width * 0.5}
-			y={panelSizes.height * 0.48}
-			pivot={anchorToPivot({
-				sizes: textContainerSizes,
-				anchor: { x: 0.5, y: 0.5 },
-			})}
-		>
-			<BitmapText
-				text={'FREE SPIN'}
-				style={{
-					fontFamily: 'gold',
-					fontSize,
-					wordWrap: false,
-				}}
-				onresize={(sizes) => (titleSizes = sizes)}
+		<Sprite key="uiRemadeFreeSpinCounterBg" {...panelSizes} />
+
+		<Container x={panelSizes.width * 0.5} y={panelSizes.height * 0.5 - textLayoutHeight * 0.01}>
+			<Text
+				anchor={0.5}
+				y={titleY}
+				text="FREE SPIN"
+				style={titleStyle}
 			/>
-			<BitmapText
-				text={`${current} OF ${total}`}
-				{...counterPosition}
-				anchor={{ x: 0.5, y: 0 }}
-				style={{
-					fontFamily: 'gold',
-					fontSize,
-				}}
-				onresize={(sizes) => (counterSizes = sizes)}
+
+			<Text
+				anchor={0.5}
+				x={-panelSizes.width * 0.145}
+				y={numberY}
+				text={`${current}`}
+				style={numberStyle}
+			/>
+
+			<Text
+				anchor={0.5}
+				x={0}
+				y={ofY}
+				text="OF"
+				style={ofStyle}
+			/>
+
+			<Text
+				anchor={0.5}
+				x={panelSizes.width * 0.145}
+				y={numberY}
+				text={`${total}`}
+				style={numberStyle}
 			/>
 		</Container>
 	</FadeContainer>

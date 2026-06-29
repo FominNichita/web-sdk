@@ -15,7 +15,7 @@
 		context.stateLayoutDerived.layoutType() === 'portrait' &&
 			context.stateLayoutDerived.canvasSizes().width <= compactPortraitLayout.maxViewportWidth,
 	);
-	const desktop = $derived(context.stateLayoutDerived.layoutType() === 'desktop');
+	const desktop = $derived(['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType()));
 	const sizes = $derived(
 		desktop
 			? {
@@ -87,7 +87,9 @@
 	textOffsetY={compactPortrait ? compactPortraitLayout.autoSpinText.offsetY : undefined}
 	{textStyle}
 >
-	<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>
-		<ButtonBetAutoSpinsCounter />
-	</Container>
+	{#if !desktop}
+		<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>
+			<ButtonBetAutoSpinsCounter />
+		</Container>
+	{/if}
 </UiButton>

@@ -8,7 +8,7 @@
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const context = getContext();
-	const desktop = $derived(context.stateLayoutDerived.layoutType() === 'desktop');
+	const desktop = $derived(['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType()));
 	const sizes = $derived(
 		desktop
 			? { width: desktopHudLayout.betArrowDown.width, height: desktopHudLayout.betArrowDown.height }

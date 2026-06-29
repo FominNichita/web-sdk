@@ -200,6 +200,10 @@ export default {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/TurboBTN.png', import.meta.url).href,
 	},
+	uiRemadeFreeSpinCounterBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/FreeSpinBG.png', import.meta.url).href,
+	},
 	uiRemadeArrowDown: {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/ArrowDown.png', import.meta.url).href,
@@ -211,6 +215,18 @@ export default {
 	uiRemadeMenuBg: {
 		type: 'sprite',
 		src: new URL('../../assets/sprites/remadeUI/Menu.png', import.meta.url).href,
+	},
+	uiRemadeSettingsBg: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/SettingsBG.png', import.meta.url).href,
+	},
+	uiRemadeInfoIcon: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/Info.png', import.meta.url).href,
+	},
+	uiRemadeSoundIcon: {
+		type: 'sprite',
+		src: new URL('../../assets/sprites/remadeUI/Sound.png', import.meta.url).href,
 	},
 	uiButtonMinus: {
 		type: 'sprite',

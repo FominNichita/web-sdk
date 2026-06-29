@@ -7,7 +7,6 @@
 	import UiFadeContainer from './UiFadeContainer.svelte';
 	import LayoutDesktop from './LayoutDesktop.svelte';
 	import LayoutPortrait from './LayoutPortrait.svelte';
-	import LayoutLandscape from './LayoutLandscape.svelte';
 	import LayoutTablet from './LayoutTablet.svelte';
 	import LabelBalance from './LabelBalance.svelte';
 	import LabelWin from './LabelWin.svelte';
@@ -38,7 +37,7 @@
 	const LAYOUT_COMPONENT_MAP = {
 		desktop: LayoutDesktop,
 		portrait: LayoutPortrait,
-		landscape: LayoutLandscape,
+		landscape: LayoutDesktop,
 		tablet: LayoutTablet,
 	};
 

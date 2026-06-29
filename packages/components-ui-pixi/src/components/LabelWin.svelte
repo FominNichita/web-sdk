@@ -36,11 +36,11 @@
 
 	const props: Props = $props();
 	const { stateLayoutDerived } = getContextLayout();
-	const desktop = $derived(stateLayoutDerived.layoutType() === 'desktop');
+	const desktop = $derived(['desktop', 'landscape'].includes(stateLayoutDerived.layoutType()));
 	const winBookEventAmountTween = new Tween(stateBet.winBookEventAmount);
 	const label = $derived(desktop ? 'Win' : i18nDerived.win());
 	const value = $derived(bookEventAmountToCurrencyString(winBookEventAmountTween.current));
-	const show = $derived(!desktop || winBookEventAmountTween.current > 0);
+	const show = $derived(!desktop || stateBet.winBookEventAmount > 0);
 	const valueStyle = $derived({
 		...(desktop || props.useBalanceValueStyle ? uiLabelTextStyles.balance : uiLabelTextStyles.win),
 		...(desktop ? { fill: '#F6E6C8' } : {}),

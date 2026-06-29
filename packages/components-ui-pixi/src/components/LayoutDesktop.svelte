@@ -1,26 +1,89 @@
 <script lang="ts">
-	import { stateUi } from 'state-shared';
-	import { BLACK } from 'constants-shared/colors';
+	import { Tween } from 'svelte/motion';
+	import { stateBet, stateModal, stateUi } from 'state-shared';
 	import { MainContainer } from 'components-layout';
-	import { Container, Rectangle, Sprite } from 'pixi-svelte';
+	import { Container, Sprite, Text } from 'pixi-svelte';
+	import { Button } from 'components-pixi';
 
-	import {
-		MENU_OPTION_BUTTON_GAP,
-		MENU_OPTION_BUTTON_SIZES,
-		MENU_BACKDROP_ALPHA,
-	} from '../constants';
 	import { getContext } from '../context';
 	import type { LayoutUiProps } from '../types';
 	import { desktopHudLayout } from '../desktopHudLayout';
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
-	const MENU_OPTION_COUNT = 3;
-	const MENU_OPTION_STACK_STEP = MENU_OPTION_BUTTON_SIZES.height + MENU_OPTION_BUTTON_GAP;
-	const MENU_OPTION_STACK_START_Y = -(MENU_OPTION_STACK_STEP * (MENU_OPTION_COUNT - 1)) * 0.5;
-	const MENU_CLOSE_MARGIN = $derived(
-		(20 + 34 * 0.5) / context.stateLayoutDerived.mainLayoutStandard().scale,
+	const hasWinAmount = $derived(stateBet.winBookEventAmount > 0);
+	const balanceWinPanelX = new Tween(
+		desktopHudLayout.balanceWinPanel.x + desktopHudLayout.balanceWinPanel.emptyOffsetX,
 	);
+	const balanceWinPanelWidth = new Tween(desktopHudLayout.balanceWinPanel.emptyWidth);
+	const balancePanelOffsetX = new Tween(0);
+	const showAutoSpinCounter = $derived(stateBet.autoSpinsCounter > 0);
+	const autoSpinCounterText = $derived(
+		stateBet.autoSpinsCounter === Infinity ? '∞' : `${stateBet.autoSpinsCounter}`,
+	);
+	const autoSpinCounterFontSize = $derived(
+		stateBet.autoSpinsCounter === Infinity
+			? desktopHudLayout.autoSpinCounter.infinityFontSize
+			: desktopHudLayout.autoSpinCounter.fontSize,
+	);
+	const autoSpinCounterScale = $derived.by(() => {
+		const estimatedWidth =
+			autoSpinCounterText.length *
+			autoSpinCounterFontSize *
+			(stateBet.autoSpinsCounter === Infinity ? 0.7 : 0.66);
+
+		return Math.min(1, desktopHudLayout.autoSpinCounter.maxWidth / estimatedWidth);
+	});
+	const autoSpinCounterStyle = $derived({
+		fontFamily: 'Sancreek',
+		fontSize: autoSpinCounterFontSize,
+		fontWeight: '700',
+		fill: '#D8D1CC',
+		stroke: {
+			color: '#1A100C',
+			width: 6,
+			join: 'round' as const,
+		},
+		dropShadow: {
+			color: '#000000',
+			alpha: 0.72,
+			blur: 2,
+			distance: 4,
+			angle: Math.PI * 0.5,
+		},
+		letterSpacing: desktopHudLayout.autoSpinCounter.letterSpacing,
+	});
+	const openPayTable = () => {
+		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
+		stateUi.menuOpen = false;
+		stateModal.modal = { name: 'payTable' };
+	};
+	const openSettings = () => {
+		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
+		stateUi.menuOpen = false;
+		stateModal.modal = { name: 'settings' };
+	};
+
+	$effect(() => {
+		const duration = 260;
+		const easing = (t: number) => 1 - Math.pow(1 - t, 3);
+
+		balanceWinPanelX.set(
+			desktopHudLayout.balanceWinPanel.x +
+				(hasWinAmount ? 0 : desktopHudLayout.balanceWinPanel.emptyOffsetX),
+			{ duration, easing },
+		);
+		balanceWinPanelWidth.set(
+			hasWinAmount
+				? desktopHudLayout.balanceWinPanel.width
+				: desktopHudLayout.balanceWinPanel.emptyWidth,
+			{ duration, easing },
+		);
+		balancePanelOffsetX.set(hasWinAmount ? desktopHudLayout.balancePanel.offsetX : 0, {
+			duration,
+			easing,
+		});
+	});
 </script>
 
 <MainContainer standard>
@@ -36,11 +99,11 @@
 
 <MainContainer standard>
 	<Container>
-		<Container y={desktopHudLayout.balanceWinPanel.y} x={desktopHudLayout.balanceWinPanel.x}>
+		<Container y={desktopHudLayout.balanceWinPanel.y} x={balanceWinPanelX.current}>
 			<Sprite
 				key="uiRemadeBalanceWinBg"
 				anchor={0.5}
-				width={desktopHudLayout.balanceWinPanel.width}
+				width={balanceWinPanelWidth.current}
 				height={desktopHudLayout.balanceWinPanel.height}
 			/>
 
@@ -66,7 +129,7 @@
 			</Container>
 
 			<Container
-				x={desktopHudLayout.balancePanel.offsetX}
+				x={balancePanelOffsetX.current}
 				y={desktopHudLayout.balancePanel.offsetY}
 			>
 				{@render props.amountBalance({
@@ -149,6 +212,21 @@
 				{@render props.buttonBet({ anchor: 0.5 })}
 			</Container>
 
+			{#if showAutoSpinCounter}
+				<Container
+					x={desktopHudLayout.autoSpinCounter.offsetX}
+					y={desktopHudLayout.autoSpinCounter.offsetY}
+					rotation={desktopHudLayout.autoSpinCounter.rotation}
+					scale={autoSpinCounterScale}
+				>
+					<Text
+						anchor={0.5}
+						text={autoSpinCounterText}
+						style={autoSpinCounterStyle}
+					/>
+				</Container>
+			{/if}
+
 			<Container
 				x={desktopHudLayout.turboButton.offsetX}
 				y={desktopHudLayout.turboButton.offsetY}
@@ -160,42 +238,63 @@
 </MainContainer>
 
 {#if stateUi.menuOpen}
-	<Rectangle
-		eventMode="static"
-		cursor="pointer"
-		alpha={MENU_BACKDROP_ALPHA}
-		anchor={0.5}
-		backgroundColor={BLACK}
-		width={context.stateLayoutDerived.canvasSizes().width}
-		height={context.stateLayoutDerived.canvasSizes().height}
-		x={context.stateLayoutDerived.canvasSizes().width * 0.5}
-		y={context.stateLayoutDerived.canvasSizes().height * 0.5}
-		onpointerup={() => (stateUi.menuOpen = false)}
-	/>
-
 	<MainContainer standard>
 		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width - MENU_CLOSE_MARGIN}
-			y={MENU_CLOSE_MARGIN}
+			x={desktopHudLayout.menuButton.x + desktopHudLayout.menuExpansion.offsetX}
+			y={desktopHudLayout.menuButton.y + desktopHudLayout.menuExpansion.offsetY}
 		>
-			{@render props.buttonMenuClose({ anchor: 0.5 })}
-		</Container>
+			<Sprite
+				key="uiRemadeSettingsBg"
+				anchor={0.5}
+				width={desktopHudLayout.menuExpansion.width}
+				height={desktopHudLayout.menuExpansion.height}
+			/>
 
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
-			y={context.stateLayoutDerived.mainLayoutStandard().height * 0.5}
-		>
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 0}>
-				{@render props.buttonPayTable({ anchor: 0.5 })}
-			</Container>
+			<Button
+				anchor={0.5}
+				x={0}
+				y={desktopHudLayout.menuExpansion.infoOffsetY}
+				sizes={{
+					width: desktopHudLayout.menuExpansion.hitSize,
+					height: desktopHudLayout.menuExpansion.hitSize,
+				}}
+				onpress={openPayTable}
+			>
+				{#snippet children({ center, pressed })}
+					<Sprite
+						key="uiRemadeInfoIcon"
+						anchor={0.5}
+						x={center.x}
+						y={center.y}
+						width={desktopHudLayout.menuExpansion.iconSize}
+						height={desktopHudLayout.menuExpansion.iconSize}
+						alpha={pressed ? 0.82 : 1}
+					/>
+				{/snippet}
+			</Button>
 
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 1}>
-				{@render props.buttonSettings({ anchor: 0.5 })}
-			</Container>
-
-			<Container y={MENU_OPTION_STACK_START_Y + MENU_OPTION_STACK_STEP * 2}>
-				{@render props.buttonSoundSwitch({ anchor: 0.5 })}
-			</Container>
+			<Button
+				anchor={0.5}
+				x={0}
+				y={desktopHudLayout.menuExpansion.settingsOffsetY}
+				sizes={{
+					width: desktopHudLayout.menuExpansion.hitSize,
+					height: desktopHudLayout.menuExpansion.hitSize,
+				}}
+				onpress={openSettings}
+			>
+				{#snippet children({ center, pressed })}
+					<Sprite
+						key="uiRemadeSoundIcon"
+						anchor={0.5}
+						x={center.x}
+						y={center.y}
+						width={desktopHudLayout.menuExpansion.iconSize}
+						height={desktopHudLayout.menuExpansion.iconSize}
+						alpha={pressed ? 0.82 : 1}
+					/>
+				{/snippet}
+			</Button>
 		</Container>
 	</MainContainer>
 {/if}

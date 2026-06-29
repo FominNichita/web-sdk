@@ -6,15 +6,17 @@
  */
 export const desktopHudLayout = {
 	logo: {
-		x: 148,
-		y: 120,
-		width: 210,
-		height: 192,
+		x: 188,
+		y: 140,
+		width: 345,
+		height: 325,
 	},
 	balanceWinPanel: {
 		x: 765+50,
 		y: 952,
 		width: 760,
+		emptyWidth: 420,
+		emptyOffsetX: -180,
 		height: 133,
 	},
 	balancePanel: {
@@ -85,6 +87,15 @@ export const desktopHudLayout = {
 		fontSize: 34,
 		textOffsetY: 46,
 	},
+	autoSpinCounter: {
+		offsetX: -82,
+		offsetY: -96,
+		rotation: -0.12,
+		fontSize: 43,
+		infinityFontSize: 44,
+		letterSpacing: 2,
+		maxWidth: 148,
+	},
 	spinCluster: {
 		x: 1622+50,
 		y: 952,
@@ -97,6 +108,16 @@ export const desktopHudLayout = {
 		width: 78,
 		height: 69,
 		fontSize: 20,
+	},
+	menuExpansion: {
+		offsetX: 0,
+		offsetY: -184,
+		width: 86,
+		height: 236,
+		iconSize: 52,
+		hitSize: 74,
+		infoOffsetY: -55,
+		settingsOffsetY: 55,
 	},
 	buyBonusButton: {
 		x: 284+50,

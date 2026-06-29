@@ -36,7 +36,7 @@
 	const props: Props = $props();
 	const context = getContext();
 	const { stateLayoutDerived } = getContextLayout();
-	const desktop = $derived(stateLayoutDerived.layoutType() === 'desktop');
+	const desktop = $derived(['desktop', 'landscape'].includes(stateLayoutDerived.layoutType()));
 	const assetKey = $derived(
 		desktop ? 'uiRemadeBetAmountBg' : 'uiBetBg',
 	);
